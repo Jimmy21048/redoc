@@ -32,7 +32,9 @@ const Account = () => {
     const [refresh, setRefresh] = useState(false);
     const [randoms, setRandoms] = useState(false);
     const [randomNotes, setRandomNotes] = useState([]);
-    const [projectMenu, setPojectMenu] = useState(false);
+    const [projectMenu, setProjectMenu] = useState(false);
+    const [toggleProject, setToggleProject] = useState(false);
+    const [newFile, setNewFile] = useState(false);
 
 
     //fetch data from db
@@ -203,7 +205,6 @@ const Account = () => {
 
     const handleOpenNote = (project, note)  => {
         // console.log(currentNote);
-        console.log(project, note)
         if(project) {
             setCurrentNote({
                 ...currentNote,
@@ -217,6 +218,13 @@ const Account = () => {
         }
         setOpenProject(false);
         setOpenNote(true);
+    }
+
+    const toggleProjectMenu = (name) => {
+        setToggleProject(prev => !prev)
+        setProjectMenu({
+            projectName : name
+        })
     }
 
     const handleNotesText = (e) => {
@@ -233,7 +241,7 @@ const Account = () => {
     return (
         <div className="account" >
             <header className="acc-header">
-                <Link to={'/'}>Home</Link>
+            <Link to={'/'}><img className='logo' src='./images/redoc1.png'  alt='logo' /></Link>
                 <i class="fa-solid fa-bars"></i>
             </header>
             {/* <div className="search-btn">
@@ -251,7 +259,7 @@ const Account = () => {
                             <i class="fa-solid fa-plus"></i>
                         </button>
                         <button className='nav-btn'  onClick={()=>handleCurrentPage('my-works')} ><i class="fa-solid fa-briefcase"></i> <p>My Projects</p> </button>
-                        <button className='nav-btn'  onClick={()=>{setCurrentPage('my-works');setRandoms(true); setOpenNote(false); setOpenProject(false )}} ><i class="fa-solid fa-briefcase"></i> <p>Notes</p> </button>
+                        <button className='nav-btn'  onClick={()=>{setCurrentPage('my-works');setRandoms(true); setOpenNote(false); setOpenProject(false )}} ><i class="fa-regular fa-file-lines"></i> <p>Notes</p> </button>
                         <button className='nav-btn'  onClick={()=>handleCurrentPage('peer-review')}><i class="fa-solid fa-people-arrows"></i> <p>Peer Review</p> </button>
                         <Link to={'/socials'} className='nav-btn'  onClick={()=>handleCurrentPage('socials')}><i class="fa-solid fa-people-group"></i> <p>Socials</p> </Link>
                         <button className='nav-btn'  onClick={()=>handleCurrentPage('chats')}><i class="fa-solid fa-comment-dots"></i> <p>Chats</p> </button>
@@ -362,11 +370,11 @@ const Account = () => {
                                             <h3>Workspace : { currentProject.projectName }</h3>
                                             <h4>{ currentProject.projectType } project</h4>
                                             <h4>Field : {currentProject.projectField} </h4>
-                                            <i onClick={() => setOpenProject(false)} >X</i>
+                                            <i onClick={() => setOpenProject(false)} ><i class="fa-solid fa-circle-xmark"></i></i>
                                         </header>
                                         <div className='project-add-btn'>
                                             <button onClick={() => {setCurrentPage('new-work');setNewNote(true) }} className='p-btn'>note</button>
-                                            <button className='p-btn'>file</button>
+                                            <button onClick={() => {setCurrentPage('new-work');setNewFile(true) }} className='p-btn'>file</button>
                                         </div>
                                         <div className='project-workspace'>
                                             <div className='project-notes'>
@@ -415,8 +423,8 @@ const Account = () => {
                                     <div className='note-workspace'>
                                         <textarea placeholder='Type here...' value={currentNote.note.notesContent} rows={70}  onChange={(e) =>{ setCurrentNote({...currentNote, note: { ...currentNote.note, notesContent : e.target.value}}); setNotesText(e.target.value) }} />
                                         <div className='note-footer'>
-                                            <button onClick={() => setOpenNote(false)}>EXIT</button>
-                                            <button onClick={() => handleUpdateNotes(currentNote)}>SAVE</button>
+                                            <button className='btn-exit' onClick={() => setOpenNote(false)}>EXIT</button>
+                                            <button className='btn-save' onClick={() => handleUpdateNotes(currentNote)}>SAVE</button>
                                         </div>
                                     </div>
                         
@@ -455,7 +463,7 @@ const Account = () => {
                                                 <div key={project.projectName} className='project'>
                                                     <p className='project-title'>{ project.projectName }</p>
                                                     {
-                                                        projectMenu ? 
+                                                        projectMenu.projectName === project.projectName && toggleProject? 
                                                         <div className='project-body'>
                                                             { project.projectType === 'public' ? <button className='pbtn1'>Make private</button> : <button className='pbtn1'>Make public</button> }
                                                             <button className='pbtn2'>Request peer review</button>
@@ -464,7 +472,7 @@ const Account = () => {
                                                         </div> : ''
                                                     }
                                                     <div className='project-footer'>
-                                                        <button onClick={() => setPojectMenu(prev => !prev)}>menu</button>
+                                                        <button onClick={() => toggleProjectMenu(project.projectName)}>menu</button>
                                                         <button onClick={() => handleOpenProject(project)} >open</button>
                                                     </div>
                                                 </div>

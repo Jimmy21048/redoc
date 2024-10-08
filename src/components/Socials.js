@@ -1,7 +1,11 @@
 import Header from './Header1';
 import Search from './Search';
+import axios from 'axios'
 
 const Socials=()=>{
+
+    axios.get('http://localhost:3001/socials')
+    
     return(
         <div className='socials'>
             <Header/>
@@ -11,8 +15,12 @@ const Socials=()=>{
                 <button>Mathematics</button>
                 <button>Agriculture</button>
                 <button>History</button>
+                <Search />
             </nav>
-            <Search />
+            <div className='socials-body'>
+
+            </div>
+            
         </div>
     )
 }

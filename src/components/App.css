@@ -10,9 +10,14 @@
     --bgc1 : rgba(219, 223, 224, 0.781);
     --bgc2 : rgb(192, 255, 255);
     --bgc3 : rgba(183, 185, 185, 0.836);
+    --color2: whitesmoke;
+    --color3: rgba(215, 221, 221, 0.918);
 }
 body {
     overflow: hidden;
+}
+button {
+    cursor: pointer;
 }
 
 /* Styling the main page */
@@ -34,7 +39,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 2vw;
+    padding: 0 10px;
 }
 .top p:first-of-type {
     width: 40px;
@@ -44,6 +49,10 @@ body {
 .top a {
     text-decoration: none;
     color: black;
+}
+.logo {
+    height: 10vh;
+    width: 130px;
 }
 .login-link {
     border: 2px solid;
@@ -413,6 +422,10 @@ body {
     padding: 0 20px;
     align-items: center;
 }
+.project-header .fa-solid {
+    font-size: 28px;
+    color:rgb(187, 25, 25);
+}
 .project-add-btn {
     height: 8vh;
     width: 100%;
@@ -436,31 +449,51 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
+    background-color: var(--color3);
 }
 .note-workspace {
-    /* border: 1px solid; */
-    height: 75vh;
+    height: 80vh;
 }
 .note-workspace textarea {
-    /* border: 1px solid; */
-    height: 90%;
+    border: none;
+    border-top: 1px solid var(--bgc3);
+    height: 70vh;
     width: 100%;
     overflow-y: scroll;
     padding: 10px;
     font-size: 1.02rem;
+    background-color: var(--color2);
+}
+textarea:focus {
+    outline: none;
 }
 .note-workspace .note-footer {
-    height: 10%;
+    height: 10vh;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 0 20px;
+    background-color: var(--color3);
 }
 .note-footer button {
     height: 5vh;
+    width: 100px;
+    border-radius: 10px;
+    border: none;   
+    font-weight: 600;
+    font-size: 1.02rem;
+}
+.note-footer button:hover {
+    opacity: .8;
+}
+.btn-exit {
+    background-color: rgb(187, 25, 25);
+}
+.btn-save {
+    background-color: rgb(61, 213, 233);
 }
 .project-workspace {
-    /* background-color: --; */
-    height: 75vh;
+    height: 80vh;
     overflow-y: scroll;
 }
 .project-notes {
@@ -485,14 +518,24 @@ body {
     border: 0;
     box-shadow: 2px 2px 3px var(--bgc1);
     cursor: pointer;
+    align-items: center;
 }
 .small-note p {
     text-align: center;
+    height: max-content;
+    word-wrap: break-word;
     width: 100%;
 }
 .small-note-body {
     overflow: hidden;
-    padding: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.small-note-body p {
+    text-align: left;
+    word-wrap: break-word;
+    width: 194px;
 }
 .randoms-header {
     height: 10vh;
@@ -685,6 +728,11 @@ body {
 }
 
 /* login */
+@media screen and (max-width: 1150px) {
+    #nav-bar h3, #nav-bar h4, #nav-bar br {
+        display: none;
+    }
+}
 @media screen and (max-width: 900px) {
     .body {
         flex-direction: column;
@@ -779,7 +827,6 @@ body {
         flex-direction: column;
     }
     .acc-body .left {
-        /* border: 1px solid; */
         width: 100vw;
         height: 8vh;
         position: sticky;
@@ -798,7 +845,7 @@ body {
         padding: 0;
         justify-content: center;
     }
-    .acc-body .left nav button p {
+    .acc-body .left nav .nav-btn p {
         display: none;
     }
     .acc-body .right {
@@ -838,5 +885,69 @@ body {
     .project-form label .input {
         width: 70%;
     }
+    /*  */
+.nav-content {
+    height: 82vh;
+}
+.nav-content h2 {
+    text-align: center;
+}
+.content2 {
+    grid-template-columns: repeat(auto-fit, 250px);
+    gap: 10px;
+    padding: 5px;
+    justify-content: space-around;
+    padding-bottom: 10vh;
+}
+.in-project .project-header {
+    padding: 0 5px;
+}
+.note-header {
+    height: 8vh;
+    padding: 0 5px;
+}
+.note-workspace {
+    height: 74vh;
+}
+.note-workspace textarea {
+    height: 64vh;
+    padding: 5px;
+    font-size: 1.01rem;
+}
+.note-workspace .note-footer {
+    height: 10vh;
+    padding: 0 10px;
+}
+.project-notes {
+    padding: 10px;
+    justify-content: space-evenly;
+    gap: 10px;
+}
+.small-note-body {
+    overflow: hidden;
+    padding: 2px;
+}
+.randoms-body {
+    gap: 10px;
+    justify-content: start;
+    padding: 10px;
+}
+
+/* account trials */
     /* account trials */
+}
+
+@media screen and (max-width: 500px) {
+.in-project .project-header h4 {
+    display: none;
+}
+.in-project .project-header h3 {
+    font-size: 0.95rem;
+}
+.in-project .project-header .fa-solid {
+    font-size: 25px;
+}
+.randoms-body {
+    justify-content: space-around;
+}
 }
