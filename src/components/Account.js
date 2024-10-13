@@ -24,6 +24,7 @@ const Account = () => {
         notesTitle: '',
         attachProject: '',
         notesType: '',
+        notesDate: new Date().toLocaleDateString()
     })
     const [projectResponse, setProjectResponse] = useState('');
     const [noteResponse, setNoteResponse] = useState('');
@@ -41,7 +42,8 @@ const Account = () => {
     useEffect(() => {
         axios.get('http://localhost:3001/account/myaccount', {
             headers: {
-                accessToken: localStorage.getItem("accessToken")
+                accessToken: localStorage.getItem("accessToken"),
+                "Content-Type" : "application/json"
             }
         }).then(response => {
             if(response.data.error) {
@@ -69,7 +71,7 @@ const Account = () => {
                 }
                 
             }
-            if(response.data.randomNotes) {
+            if(response.data.randomNotes) {  
                 setRandomNotes(response.data.randomNotes)
             }
             setData(response.data)
@@ -134,6 +136,7 @@ const Account = () => {
 
     const handleSubmitNote = (e) => {
         e.preventDefault();
+
         axios.post('http://localhost:3001/account/newnote', notesData, {
             headers : {
                 "Content-Type" : "application/json",
@@ -227,16 +230,8 @@ const Account = () => {
         })
     }
 
-    const handleNotesText = (e) => {
-        setNotesText(e.target.value)
-        setCurrentNote({
-            ...currentNote,
-            note: {
-                ...currentNote.note,
-                notesContent : notesText
-            }
-        })
-
+    const handleProjectType = (name, type) => {
+        // console.log(name, type)
     }
     return (
         <div className="account" >
@@ -244,10 +239,6 @@ const Account = () => {
             <Link to={'/'}><img className='logo' src='./images/redoc1.png'  alt='logo' /></Link>
                 <i class="fa-solid fa-bars"></i>
             </header>
-            {/* <div className="search-btn">
-                <h4>{ data.username }.{ data.email }</h4>
-                <Search />
-            </div> */}
             <div className="acc-body">
                 <div className="left">
                     <nav id="nav-bar">
@@ -263,6 +254,7 @@ const Account = () => {
                         <button className='nav-btn'  onClick={()=>handleCurrentPage('peer-review')}><i class="fa-solid fa-people-arrows"></i> <p>Peer Review</p> </button>
                         <Link to={'/socials'} className='nav-btn'  onClick={()=>handleCurrentPage('socials')}><i class="fa-solid fa-people-group"></i> <p>Socials</p> </Link>
                         <button className='nav-btn'  onClick={()=>handleCurrentPage('chats')}><i class="fa-solid fa-comment-dots"></i> <p>Chats</p> </button>
+                        <button className='nav-btn'  onClick={()=>handleCurrentPage('chats')}><i class="fa-solid fa-comment-dots"></i> <p>Log out</p> </button>
                     </nav>
                 </div>
                 <div className="right">
@@ -383,7 +375,7 @@ const Account = () => {
                                                 currentProject.notes.map((note) => {
                                                    return (
                                                     <button key={note.notesTitle} onClick={() =>handleOpenNote(currentProject, note)} className='small-note'>
-                                                        <p>{ note.notesTitle }</p>
+                                                        <h4>{ note.notesTitle }</h4>
                                                         <div className='small-note-body'>
                                                             <p>{ note.notesContent }</p>
                                                         </div>
@@ -434,14 +426,16 @@ const Account = () => {
                                 <div className='project-open randoms'>
                                     <header className='randoms-header'>
                                         <h3>My notes</h3>
-                                        <Search />
+                                        <Search {...{randomNotes, setRandomNotes}} unit="randomNotes" />
                                     </header>
                                     <div className='randoms-body'>
                                     {
+                                        randomNotes.length === 0 ? 
+                                        <h4>No notes available</h4> :
                                         randomNotes.map((note) => {
                                             return (
                                             <button key={note.notesTitle} onClick={() =>handleOpenNote(null, note)} className='small-note r-note'>
-                                                <p>{ note.notesTitle }</p>
+                                                <h4>{ note.notesTitle }</h4>
                                                 <hr/>
                                                 <div className='small-note-body'>
                                                     <p>{ note.notesContent }</p>
@@ -465,7 +459,7 @@ const Account = () => {
                                                     {
                                                         projectMenu.projectName === project.projectName && toggleProject? 
                                                         <div className='project-body'>
-                                                            { project.projectType === 'public' ? <button className='pbtn1'>Make private</button> : <button className='pbtn1'>Make public</button> }
+                                                            { project.projectType === 'public' ? <button className='pbtn1' onClick={() => handleProjectType(project.projectName, 'private')} >Make private</button> : <button className='pbtn1'  onClick={() => handleProjectType(project.projectName, 'public')} >Make public</button> }
                                                             <button className='pbtn2'>Request peer review</button>
                                                             <button className='pbtn3'>Delete project</button>
                                                             
@@ -487,8 +481,15 @@ const Account = () => {
                     )}
 
                    {currentPage==='peer-review' && (
-                        <div className='nav-content'>
-                            This is the peer review page
+                        <div className='nav-content peer-reviews'>
+                            
+                            <div className='peer-left'>
+                                <p>PEER REVIEWS : <i>~get confidential reviews from your colleagues</i></p>
+                                <button>My peers</button>
+                                <button>Incoming reviews</button>
+                                <button>Outgoing reviews</button>
+                            </div>
+                            <div className='peer-right'></div>
                         </div>
                     )}
 
