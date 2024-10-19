@@ -24,7 +24,6 @@ const Socials=()=>{
                 "Content-Type" : "application/json"
             }
         }).then(response => {
-            // console.log(response)
             if(response.data.notes) {
                 // console.log(response)
                 for(let i = 0; i < response.data.notes.length; i++) {
@@ -51,14 +50,13 @@ const Socials=()=>{
             }
             setLoading(false);
         })
-    },[])
+    },[refresh])
     
     const handleComments = (data) => {
         setComment(data)
     }
 
     const handleSendComment = () => {
-        // console.log(toSend, comment)
         let data =[];
 
         if(comment.randomNotes) {
@@ -82,7 +80,7 @@ const Socials=()=>{
                 "Content-Type" : "application/json"
             }
         }).then((response) => {
-            
+            setRefresh(prev => !prev)
             if(response.data.success) {
                 setToSend('')
                 setComment({
@@ -92,7 +90,6 @@ const Socials=()=>{
             }
             if(response.data.successRandoms) {
                 setToSend('')
-                console.log(comment)
                 setComment({
                     ...comment,
                     randomNotes : {
@@ -126,7 +123,7 @@ const Socials=()=>{
                     showNote ? 
                     <div className='socials-note-main'>
                         <h2>{ note.notesTitle || note.randomNotes.notesTitle }</h2>
-                        <p> { note.notesContent || note.randomNotes.notesContent } </p>
+                        <pre> { note.notesContent || note.randomNotes.notesContent } </pre>
                     </div>
                     :
                     <div className='socials-right-notes'>
@@ -136,14 +133,14 @@ const Socials=()=>{
                             return (
                                 <div key={note.notesTitle}   className='socials-note'>
                                     <h3 className='socials-note-header'> {note.notesTitle.toUpperCase()} </h3>
-                                    <div className='socials-note-body'>
+                                    <pre className='socials-note-body'>
                                         {note.notesContent}
-                                    </div>
+                                    </pre>
                                     <div className='socials-note-footer'>
                                         <div>{note.username} </div>
                                         <p>{ note.notesDate }</p>
                                         <button onClick={() => handleComments(note)}><i class="fa-regular fa-comment"></i></button>
-                                        <button onClick={() =>handleClickNote(note)} >Read more...</button>
+                                        <button onClick={() =>{handleClickNote(note); handleComments(note)}} >Read more...</button>
                                     </div>
 
                                 </div>
@@ -155,12 +152,12 @@ const Socials=()=>{
                             return (
                                 <div key={note.randomNotes.notesTitle}  className='socials-note'>
                                     <h3 className='socials-note-header'> {note.randomNotes.notesTitle.toUpperCase()} </h3>
-                                    <div className='socials-note-body'>
+                                    <pre className='socials-note-body'>
                                         {note.randomNotes.notesContent}
-                                    </div>
+                                    </pre>
                                     <div className='socials-note-footer'>
                                         <div>{note.username} </div>
-                                        <p>{ note.randomNotes.notesDate }</p>
+                                        <div>{ note.randomNotes.notesDate }</div>
                                         <button onClick={() => handleComments(note)}><i class="fa-regular fa-comment"></i></button>
                                         <button onClick={() =>handleClickNote(note)}  >Read more...</button>
                                     </div>

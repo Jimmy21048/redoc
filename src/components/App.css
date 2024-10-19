@@ -51,8 +51,8 @@ button {
     color: black;
 }
 .logo {
-    height: 10vh;
-    width: 130px;
+    height: 8vh;
+    width: 100px;
     object-fit: cover;
 }
 .login-link {
@@ -206,7 +206,7 @@ button {
 }
 .acc-body .left nav {
     width: inherit;
-    height: 70vh;
+    height: max-content;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -465,7 +465,8 @@ button {
     width: 100%;
     overflow-y: scroll;
     padding: 10px;
-    font-size: 1.02rem;
+    /* font-size: 1.02rem; */
+    font-size: clamp(12px, 1.5vw, 18px);
     background-color: var(--color2);
 }
 textarea:focus {
@@ -599,7 +600,48 @@ textarea:focus {
 }
 .peer-right {
     width: 60%;
-    border: 1px solid;
+}
+.peers {
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+.my-peers {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    /* border-right: 1px solid var(--bgc3) */
+}
+.add-peers {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.add-peers h4 {
+    margin-bottom: 20px;
+}
+.add-peers .search {
+    max-width: 90%;
+    margin: 20px;
+}
+.peer {
+    width: 100%;
+    height: 8vh;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: start;
+    gap: 20px;
+    padding-left: 20px;
+    background-color: var(--bgc1);
+    border-bottom: 1px solid var(--bgc3);
 }
 /* peer revs */
 /* account */
@@ -629,7 +671,6 @@ textarea:focus {
     overflow-y: auto;
     overflow-x: hidden;
     max-height: 200vh;
-    /* padding-left: 20px; */
 }
 .socials-right-notes {
     width: 55vw;
@@ -662,6 +703,7 @@ textarea:focus {
 }
 .comments-body h4 {
     text-align: center;
+    font-size: 0.9rem;
 }
 .comments {
     height: 100%;
@@ -675,17 +717,19 @@ textarea:focus {
     height: 45vh;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 8px;
     overflow-y: scroll;
 } 
 .comment {
-    height: 10vh;
+    height: 8vh;
 }
 .comment-user {
     font-weight: 600;
+    font-size: 0.9rem;
 }
 .comment-text {
     padding-left: 10px;
+    font-size: 0.8rem;
 }
 .comments label {
     height: 10vh;
@@ -735,13 +779,17 @@ textarea:focus {
     display: flex;
     align-items: center;
     padding-left: 10px;
+    font-size: 0.9rem;
 }
 .socials-note-body {
     height: 25vh;
     overflow: hidden;
     line-height: 1.3rem;
-    /* font-size: 1.05rem; */
     padding:0 10px;
+    /* display: flex; */
+    width: 100%;
+    /* flex-wrap: wrap; */
+    font-size: clamp(10px, 1vw, 15px);
 }
 .socials-note-footer {
     height: 5vh;
@@ -750,22 +798,15 @@ textarea:focus {
     padding: 0 20px;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
-    /* background-color: var(--bgc3); */
     align-items: center;
 }
 .socials-note-footer * {
-    font-weight: 500;
+    font-weight: 400;
     width: 20%;
-}
-.socials-note-footer .fa-regular {
-    font-size: 20px;
+    font-size: 0.9rem;
 }
 .socials-note-footer *:hover {
     color: #00B9E8;
-    /* font-size: 1.2rem;
-    font-weight: 500;
-    width: 25%;
-    border: 1px solid; */
 }
 .hide-footer {
     display: none;
@@ -794,8 +835,9 @@ textarea:focus {
     padding-top: 40px;
     border-radius: 10px;
 }
-.socials-note-main p {
-    word-wrap: break-word;
+.socials-note-main pre {
+    /* word-wrap: break-word; */
+    font-size: clamp(12px, 1.08vw, 18px);
     max-width: 98%;
 }
 .socials-nav-notes {

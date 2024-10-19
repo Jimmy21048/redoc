@@ -2,8 +2,11 @@ import Search from './Search'
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom'
+import { AuthContext } from '../helpers/AuthContext';
+import { useContext } from 'react';
 
 const Account = () => {
+    const { authState, setAuthState } = useContext(AuthContext)
     const [currentPage, setCurrentPage] = useState('my-works');
     const [data, setData] = useState('');
     const [projects, setProjects] = useState([]);
@@ -36,6 +39,10 @@ const Account = () => {
     const [projectMenu, setProjectMenu] = useState(false);
     const [toggleProject, setToggleProject] = useState(false);
     const [newFile, setNewFile] = useState(false);
+    const [peerUsers, setPeerUsers] = useState([]);
+    const [showPeers, setShowPeers] = useState(false);
+    const [showPeerRequests, setShowPeerRequests] = useState(false);
+    const [peerData, setPeerData] = useState([]);
 
 
     //fetch data from db
@@ -47,40 +54,75 @@ const Account = () => {
             }
         }).then(response => {
             if(response.data.error) {
+                setAuthState(false);
                 history('/login');
-            }
-            if(response.data.projects) {
-                setProjects(response.data.projects)
-            }
-            if(response.data.projects && openProject === true) {
-                
-
-                for(let i = 0; i <response.data.projects.length; i++) {
-                    if(response.data.projects[i].projectName === currentNote.noteProject.projectName && response.data.projects[i].notes) {
-                        for(let j = 0; j < response.data.projects[i].notes.length; j++) {
-                            if(response.data.projects[i].notes[j].notesTitle === currentNote.note.notesTitle) {
-                                setCurrentNote({
-                                    noteProject : response.data.projects[i],
-                                    note : response.data.projects[i].notes[j]
-                                })
-                                break;
-                            }
-                        }
-                        break;
-                    }
+                return
+            } else {
+                if(response.data.result.projects) {
+                    setProjects(response.data.result.projects)
                 }
+                if(response.data.result.projects && openProject === true) {
+                    
+    
+                    for(let i = 0; i <response.data.result.projects.length; i++) {
+                        if(response.data.result.projects[i].projectName === currentNote.noteProject.projectName && response.data.projects[i].notes) {
+                            for(let j = 0; j < response.data.result.projects[i].notes.length; j++) {
+                                if(response.data.result.projects[i].notes[j].notesTitle === currentNote.note.notesTitle) {
+                                    setCurrentNote({
+                                        noteProject : response.data.result.projects[i],
+                                        note : response.data.result.projects[i].notes[j]
+                                    })
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    
+                }
+                if(response.data.result.randomNotes) {  
+                    setRandomNotes(response.data.result.randomNotes)
+                }
+                setData(response.data.result)
                 
+                if(response.data.peers) {
+                    setPeerUsers(response.data.peers)
+                }
             }
-            if(response.data.randomNotes) {  
-                setRandomNotes(response.data.randomNotes)
-            }
-            setData(response.data)
-            
 
+
+            axios.get('http://localhost:3001/account/peers', {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                    "Content-Type" : "application/json"
+                }
+            }).then((response) => {
+                if(response.data.error) {
+                    setAuthState(false)
+                    history('/login')
+                    return
+                }
+                setPeerData(response.data[0])  
+            })
         })
+
     },[refresh])
 
-    // console.log(currentNote)
+    const sendPeerRequest = (user) => {
+        axios.post('http://localhost:3001/account/peerRequest', {user: user}, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+                "Content-Type" : "application/json"
+            }
+        }).then((response) => {
+            if(response.data.error) {
+                setAuthState(false)
+                history('/')
+                return
+            }
+            setRefresh(prev => !prev)
+        })
+    }
     const handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
@@ -231,8 +273,91 @@ const Account = () => {
     }
 
     const handleProjectType = (name, type) => {
-        // console.log(name, type)
+        axios.post('http://localhost:3001/account/projectType', {type: type, name: name}, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+                "Content-Type" : "application/json"
+            }
+        }).then((response) => {
+            if(response.data.error) {
+                setAuthState(false)
+                history('/')
+                return
+            }
+            setRefresh(prev => !prev)
+        })
     }
+
+    const logout = () => {
+        localStorage.removeItem("accessToken");
+        history('/')
+    }
+
+    const handleAcceptPeer =(peer) => {
+        axios.post('http://localhost:3001/account/acceptPeer', {peer: peer}, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+                "Content-Type" : "application/json"
+            }
+        }).then((response) => {
+            if(response.data.error) {
+                setAuthState(false)
+                history('/')
+                return
+            }
+            setRefresh(prev => !prev)
+        })
+    }
+
+    const handleRejectPeer = (peer) => {
+        axios.post('http://localhost:3001/account/rejectPeer', {peer: peer}, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+                "Content-Type" : "application/json"
+            }
+        }).then((response) => {
+            if(response.data.error) {
+                setAuthState(false)
+                history('/')
+                return
+            }
+            setRefresh(prev => !prev)
+        })
+    }
+
+    const handleCancelPeer = (peer) => {
+        axios.post('http://localhost:3001/account/cancelPeer', {peer: peer}, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+                "Content-Type" : "application/json"
+            }
+        }).then((response) => {
+            if(response.data.error) {
+                setAuthState(false)
+                history('/')
+                return
+            }
+            setRefresh(prev => !prev)
+        })
+    }
+
+    const handleDeleteProject = (name) => {
+        axios.post('http://localhost:3001/account/deleteProject', {name: name}, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+                "Content-Type" : "application/json"
+            }
+        }).then((response) => {
+            if(response.data.error) {
+                setAuthState(false)
+                history('/')
+                return
+            }
+            setRefresh(prev => !prev)
+        })
+    }
+
+
     return (
         <div className="account" >
             <header className="acc-header">
@@ -254,7 +379,7 @@ const Account = () => {
                         <button className='nav-btn'  onClick={()=>handleCurrentPage('peer-review')}><i class="fa-solid fa-people-arrows"></i> <p>Peer Review</p> </button>
                         <Link to={'/socials'} className='nav-btn'  onClick={()=>handleCurrentPage('socials')}><i class="fa-solid fa-people-group"></i> <p>Socials</p> </Link>
                         <button className='nav-btn'  onClick={()=>handleCurrentPage('chats')}><i class="fa-solid fa-comment-dots"></i> <p>Chats</p> </button>
-                        <button className='nav-btn'  onClick={()=>handleCurrentPage('chats')}><i class="fa-solid fa-comment-dots"></i> <p>Log out</p> </button>
+                        <button className='nav-btn'  onClick={logout}><i class="fa-solid fa-share-from-square"></i> <p>Log out</p> </button>
                     </nav>
                 </div>
                 <div className="right">
@@ -461,7 +586,7 @@ const Account = () => {
                                                         <div className='project-body'>
                                                             { project.projectType === 'public' ? <button className='pbtn1' onClick={() => handleProjectType(project.projectName, 'private')} >Make private</button> : <button className='pbtn1'  onClick={() => handleProjectType(project.projectName, 'public')} >Make public</button> }
                                                             <button className='pbtn2'>Request peer review</button>
-                                                            <button className='pbtn3'>Delete project</button>
+                                                            <button onClick={() => handleDeleteProject(project.projectName)} className='pbtn3'>Delete project</button>
                                                             
                                                         </div> : ''
                                                     }
@@ -485,11 +610,95 @@ const Account = () => {
                             
                             <div className='peer-left'>
                                 <p>PEER REVIEWS : <i>~get confidential reviews from your colleagues</i></p>
-                                <button>My peers</button>
+                                <button onClick={() => {setShowPeers(prev => !prev); setShowPeerRequests(false)}}>My peers</button>
+                                <button onClick={() => {setShowPeerRequests(prev => !prev); setShowPeers(false)}}>Peer requests</button>
                                 <button>Incoming reviews</button>
                                 <button>Outgoing reviews</button>
                             </div>
-                            <div className='peer-right'></div>
+                            <div className='peer-right'>
+                            {
+                                showPeers ? 
+                                <div className='peers'>
+                                    <div className='my-peers'>
+                                        <h4>My peers</h4>
+                                        {
+                                            peerData.peers ?
+                                            peerData.peers.map((peer) => {
+                                                return (
+                                                    <div  key={peer} className='peer'>
+                                                        <p>{ peer }</p>
+                                                    </div>
+                                                )
+                                            }) : <p>No peers found</p>
+                                        }
+                                    </div>
+                                    <div className='add-peers'>
+                                        <h4>Add peer</h4>
+                                        <Search />
+                                        {
+                                            peerUsers.map((peer) => {
+                                                return (
+                                                    <div style={{display : peer.username === data.username ? 'none' : 'flex'}} key={peer.username} className='peer'>
+                                                        <p>{peer.username}</p>
+                                                        {
+                                                            peerData.pendingPeers && peerData.pendingPeers.includes(peer.username) === true? 
+                                                            <button disabled>
+                                                                send request <i class="fa-solid fa-plus"></i>
+                                                            </button> :
+                                                            
+                                                            peerData.requestedPeers && peerData.requestedPeers.includes(peer.username) === true? 
+                                                            <button disabled>
+                                                            send request <i class="fa-solid fa-plus"></i>
+                                                            </button> :
+
+                                                            peerData.peers && peerData.peers.includes(peer.username) === true? 
+                                                            <button disabled>
+                                                            send request <i class="fa-solid fa-plus"></i>
+                                                            </button> :
+                                                            <button onClick={() => sendPeerRequest(peer.username)} >
+                                                                send request <i class="fa-solid fa-plus"></i>
+                                                            </button>                                         
+                                                        }
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                                : showPeerRequests ?
+                                <div className='peers'>
+                                    <div className='my-peers'>
+                                        <h4>Peer requests</h4>
+                                        {
+                                            peerData.pendingPeers ?
+                                            peerData.pendingPeers.map((peer) => {
+                                                 return (
+                                                 <div className='peer'>
+                                                     <p>{ peer }</p>
+                                                     <button onClick={() => handleAcceptPeer(peer)}>ACCEPT</button>
+                                                     <button onClick={() => handleRejectPeer(peer)}>REJECT</button>
+                                                 </div>
+                                                 )
+                                             }) : ''
+                                        }
+                                    </div>
+                                    <div className='add-peers'>
+                                        <h4>Pending requests</h4>
+                                        {
+                                            peerData.requestedPeers ? 
+                                            peerData.requestedPeers.map((peer) => {
+                                                return (
+                                                <div className='peer'>
+                                                    <p>{ peer }</p>
+                                                    <button onClick={() => handleCancelPeer(peer)} >CANCEL REQUEST</button>
+                                                </div>
+                                                )
+                                            }) : ''
+                                        }
+                                    </div>
+                                </div> : ''
+                            }
+                            </div>
                         </div>
                     )}
 

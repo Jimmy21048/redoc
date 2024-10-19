@@ -57,7 +57,7 @@ export default function Search({ notes1, notes2, setNotes2, setNotes1, unit, ran
     }
     return (
         <div className="search">
-            <input type="text" placeholder="Search articles" onChange={(e) => handleChange(e)} />
+            <input type="text" placeholder="Search..." onChange={(e) => handleChange(e)} />
         </div>
     )
 }
