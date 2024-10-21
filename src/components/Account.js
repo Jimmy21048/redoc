@@ -43,6 +43,12 @@ const Account = () => {
     const [showPeers, setShowPeers] = useState(false);
     const [showPeerRequests, setShowPeerRequests] = useState(false);
     const [peerData, setPeerData] = useState([]);
+    const [requestReview, setRequestReview] = useState(false)
+    const [projectReview, setProjectReview] = useState('')
+    const [reviewData, setReviewData] = useState({})
+    const [fromReviews, setFromReviews] = useState(false)
+    const [toReviews, setToReviews] = useState(false)
+    const [showReviewFrom,setShowReviewFrom] = useState(false)
 
 
     //fetch data from db
@@ -97,6 +103,7 @@ const Account = () => {
                     "Content-Type" : "application/json"
                 }
             }).then((response) => {
+                console.log(response)
                 if(response.data.error) {
                     setAuthState(false)
                     history('/login')
@@ -187,7 +194,9 @@ const Account = () => {
         }).then((response) => {
             setRefresh(prev => !prev);
             if(response.data.error) {
-                history('/login');
+                setAuthState(false)
+                history('/')
+                return
             }
             if(response.data.success) {
                 //check type of note
@@ -239,7 +248,9 @@ const Account = () => {
         }).then((response) => {
             setRefresh(prev => !prev)
             if(response.data.error) {
-                history('/login');
+                setAuthState(false)
+                history('/')
+                return
             }
             setUpdateNoteResponse(response.data);
             setTimeout(() => {
@@ -290,6 +301,7 @@ const Account = () => {
 
     const logout = () => {
         localStorage.removeItem("accessToken");
+        setAuthState(false)
         history('/')
     }
 
@@ -357,6 +369,40 @@ const Account = () => {
         })
     }
 
+    const handleRequestReview = (data) => {
+        setProjectReview(data)
+        setReviewData({...reviewData, projectName : data})
+        setShowPeers(false)
+        setShowPeerRequests(false)
+        setCurrentPage('peer-review')
+        setRequestReview(true)
+    }
+
+    const handleChangeReview = (e) => {
+        const name = e.target.name
+        const value = e.target.value
+
+        setReviewData({...reviewData, [name] : value})
+    }
+
+    const handleSubmitReviewRequest = (e) => {
+        e.preventDefault()
+        
+        axios.post('http://localhost:3001/account/review', reviewData, {
+            headers : {
+                "Content-Type" : "application/json",
+                accessToken : localStorage.getItem("accessToken")
+            }
+        }).then(response => {
+            if(response.data.error) {
+                setAuthState(false)
+                history('/')
+                return
+            }
+
+
+        })
+    }
 
     return (
         <div className="account" >
@@ -585,7 +631,7 @@ const Account = () => {
                                                         projectMenu.projectName === project.projectName && toggleProject? 
                                                         <div className='project-body'>
                                                             { project.projectType === 'public' ? <button className='pbtn1' onClick={() => handleProjectType(project.projectName, 'private')} >Make private</button> : <button className='pbtn1'  onClick={() => handleProjectType(project.projectName, 'public')} >Make public</button> }
-                                                            <button className='pbtn2'>Request peer review</button>
+                                                            <button className='pbtn2' onClick={() => handleRequestReview(project.projectName)}>Request peer review</button>
                                                             <button onClick={() => handleDeleteProject(project.projectName)} className='pbtn3'>Delete project</button>
                                                             
                                                         </div> : ''
@@ -610,65 +656,22 @@ const Account = () => {
                             
                             <div className='peer-left'>
                                 <p>PEER REVIEWS : <i>~get confidential reviews from your colleagues</i></p>
-                                <button onClick={() => {setShowPeers(prev => !prev); setShowPeerRequests(false)}}>My peers</button>
-                                <button onClick={() => {setShowPeerRequests(prev => !prev); setShowPeers(false)}}>Peer requests</button>
-                                <button>Incoming reviews</button>
-                                <button>Outgoing reviews</button>
+                                <button onClick={() => {
+                                 setShowPeers(prev => !prev);
+                                 setShowPeerRequests(false); 
+                                 setFromReviews(false); 
+                                 setRequestReview(false)}}>
+                                 My peers</button>
+                                <button onClick={() => {setShowPeerRequests(prev => !prev);setToReviews(true); setShowPeers(false); setFromReviews(false); setRequestReview(false)}}>Peer requests</button>
+                                <button onClick={() => {setFromReviews(true);setToReviews(true); setShowPeers(false); setShowPeerRequests(false); setRequestReview(false)}} >Incoming reviews</button>
+                                <button onClick={() => {setToReviews(true);setFromReviews(false); setShowPeers(false); setShowPeerRequests(false); setRequestReview(false); setShowReviewFrom(false)}}>Outgoing reviews</button>
                             </div>
                             <div className='peer-right'>
                             {
                                 showPeers ? 
                                 <div className='peers'>
                                     <div className='my-peers'>
-                                        <h4>My peers</h4>
-                                        {
-                                            peerData.peers ?
-                                            peerData.peers.map((peer) => {
-                                                return (
-                                                    <div  key={peer} className='peer'>
-                                                        <p>{ peer }</p>
-                                                    </div>
-                                                )
-                                            }) : <p>No peers found</p>
-                                        }
-                                    </div>
-                                    <div className='add-peers'>
-                                        <h4>Add peer</h4>
-                                        <Search />
-                                        {
-                                            peerUsers.map((peer) => {
-                                                return (
-                                                    <div style={{display : peer.username === data.username ? 'none' : 'flex'}} key={peer.username} className='peer'>
-                                                        <p>{peer.username}</p>
-                                                        {
-                                                            peerData.pendingPeers && peerData.pendingPeers.includes(peer.username) === true? 
-                                                            <button disabled>
-                                                                send request <i class="fa-solid fa-plus"></i>
-                                                            </button> :
-                                                            
-                                                            peerData.requestedPeers && peerData.requestedPeers.includes(peer.username) === true? 
-                                                            <button disabled>
-                                                            send request <i class="fa-solid fa-plus"></i>
-                                                            </button> :
-
-                                                            peerData.peers && peerData.peers.includes(peer.username) === true? 
-                                                            <button disabled>
-                                                            send request <i class="fa-solid fa-plus"></i>
-                                                            </button> :
-                                                            <button onClick={() => sendPeerRequest(peer.username)} >
-                                                                send request <i class="fa-solid fa-plus"></i>
-                                                            </button>                                         
-                                                        }
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                </div>
-                                : showPeerRequests ?
-                                <div className='peers'>
-                                    <div className='my-peers'>
-                                        <h4>Peer requests</h4>
+                                    <h4>Peer requests</h4>
                                         {
                                             peerData.pendingPeers ?
                                             peerData.pendingPeers.map((peer) => {
@@ -683,6 +686,42 @@ const Account = () => {
                                         }
                                     </div>
                                     <div className='add-peers'>
+                                        <h4>Add peer</h4>
+                                        <Search />
+                                        {
+                                            peerUsers.map((peer) => {
+                                                return (
+                                                    <div style={{display : peer.username === data.username ? 'none' : 'flex'}} key={peer.username} className='peer'>
+                                                        <p>{peer.username}</p>
+                                                        {
+                                                            peerData.pendingPeers && peerData.pendingPeers.includes(peer.username) === true? 
+                                                            <button disabled>
+                                                                pending...
+                                                            </button> :
+                                                            
+                                                            peerData.requestedPeers && peerData.requestedPeers.includes(peer.username) === true? 
+                                                            <button style={{color : "red"}} onClick={() => handleCancelPeer(peer)} >cancel request</button> :
+
+                                                            peerData.peers && peerData.peers.includes(peer.username) === true? 
+                                                            <button style={{color : "blue"}} disabled>
+                                                                peer
+                                                            </button> :
+                                                            <button style={{color : "green"}} onClick={() => sendPeerRequest(peer.username)} >
+                                                                send request <i class="fa-solid fa-plus"></i>
+                                                            </button>                                         
+                                                        }
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                                : showPeerRequests ?
+                                <div className='peers'>
+                                    <div className='my-peers'>
+
+                                    </div>
+                                    <div className='add-peers'>
                                         <h4>Pending requests</h4>
                                         {
                                             peerData.requestedPeers ? 
@@ -690,12 +729,75 @@ const Account = () => {
                                                 return (
                                                 <div className='peer'>
                                                     <p>{ peer }</p>
-                                                    <button onClick={() => handleCancelPeer(peer)} >CANCEL REQUEST</button>
+                                                    <button style={{color : "red"}} onClick={() => handleCancelPeer(peer)} >cancel request</button>
                                                 </div>
                                                 )
                                             }) : ''
                                         }
                                     </div>
+                                </div> :
+                                requestReview ? 
+                                <div className='peers peers-review'>
+                                        <div className='new-project'>
+                                            <h3>Request review</h3>
+                                            <form className='project-form'>
+                                                <label>Project/note name
+                                                    <input type='text' className='input' readOnly value={projectReview}  />
+                                                </label>
+                                                <textarea rows={10} name='reviewDesc' className='textarea' onChange={handleChangeReview} placeholder='provide a brief description of what the review should entail' />
+                                                <label>reviewer
+                                                    <select name='reviewer' onChange={handleChangeReview} >
+                                                        <option value={'none'} >select peer</option>
+                                                        {
+                                                            peerData.peers ?
+                                                            peerData.peers.map(peer => {
+                                                                return (
+                                                                    <option key={peer} value={peer}>{ peer }</option>
+                                                                )
+                                                            }) : ''
+                                                        }
+                                                    </select>
+                                                </label>
+
+                                                <button onClick={handleSubmitReviewRequest} >send</button>
+                                            </form>
+                                        </div>
+                                </div> : 
+                                fromReviews ?
+                                <div className='peers review-out'>
+                                    <h4>Incoming reviews</h4>
+                                    {
+                                       peerData.incomingReviews ?
+                                            peerData.incomingReviews.map(peer => {
+                                                return (
+                                                    <button onClick={() => {setShowReviewFrom(true);setToReviews(false);setFromReviews(false); setShowPeers(false); setShowPeerRequests(false); setRequestReview(false)}} className='review-btn'>
+                                                        <p>{ peer.name }</p>
+                                                        <p>from</p>
+                                                        <p> {peer.from} </p>
+                                                    </button>
+                                                )
+                                            }):''
+                                    }
+                                </div> :
+                                toReviews ?
+                                <div className='peers review-out'>
+                                    <h4>Outgoing requests</h4>
+                                    {
+                                       peerData.outgoingReviews ?
+                                            peerData.outgoingReviews.map(peer => {
+                                                return (
+                                                    <button className='review-btn'>
+                                                        <p>{ peer.name }</p>
+                                                        <p>to</p>
+                                                        <p> {peer.reviewer} </p>
+                                                    </button>
+                                                )
+                                            }):''
+                                    }
+                                </div> :
+                                showReviewFrom ?
+                                <div className='peers'>
+
                                 </div> : ''
                             }
                             </div>
