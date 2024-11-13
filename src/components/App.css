@@ -12,6 +12,9 @@
     --bgc3 : rgba(183, 185, 185, 0.836);
     --color2: whitesmoke;
     --color3: rgba(215, 221, 221, 0.918);
+    --color4: #00FFBF;
+    --color5: #FFFFFF;
+    --color6: #F9F9F9;
 }
 .app {
     overflow: hidden;
@@ -465,7 +468,6 @@ button {
     width: 100%;
     overflow-y: scroll;
     padding: 10px;
-    /* font-size: 1.02rem; */
     font-size: clamp(12px, 1.5vw, 18px);
     background-color: var(--color2);
 }
@@ -677,6 +679,72 @@ textarea:focus {
     gap: 10px;
     padding: 20px;
 }
+.review-item {
+    width: inherit;
+    height: inherit;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    padding-bottom: 5vh;
+    border-left: 2px solid var(--bgc3);
+}
+.review-item-notes {
+    height: max-content;
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.review-item-note {
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 20px;
+    background-color: var(--color2);
+    border-radius: 10px;
+}
+.review-item-note pre {
+    font-size: clamp(10px, 1.0vw, 18px);
+}
+.review-item-review {
+    height: max-content;
+    min-height: 30vh;
+    max-width: 90%;
+    border-radius: 10px;
+    padding: 10px;
+    letter-spacing: 1px;
+}
+.review-item-button {
+    height: 6vh ;
+}
+.r-btn {
+    height: 6vh;
+    width: 120px;
+    border-radius: 10px;
+    background-color: var(--color4);
+    border: none;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+.r-btn:hover {
+    background-color: black;
+    color: var(--color4);
+    transition: 0.5s;
+}
+.review-desc {
+    height: max-content;
+    min-height: 5vh;
+    background-color: var(--color2);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 /* peer revs */
 /* account */
 
@@ -684,10 +752,10 @@ textarea:focus {
 .socials {
     width: 100vw;
     height: 100vh;
-    background-color: var(--color2);
+    background-color: var(--color5);
 }
 .socials .top {
-    background-color: var(--bgc1);
+    background-color: var(--color6);
 }
 .socials .search {
     max-width: 95%;
@@ -725,6 +793,7 @@ textarea:focus {
 }
 .socials-right-comments h3 {
     margin: 5px;
+    font-weight: 400;
     height: 5vh;
     text-align: center;
     color: var(--bgc3);
@@ -732,7 +801,7 @@ textarea:focus {
 .comments-body {
     height: 65vh;
     padding-bottom: 5px;
-    background-color: #e5e4e2bd;
+    background-color: var(--color6);
     border-radius: 20px;
 }
 .comments-body h4 {
@@ -804,7 +873,7 @@ textarea:focus {
     height: 35vh;
     width: 90%;
     border-radius: 20px;
-    background-color: var(--bgc1);
+    background-color: var(--color6);
     border: none;
     text-align: left;
 }
@@ -864,7 +933,7 @@ textarea:focus {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    background-color: var(--bgc1);
+    background-color: var(--color5);
     padding: 20px;
     padding-top: 40px;
     border-radius: 10px;
@@ -1026,11 +1095,11 @@ textarea:focus {
     width: 10px;
 }
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 2px rgba(128, 128, 128, 0.795); 
-    border-radius: 10px;
+    box-shadow: inset 0 0 1px rgba(128, 128, 128, 0.795); 
+    border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb {
-    background: #C0C0C0; 
+    background: rgba(226, 226, 226, 0.822); 
     border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -1119,6 +1188,7 @@ textarea:focus {
     .account {
         border: 1px solid;
         overflow-y: scroll;
+        overflow-x: hidden;
     }
     .search-btn {
         flex-direction: column;
@@ -1133,7 +1203,6 @@ textarea:focus {
         padding: 0 10px;
     }
     .acc-body {
-        border: 1px solid;
         flex-direction: column;
     }
     .acc-body .left {
@@ -1143,15 +1212,14 @@ textarea:focus {
         top: 0;
     }
     .acc-body .left nav {
-        border: 1px solid;
         width: inherit;
         height: inherit;
         display: flex;
         flex-direction: row;
         justify-content: space-around;
     }
-    .acc-body .left nav button {
-        height: inherit;
+    .acc-body .left nav .nav-btn {
+        height: 8vh;
         padding: 0;
         justify-content: center;
     }
@@ -1161,7 +1229,6 @@ textarea:focus {
     .acc-body .right {
         width: 100vw;
         height: 75vh;
-        border: 1px solid;
     }
     /* Account */
     /* account trials */
@@ -1198,6 +1265,7 @@ textarea:focus {
     /*  */
 .nav-content {
     height: 82vh;
+    overflow-x: hidden;
 }
 .nav-content h2 {
     text-align: center;
@@ -1216,13 +1284,17 @@ textarea:focus {
     height: 8vh;
     padding: 0 5px;
 }
+.note-header h3 {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
 .note-workspace {
-    height: 74vh;
+    height: 70vh;
 }
 .note-workspace textarea {
-    height: 64vh;
+    height: 60vh;
     padding: 5px;
-    font-size: 1.01rem;
+    font-size: 0.9rem;
 }
 .note-workspace .note-footer {
     height: 10vh;
@@ -1237,6 +1309,15 @@ textarea:focus {
     overflow: hidden;
     padding: 2px;
 }
+.randoms-header {
+    height: 12vh;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0;
+}
+.randoms-header h3 {
+    font-weight: 400;
+}
 .randoms-body {
     gap: 10px;
     justify-content: start;
@@ -1245,6 +1326,59 @@ textarea:focus {
 
 /* account trials */
     /* account trials */
+/* peer revs */
+.peer-reviews {
+    flex-direction: column;
+}
+.peer-left {
+    width: 100%;
+    height: 6vh;
+    flex-direction: row;
+    gap: 0;
+    padding: 0;
+}
+.peer-left p {
+    display: none;
+}
+.peer-left button {
+    height: inherit;
+    border-radius: 0;
+    border: 1px solid var(--bgc1);
+}
+.peer-right {
+    width: 100%;
+}
+.peers {
+    flex-direction: column;
+    overflow-y: scroll;
+}
+.my-peers {
+    height: max-content;
+    width: 100%;
+    gap: 10px;
+    padding: 10px;
+}
+.add-peers {
+    width: 100%;
+    height: max-content;
+    padding: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 5vh;
+}
+.add-peers h4 {
+    margin-bottom: 10px;
+}
+.review-item {
+    padding: 10px;
+}
+.review-item-note {
+    padding: 10px;
+}
+.review-item-review {
+    max-width: 100%;
+}
+/* peer revs */
 }
 
 @media screen and (max-width: 500px) {
