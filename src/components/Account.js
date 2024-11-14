@@ -53,9 +53,76 @@ const Account = () => {
     const [reviewFeedBack, setreviewFeedBack] = useState('')
     const [reviewUser, setReviewUser] = useState({})
     const [reviewer, setReviewer] = useState({})
-    const disabledRef = useRef(null)
+    // const titleRef = useRef(null)
+    const imageRef = useRef(null)
     const [isDisabled, setIsDisabled] = useState(true)
+    // const [title, setTitle] = useState('')
+    // const [contentArea, setContentArea] = useState('')
+    // const [codeArea, setCodeArea] = useState('')
+    // const [divs, setDivs] = useState([])
 
+    // // const titleBtn = document.getElementById('title')
+    // // const body = document.querySelector('#hero')
+    // const [showTitleInput, setShowTitleInput] = useState(false)
+    // const [showTextArea, setShowTextArea] = useState(false)
+    // const [showCode, setShowCode] = useState(false)
+    // const [showImage, setShowImage] = useState(false)
+
+
+        // const handleAddDiv = () => {
+        //     const newDiv = (
+        //         <div style={{ display: "flex", width: 'max-content' }}>
+        //             <h3 contentEditable style={{ width: 'max-content', padding: '0 20px' }}>
+        //                 {title}
+        //             </h3>
+        //         </div>
+        //     )
+        //     setDivs([...divs, newDiv])
+        //     setTitle('')
+        //     setShowTitleInput(false)
+        // }
+
+        // const handleAddContent = () => {
+        //     const newDiv = <div dangerouslySetInnerHTML={{ __html: (contentArea || "").replace(/\n/g, '<br />') }} style={{ maxWidth: "700px", contentEditable: true, fontSize: '1.1rem' }} />
+            
+        //     setDivs([...divs, newDiv])
+        //     setContentArea('')
+        //     setShowTextArea(false)
+        // }
+
+        // const handleCode = () => {
+        //     const newDiv = <div dangerouslySetInnerHTML={{ __html: (codeArea || "").replace(/\n/g, '<br />') }} style={{ borderLeft: '5px solid gray', contentEditable: true, padding: '15px', backgroundColor: '#F5F5F5' }} />
+        //     setDivs([...divs, newDiv])
+        //     setCodeArea('')
+        //     setShowCode(false)
+        // }
+
+        // const handleTitleInput = (e) => {
+        //     const input = e.target
+        //     input.style.width = 'auto';
+        //     input.style.width = `${input.scrollWidth}px`;
+        //     setTitle(input.value);
+        // }
+
+        // const handleAreaInput = (e) => {
+        //     const input = e.target
+
+        //     input.style.height = 'auto'
+        //     input.style.height = `${input.scrollHeight}px`
+        //     setContentArea(input.value)
+        // }
+
+        // const handleCodeInput = (e) => {
+        //     const input = e.target
+
+        //     input.style.height = 'auto'
+        //     input.style.height = `${input.scrollHeight}px`
+        //     setCodeArea(input.value)
+        // }
+
+        // const handleSetImage = () => {
+        //     // imageRef.current.click()
+        // }
 
     //fetch data from db
     useEffect(() => {
@@ -123,69 +190,6 @@ const Account = () => {
         })
 
     },[refresh])
-    // console.log(currentNote)
-
-    // if(notesRef.current) {
-    //     notesRef.current.innerHTML = currentNote.note.notesContent
-    //     console.log(currentNote.note)
-    // }
-
-    // const handleFileInput = () => {
-    //     if(fileInputRef.current) {
-    //         fileInputRef.current.click()
-    //     }
-    // }
-    // if(notesRef.current) {
-    //     // console.log(notesRef.current.innerHTML)
-    //     notesRef.current.innerHTML = currentNote.note.notesContent
-    // }
-    // const handleFileChange = (e) => {
-
-    //     // imageFiles.push(e.target.files[0])
-    //     // setImageFiles([...imageFiles, e.target.files[0]])
-
-    //     let file = e.target.files[0]
-
-    //     if(file) {
-    //         const reader = new FileReader()
-
-    //         reader.onload = (e1) => {
-    //             const img = document.createElement('img');
-
-    //             img.src = e1.target.result
-    //             img.width = 200
-    //             img.height = 200
-
-    //             const selection = window.getSelection()
-
-    //             if(selection.rangeCount > 0) {
-    //                 // const range = selection.getRangeAt(0)
-
-    //                 // range.deleteContents()
-    //                 // range.insertNode(img)
-
-    //                 // range.setStartAfter(img)
-    //                 // range.setEndAfter(img)
-    //                 // selection.removeAllRanges()
-    //                 // selection.addRange(range)
-    //                     const range = selection.getRangeAt(0);
-
-    //                     range.collapse(false);
-                    
-    //                     range.insertNode(img);
-                    
-    //                     range.setStartAfter(img);
-    //                     range.setEndAfter(img);
-                    
-    //                     selection.removeAllRanges();
-    //                     selection.addRange(range);
-    //             }
-    //         }
-    //         reader.readAsDataURL(file)
-    //     }
-    //     e.target.value = ""
-       
-    // }
 
     const sendPeerRequest = (user) => {
         axios.post('http://localhost:3001/account/peerRequest', {user: user}, {
@@ -554,7 +558,7 @@ const Account = () => {
         // disabledRef.current.disabled = false
         setIsDisabled(false)
     }
-
+    console.log(currentNote)
     return (
         <div className="account" >
             <header className="acc-header">
@@ -712,7 +716,7 @@ const Account = () => {
                                 <div className='project-open'>
                                     <div className='in-project'>
                                         
-                                    {
+                                    {/* {
                                         currentNote.noteProject ? 
                                         <header className='note-header'>
                                             <h3>Notes: { currentNote.note.notesTitle }</h3>
@@ -732,9 +736,58 @@ const Account = () => {
                                             }
                                             <h3>Type: { currentNote.note.notesType }</h3>
                                         </header> : ''
-                                    }
+                                    } */}
                                     <div className='note-workspace'>
-                                        <textarea className='textarea1' value={currentNote.note.notesContent} rows={70}  onChange={(e) => handleRemoveDisabled(e) } />
+                                        <div className='textarea1'> 
+                                            <div id='hero'>
+                                                {/* <input type='file' ref={imageRef} style={{display: 'none'}} />
+                                                {divs}
+                                                {
+                                                    showTitleInput && 
+                                                    <div style={{ display: 'flex', width: 'max-content' }}>
+                                                        <input
+                                                        style={{ height: '25px', backgroundColor: '#F0F0F0' }}
+                                                        type='text'
+                                                        value={title}
+                                                        onInput={(e) => handleTitleInput(e)} />
+
+                                                        <button
+                                                        onClick={handleAddDiv}
+                                                        style={{width: '70px'}}>
+                                                            ADD
+                                                        </button>
+                                                    </div>
+
+                                                    
+                                                } */}
+                                                {/* {
+                                                    showTextArea &&
+                                                    <div style={{ height: 'max-content', display: 'flex', gap: '10px', flexDirection: 'column' }}>
+                                                        <textarea  onChange={(e) => handleAreaInput(e)} style={{ fontSize: '1.1rem', padding: '20px', width: '700px' }} />
+                                                        <button onClick={handleAddContent}  style={{ width: '100px', height: '25px', padding: '0 10px' }}>
+                                                            ADD TEXT
+                                                        </button>
+                                                    </div>
+                                                } */}
+                                                {/* {
+                                                    showCode &&
+                                                    <div style={{ height: 'max-content', display: 'flex', gap: '10px', flexDirection: 'column' }}>
+                                                        <textarea onChange={(e) => handleCodeInput(e)} style={{ padding: '10px', width: '400px' }} />
+                                                        <button onClick={handleCode} style={{ width: '100px', height: '25px' }}>ADD CODE</button>
+                                                    </div>
+                                                } */}
+                                                {
+                                                    {/* showImage && */}
+
+                                                }
+                                            </div>
+                                            {/* <div className='hero-btns'>
+                                                <button onClick={() => setShowTitleInput(prev => !prev)} id="title">Title</button>
+                                                <button id="image">image</button>
+                                                <button onClick={() => setShowTextArea(prev => !prev)} id="normal">normal text</button>
+                                                <button onClick={() => setShowCode(prev => !prev)} id="code">code</button>
+                                            </div> */}
+                                        </div>
                 
                                         <div className='note-footer'>
                                             <button className='btn-exit' onClick={() => {setOpenNote(false); setIsDisabled(true)}}>EXIT</button>
