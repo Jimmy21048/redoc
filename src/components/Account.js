@@ -123,69 +123,6 @@ const Account = () => {
         })
 
     },[refresh])
-    // console.log(currentNote)
-
-    // if(notesRef.current) {
-    //     notesRef.current.innerHTML = currentNote.note.notesContent
-    //     console.log(currentNote.note)
-    // }
-
-    // const handleFileInput = () => {
-    //     if(fileInputRef.current) {
-    //         fileInputRef.current.click()
-    //     }
-    // }
-    // if(notesRef.current) {
-    //     // console.log(notesRef.current.innerHTML)
-    //     notesRef.current.innerHTML = currentNote.note.notesContent
-    // }
-    // const handleFileChange = (e) => {
-
-    //     // imageFiles.push(e.target.files[0])
-    //     // setImageFiles([...imageFiles, e.target.files[0]])
-
-    //     let file = e.target.files[0]
-
-    //     if(file) {
-    //         const reader = new FileReader()
-
-    //         reader.onload = (e1) => {
-    //             const img = document.createElement('img');
-
-    //             img.src = e1.target.result
-    //             img.width = 200
-    //             img.height = 200
-
-    //             const selection = window.getSelection()
-
-    //             if(selection.rangeCount > 0) {
-    //                 // const range = selection.getRangeAt(0)
-
-    //                 // range.deleteContents()
-    //                 // range.insertNode(img)
-
-    //                 // range.setStartAfter(img)
-    //                 // range.setEndAfter(img)
-    //                 // selection.removeAllRanges()
-    //                 // selection.addRange(range)
-    //                     const range = selection.getRangeAt(0);
-
-    //                     range.collapse(false);
-                    
-    //                     range.insertNode(img);
-                    
-    //                     range.setStartAfter(img);
-    //                     range.setEndAfter(img);
-                    
-    //                     selection.removeAllRanges();
-    //                     selection.addRange(range);
-    //             }
-    //         }
-    //         reader.readAsDataURL(file)
-    //     }
-    //     e.target.value = ""
-       
-    // }
 
     const sendPeerRequest = (user) => {
         axios.post('http://localhost:3001/account/peerRequest', {user: user}, {
