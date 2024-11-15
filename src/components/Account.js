@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom'
 import { AuthContext } from '../helpers/AuthContext';
 import { useContext } from 'react';
+import React from 'react';
 
 const Account = () => {
     const { authState, setAuthState } = useContext(AuthContext)
@@ -56,7 +57,111 @@ const Account = () => {
     const disabledRef = useRef(null)
     const [isDisabled, setIsDisabled] = useState(true)
 
+    //test begins here
+    const [showTitleInput, setShowTitleInput] = useState(false)
+    const [title, setTitle] = useState('')
+    const [divs, setDivs] = useState([])
+    const [contentArea, setContentArea] = useState('')
+    const [showTextArea, setShowTextArea] = useState(false)
+    const [showCode, setShowCode] = useState(false)
+    const [codeArea, setCodeArea] = useState('')
+    const imageRef = useRef(null)
 
+    //title
+    const handleAddDiv = () => {
+        const newDiv = (
+            <div style={{ display: "flex", width: 'max-content' }}>
+                <h3 contentEditable style={{ width: 'max-content' }}>
+                    {title}
+                </h3>
+            </div>
+        )
+        setDivs([...divs, newDiv])
+        setTitle('')
+        setShowTitleInput(false)
+    }
+
+    const handleTitleInput = (e) => {
+        const input = e.target
+        input.style.width = 'auto';
+        input.style.width = `${input.scrollWidth}px`;
+        setTitle(input.value);
+    }
+
+    //area
+    const handleAddContent = () => {
+        const newDiv = <div dangerouslySetInnerHTML={{ __html: (contentArea || "").replace(/\n/g, '<br />') }} style={{ maxWidth: "700px", contentEditable: true, fontSize: '1.1rem' }} />
+        
+        setDivs([...divs, newDiv])
+        setContentArea('')
+        setShowTextArea(false)
+    }
+    const handleAreaInput = (e) => {
+        const input = e.target
+
+        input.style.height = 'auto'
+        input.style.height = `${input.scrollHeight}px`
+        setContentArea(input.value)
+    }
+
+    //code
+    const handleCode = () => {
+        const newDiv = <div
+        style={{
+            borderLeft: '5px solid gray',
+            padding: '15px',
+            backgroundColor: '#F5F5F5',
+            width: '500px',
+            height: 'max-content',
+        }}
+        contentEditable={true}
+    >
+        <code
+            style={{
+                whiteSpace: 'pre-wrap',
+                wordBreak: 'break-word',
+            }}
+        >
+            {(codeArea || "").replace(/\n/g, '\n')}
+        </code>
+    </div>
+        setDivs([...divs, newDiv])
+        setCodeArea('')
+        setShowCode(false)
+    }
+    const handleCodeInput = (e) => {
+        const input = e.target
+
+        input.style.height = 'auto'
+        input.style.height = `${input.scrollHeight}px`
+        setCodeArea(input.value)
+    }
+
+    //image
+    const handleImage = () => {
+        imageRef.current.click()
+    }
+
+    const handleChangeImage = (e) => {
+        const file = e.target.files[0]
+        if(file) {
+            const reader = new FileReader()
+
+            reader.onload = async (event) => {
+                // console.log(event.target.result)
+                const newImageDiv = (
+                    <div style={{ maxHeight: '450px', maxWidth: '450px' }}>
+                        <img src={event.target.result} style={{ maxWidth: '700px', maxHeight: '700px', objectFit: 'contain' }} />
+                    </div>
+                )
+                setDivs(prevDivs => [...prevDivs, newImageDiv])
+                event.target.value = ''
+            }
+            reader.readAsDataURL(file)
+        }
+        
+
+    }
     //fetch data from db
     useEffect(() => {
         axios.get('http://localhost:3001/account/myaccount', {
@@ -65,18 +170,22 @@ const Account = () => {
                 "Content-Type" : "application/json"
             }
         }).then(response => {
+            console.log(response.data)
             if(response.data.error) {
                 setAuthState(false);
                 history('/login');
                 return
             } else {
                 if(response.data.result.projects) {
+                    
                     setProjects(response.data.result.projects)
                 }
+                
                 if(response.data.result.projects && openProject === true) {
                     
-    
+                    
                     for(let i = 0; i <response.data.result.projects.length; i++) {
+                        // console.log(response.data.result.projects[i])
                         if(response.data.result.projects[i].projectName === currentNote.noteProject.projectName && response.data.projects[i].notes) {
                             for(let j = 0; j < response.data.result.projects[i].notes.length; j++) {
                                 if(response.data.result.projects[i].notes[j].notesTitle === currentNote.note.notesTitle) {
@@ -112,7 +221,7 @@ const Account = () => {
                     "Content-Type" : "application/json"
                 }
             }).then((response) => {
-                console.log(response)
+                // console.log(response)
                 if(response.data.error) {
                     setAuthState(false)
                     history('/login')
@@ -123,6 +232,8 @@ const Account = () => {
         })
 
     },[refresh])
+    // console.log(currentNote)
+    console.log(divs)
 
     const sendPeerRequest = (user) => {
         axios.post('http://localhost:3001/account/peerRequest', {user: user}, {
@@ -178,9 +289,11 @@ const Account = () => {
         })
     }
     const handleOpenProject = (data) => {
+        console.log(data)
         // setRefresh(prev => !prev)
         setCurrentProject(data);
         setOpenProject(true);
+        
     }
 
     const handleCurrentPage = (page) => {
@@ -235,20 +348,20 @@ const Account = () => {
     }
 
     const handleUpdateNotes = (data) => {
-        console.log("yes im here")
+        console.log(divs)
         let notes = {};
         if(data.noteProject) {
             notes = {
                 project : data.noteProject.projectName,
                 notes : data.note.notesTitle,
-                data : notesText
+                data : divs
             }
         }
         else if(data.note) {
             notes = {
                 project : '',
                 notes : data.note.notesTitle,
-                data : notesText
+                data : divs
             }
         }
         
@@ -272,7 +385,9 @@ const Account = () => {
     }
 
     const handleOpenNote = (project, note)  => {
+        setDivs(note.notesContent)
         if(project) {
+            
             setCurrentNote({
                 ...currentNote,
                 note : note,
@@ -491,7 +606,7 @@ const Account = () => {
         // disabledRef.current.disabled = false
         setIsDisabled(false)
     }
-
+    console.log(currentNote)
     return (
         <div className="account" >
             <header className="acc-header">
@@ -635,7 +750,23 @@ const Account = () => {
                                                     <button key={note.notesTitle} onClick={() =>handleOpenNote(currentProject, note)} className='small-note'>
                                                         <h4>{ note.notesTitle }</h4>
                                                         <div className='small-note-body'>
-                                                            <p>{ note.notesContent }</p>
+                                                                    {note.notesContent.map((item, index) => {
+                                                                        if (item && item.type) {
+                                                                            
+                                                                            const { children, ...props } = item.props || {};
+
+                                                                            let processedChildren = children;
+
+                                                                            if (children && typeof children === 'object') {
+                                                                                processedChildren = React.createElement(children.type, children.props);
+                                                                            }
+
+                                                                            const mergedProps = { ...props, children: processedChildren };
+
+                                                                            return React.createElement(item.type, mergedProps);
+                                                                        }
+                                                                        return null;
+                                                                    })}
                                                         </div>
                                                     </button>
                                                    )     
@@ -671,11 +802,75 @@ const Account = () => {
                                         </header> : ''
                                     }
                                     <div className='note-workspace'>
-                                        <textarea className='textarea1' value={currentNote.note.notesContent} rows={70}  onChange={(e) => handleRemoveDisabled(e) } />
+                                        <div className='textarea1'>
+                                            <div id='hero'>
+                                                <input type='file' onChange={handleChangeImage} ref={imageRef} style={{display: 'none'}} />
+                                                {divs.map((item, index) => {
+                                                    if (item && item.type) {
+                                                                            
+                                                        const { children, ...props } = item.props || {};
+
+                                                        let processedChildren = children;
+
+                                                        if (children && typeof children === 'object') {
+                                                            processedChildren = React.createElement(children.type, children.props);
+                                                        }
+
+                                                        const mergedProps = { ...props, children: processedChildren };
+
+                                                        return React.createElement(item.type, mergedProps);
+                                                    }
+                                                    return null;
+                                                })}
+                                                {/* {divs} */}
+                                                {
+                                                    showTitleInput && 
+                                                    <div style={{ display: 'flex', width: 'max-content', gap: '5px' }}>
+                                                        <input
+                                                        style={{ height: '5vh', backgroundColor: '#F0F8FF', border: 'none', borderBottom: '1px solid #C0C0C0', paddingLeft: '5px' }}
+                                                        placeholder='Enter title here'
+                                                        type='text'
+                                                        value={title}
+                                                        onInput={(e) => handleTitleInput(e)} />
+
+                                                        <button
+                                                        className='r-btn'
+                                                        onClick={handleAddDiv}
+                                                        style={{width: '70px', height: '5vh'}}>
+                                                            ADD
+                                                        </button>
+                                                    </div>
+
+                                                    
+                                                }
+                                                {
+                                                    showTextArea &&
+                                                    <div style={{ height: 'max-content', display: 'flex', gap: '10px', flexDirection: 'column' }}>
+                                                        <textarea  onChange={(e) => handleAreaInput(e)} placeholder='Enter text here...' style={{ fontSize: '1.1rem', padding: '8px', width: '650px', backgroundColor: '#F0F8FF', border: 'none', borderBottom: '1px solid #C0C0C0' }} />
+                                                        <button onClick={handleAddContent} className='r-btn'  style={{ width: '120px', height: '5vh', padding: '0 10px' }}>
+                                                            ADD TEXT
+                                                        </button>
+                                                    </div>
+                                                }
+                                                {
+                                                    showCode &&
+                                                    <div style={{ height: 'max-content', display: 'flex', gap: '10px', flexDirection: 'column'  }}>
+                                                        <textarea placeholder='Type code here...' onChange={(e) => handleCodeInput(e)} style={{ padding: '10px', width: '400px', backgroundColor: '#F0F8FF', border: 'none', borderBottom: '1px solid #C0C0C0' }} />
+                                                        <button className='r-btn' onClick={handleCode} style={{ width: '100px', height: '5vh' }}>ADD CODE</button>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div className='hero-btns'>
+                                                <button onClick={() => setShowTitleInput(prev => !prev)} id="title">Title</button>
+                                                <button onClick={handleImage} id="image">image</button>
+                                                <button onClick={() => setShowTextArea(prev => !prev)} id="normal">normal text</button>
+                                                <button onClick={() => setShowCode(prev => !prev)} id="code">code</button>
+                                            </div>
+                                        </div>
                 
                                         <div className='note-footer'>
                                             <button className='btn-exit' onClick={() => {setOpenNote(false); setIsDisabled(true)}}>EXIT</button>
-                                            <button className='btn-save' disabled={isDisabled} onClick={() => handleUpdateNotes(currentNote)}>SAVE</button>
+                                            <button className='btn-save' onClick={() => handleUpdateNotes(currentNote)}>SAVE</button>
                                         </div>
                                     </div>
                         

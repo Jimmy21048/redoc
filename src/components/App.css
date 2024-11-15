@@ -461,16 +461,42 @@ button {
 .note-workspace {
     height: 80vh;
 }
-.note-workspace textarea {
-    border: none;
+.note-workspace .textarea1 {
+    /* border: none; */
     border-top: 1px solid var(--bgc3);
     height: 70vh;
     width: 100%;
-    overflow-y: scroll;
-    padding: 10px;
-    font-size: clamp(12px, 1.5vw, 18px);
-    background-color: var(--color2);
+    /* overflow-y: scroll; */
+    /* font-size: clamp(12px, 1.5vw, 18px); */
+    background-color: var(--color6);
+    display: flex;
 }
+/* test editable */
+#hero {
+    padding: 20px;
+    width: 80%;
+    min-width: 700px;
+    height: 70vh;
+    overflow-y: scroll;
+    
+}
+#hero div {
+    margin-bottom: 20px;
+}
+.hero-btns {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.hero-btns button {
+    width: 100px;
+    height: 6vh;
+    border-radius: 10px;
+}
+/* test editable */
 textarea:focus {
     outline: none;
 }
@@ -536,8 +562,10 @@ textarea:focus {
 .small-note-body {
     overflow: hidden;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+
 }
 .small-note-body p {
     text-align: left;
