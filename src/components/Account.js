@@ -28,7 +28,8 @@ const Account = () => {
         notesTitle: '',
         attachProject: '',
         notesType: '',
-        notesDate: new Date().toLocaleDateString()
+        notesDate: new Date().toLocaleDateString(),
+        catchPhrase: ''
     })
     const [projectResponse, setProjectResponse] = useState('');
     const [noteResponse, setNoteResponse] = useState('');
@@ -90,7 +91,7 @@ const Account = () => {
 
     //area
     const handleAddContent = () => {
-        const newDiv = <div dangerouslySetInnerHTML={{ __html: (contentArea || "").replace(/\n/g, '<br />') }} style={{ maxWidth: "700px", contentEditable: true, fontSize: '1.1rem' }} />
+        const newDiv = <div contentEditable= {true} dangerouslySetInnerHTML={{ __html: (contentArea || "").replace(/\n/g, '<br />') }} style={{ maxWidth: "700px", fontSize: '1.1rem' }} />
         
         setDivs([...divs, newDiv])
         setContentArea('')
@@ -111,7 +112,7 @@ const Account = () => {
             borderLeft: '5px solid gray',
             padding: '15px',
             backgroundColor: '#F5F5F5',
-            width: '500px',
+            maxWidth: '500px',
             height: 'max-content',
         }}
         contentEditable={true}
@@ -148,10 +149,9 @@ const Account = () => {
             const reader = new FileReader()
 
             reader.onload = async (event) => {
-                // console.log(event.target.result)
                 const newImageDiv = (
-                    <div style={{ maxHeight: '450px', maxWidth: '450px' }}>
-                        <img src={event.target.result} style={{ maxWidth: '700px', maxHeight: '700px', objectFit: 'contain' }} />
+                    <div style={{ maxHeight: '500px', maxWidth: '500px' }}>
+                        <img src={event.target.result} style={{ maxWidth: '500px', maxHeight: '500px', objectFit: 'contain' }} />
                     </div>
                 )
                 setDivs(prevDivs => [...prevDivs, newImageDiv])
@@ -170,7 +170,6 @@ const Account = () => {
                 "Content-Type" : "application/json"
             }
         }).then(response => {
-            console.log(response.data)
             if(response.data.error) {
                 setAuthState(false);
                 history('/login');
@@ -185,7 +184,6 @@ const Account = () => {
                     
                     
                     for(let i = 0; i <response.data.result.projects.length; i++) {
-                        // console.log(response.data.result.projects[i])
                         if(response.data.result.projects[i].projectName === currentNote.noteProject.projectName && response.data.projects[i].notes) {
                             for(let j = 0; j < response.data.result.projects[i].notes.length; j++) {
                                 if(response.data.result.projects[i].notes[j].notesTitle === currentNote.note.notesTitle) {
@@ -199,9 +197,6 @@ const Account = () => {
                             break;
                         }
                     }
-
-                    
-                    // console.log(notesRef.current.innerHTML)
                     
                 }
                 if(response.data.result.randomNotes) {  
@@ -221,7 +216,6 @@ const Account = () => {
                     "Content-Type" : "application/json"
                 }
             }).then((response) => {
-                // console.log(response)
                 if(response.data.error) {
                     setAuthState(false)
                     history('/login')
@@ -232,8 +226,6 @@ const Account = () => {
         })
 
     },[refresh])
-    // console.log(currentNote)
-    console.log(divs)
 
     const sendPeerRequest = (user) => {
         axios.post('http://localhost:3001/account/peerRequest', {user: user}, {
@@ -289,8 +281,6 @@ const Account = () => {
         })
     }
     const handleOpenProject = (data) => {
-        console.log(data)
-        // setRefresh(prev => !prev)
         setCurrentProject(data);
         setOpenProject(true);
         
@@ -348,7 +338,6 @@ const Account = () => {
     }
 
     const handleUpdateNotes = (data) => {
-        console.log(divs)
         let notes = {};
         if(data.noteProject) {
             notes = {
@@ -603,10 +592,9 @@ const Account = () => {
     const handleRemoveDisabled = (e) => {
         setCurrentNote({...currentNote, note: { ...currentNote.note, notesContent : e.target.value}}); 
         setNotesText(e.target.value);
-        // disabledRef.current.disabled = false
         setIsDisabled(false)
     }
-    console.log(currentNote)
+
     return (
         <div className="account" >
             <header className="acc-header">
@@ -648,9 +636,16 @@ const Account = () => {
                                             </label>
                                             <select name='projectField' onChange={handleChange} >
                                                 <option value={''} >Field</option>
-                                                <option value={'medicine'}>MEDICINE</option>
-                                                <option value={'engineering'}>ENGINEERING</option>
-                                                <option value={'education'}>EDUCATION</option>
+                                                <option value={'Science'}>Science</option>
+                                                <option value={'Medicine'}>Medicine</option>
+                                                <option value={'engineering'}>Engineering</option>
+                                                <option value={'education'}>Education</option>
+                                                <option value={'Social Sciences'}>Social Sciences</option>
+                                                <option value={'Health'}>Health and Wellness</option>
+                                                <option value={'Arts & Humanities'}>Arts & Humanities</option>
+                                                <option value={'Business & Finance'}>Business & Finance</option>
+                                                <option value={'Information Technology'}>Information Technology</option>
+                                                <option value={'Environment'}>Environmental Bio</option>
                                             </select>
                                             <div className='form-btns'>
                                                 <button onClick={() => setNewProject(false)}>CANCEL</button>
@@ -672,10 +667,11 @@ const Account = () => {
                                             <label>Notes title
                                                 <input type='text' name='notesTitle' className='input' onChange={handleChangeNotes} />
                                             </label>
-                                            <label >Attach to project
+                                            <textarea name='catchPhrase' onChange={handleChangeNotes} className='catch-phrase' placeholder='Enter catch-phrase' />
+                                            <label>Attach to project
                                                     <input type='radio' onClick={() => {setProjectNote(true); setNotesData({...notesData, notesType: ''})}}  className='input-radio' name='attachToProject' /> Yes
                                                     <input type='radio' onClick={() => {setProjectNote(false); setNotesData({...notesData, attachProject: ''})}}  className='input-radio' name='attachToProject'/> No
-                                                </label>
+                                            </label>
                                             {
                                                 projectNote === true ? 
                                                 <label>select project
@@ -713,7 +709,7 @@ const Account = () => {
                                         <i class="fa-solid fa-plus"></i>
                                         <p>NEW PROJECT</p>
                                     </button>
-                                    <button className='piece' onClick={() => setNewNote(true)}>
+                                    <button className='piece' onClick={() => {setNewNote(true); setDivs([])}}>
                                         <i class="fa-solid fa-file-lines"></i>
                                         <p>NOTES</p>
                                     </button>
@@ -750,23 +746,7 @@ const Account = () => {
                                                     <button key={note.notesTitle} onClick={() =>handleOpenNote(currentProject, note)} className='small-note'>
                                                         <h4>{ note.notesTitle }</h4>
                                                         <div className='small-note-body'>
-                                                                    {note.notesContent.map((item, index) => {
-                                                                        if (item && item.type) {
-                                                                            
-                                                                            const { children, ...props } = item.props || {};
-
-                                                                            let processedChildren = children;
-
-                                                                            if (children && typeof children === 'object') {
-                                                                                processedChildren = React.createElement(children.type, children.props);
-                                                                            }
-
-                                                                            const mergedProps = { ...props, children: processedChildren };
-
-                                                                            return React.createElement(item.type, mergedProps);
-                                                                        }
-                                                                        return null;
-                                                                    })}
+                                                            {note.catchPhrase}
                                                         </div>
                                                     </button>
                                                    )     
@@ -892,7 +872,7 @@ const Account = () => {
                                                 <h4>{ note.notesTitle }</h4>
                                                 <hr/>
                                                 <div className='small-note-body'>
-                                                    <p>{ note.notesContent }</p>
+                                                {note.catchPhrase}
                                                 </div>
                                             </button>
                                             )
@@ -1029,9 +1009,28 @@ const Account = () => {
                                                     return (
                                                         <div key={item.notesTitle} className='review-item-note'>
                                                             <h3>{ item.notesTitle }</h3>
-                                                            <pre>
-                                                                { item.notesContent }
-                                                            </pre>
+                                                            <div>
+                                                            {
+                                                                item.notesContent.map((note, index) => {
+                                                                    if (note && note.type) {
+                                                                        const { children, ...props } = note.props || {};
+
+                                                                        const filteredProps = { ...props };
+                                                                        delete filteredProps.contentEditable;
+
+                                                                        let processedChildren = children;
+
+                                                                        if (children && typeof children === 'object') {
+                                                                            const childProps = { ...children.props };
+                                                                            delete childProps.contentEditable;
+                                                                            processedChildren = React.createElement(children.type, childProps);
+                                                                        }
+
+                                                                        return React.createElement(note.type, { ...filteredProps, children: processedChildren });
+                                                                }
+                                                                    return null;
+                                                            })}
+                                                            </div>
                                                         </div>
                                                     )
                                                 })
@@ -1097,7 +1096,7 @@ const Account = () => {
                                     </div>
                                     <div className='add-peers'>
                                         <h4>Add peer</h4>
-                                        <Search />
+                                        <Search {...{peerUsers, setPeerUsers}} unit="peer-users" />
                                         {
                                             peerUsers.map((peer) => {
                                                 return (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export default function Search({ notes1, notes2, setNotes2, setNotes1, unit, randomNotes, setRandomNotes }) {
+export default function Search({ notes1, notes2, setNotes2, setNotes1, unit, randomNotes, setRandomNotes, peerUsers, setPeerUsers }) {
     const [originalNotes, setOriginalNotes] = useState([]);
     const [originalNotes2, setOriginalNotes2] = useState([]);
 
@@ -18,6 +18,11 @@ export default function Search({ notes1, notes2, setNotes2, setNotes1, unit, ran
                 setOriginalNotes(randomNotes)
             }
         }
+        if(unit === "peer-users") {
+            if(peerUsers.length !== 0 && peerUsers.length > originalNotes.length) {
+                setOriginalNotes(peerUsers)
+            }
+        }
     }, [notes1])
 
     const handleChange = (e) => {
@@ -27,13 +32,13 @@ export default function Search({ notes1, notes2, setNotes2, setNotes1, unit, ran
                 setNotes1(originalNotes)
             } else {
                 const notes = originalNotes.filter((note) => {
-                    return note.notesContent.toLowerCase().includes(search)
+                    return note.catchPhrase.toLowerCase().includes(search)
                     || note.notesTitle.toLowerCase().includes(search)
                     || note.username.toLowerCase().includes(search)
                 })
 
                 const notes2 = originalNotes2.filter((note) => {
-                    return note.randomNotes.notesContent.toLowerCase().includes(search)
+                    return note.randomNotes.catchPhrase.toLowerCase().includes(search)
                     || note.randomNotes.notesTitle.toLowerCase().includes(search)
                     || note.username.toLowerCase().includes(search)
                 })
@@ -47,17 +52,28 @@ export default function Search({ notes1, notes2, setNotes2, setNotes1, unit, ran
                 setRandomNotes(originalNotes)
             } else {
                 const notes = originalNotes.filter((note) => {
-                    return note.notesContent.toLowerCase().includes(search)
-                    || note.notesTitle.toLowerCase().includes(search)
+                    return note.notesTitle.toLowerCase().includes(search) 
+                    || note.catchPhrase.toLowerCase().includes(search)
                 })
                 setRandomNotes(notes)
+            }
+        }
+
+        if(unit === "peer-users") {
+            if(search === "") {
+                setPeerUsers(originalNotes)
+            } else {
+                const users = originalNotes.filter(note => {
+                    return note.username.toLowerCase().includes(search)
+                })
+                setPeerUsers(users)
             }
         }
         
     }
     return (
         <div className="search">
-            <input type="text" placeholder="Search..." onChange={(e) => handleChange(e)} />
+            <input type="text" placeholder="Search title here..." onChange={(e) => handleChange(e)} />
         </div>
     )
 }

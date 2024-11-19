@@ -2,6 +2,7 @@ import Header from './Header1';
 import Search from './Search';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import React from 'react';
 
 const Socials=()=>{
     const [notes2, setNotes2] = useState([]);
@@ -17,6 +18,18 @@ const Socials=()=>{
     let break2 = [];
     let users = [];
     let projects = [];
+    const colors = [
+        '#FF004F',
+        '#FE0000',
+        '#00B9E8',
+        '#00BFFF',
+        '#99FFFF',
+        '#4B0082',
+        '#000000',
+        '#353839',
+        '#013220',
+        '#01796F'
+    ]
 
     useEffect(() => {
         axios.get('http://localhost:3001/socials', {
@@ -46,6 +59,7 @@ const Socials=()=>{
                 setNotes1(break2);
             }
             if(response.data.randomNotes) {
+                console.log(response.data.randomNotes)
                 setNotes2(response.data.randomNotes);
             }
             setLoading(false);
@@ -123,7 +137,51 @@ const Socials=()=>{
                     showNote ? 
                     <div className='socials-note-main'>
                         <h2>{ note.notesTitle || note.randomNotes.notesTitle }</h2>
-                        <pre> { note.notesContent || note.randomNotes.notesContent } </pre>
+                        <div contentEditable = "false">
+                        {   note.randomNotes &&
+                            note.randomNotes.notesContent.map((item, index) => {
+                            if (item && item.type) {
+                                                                            
+                                const { children, ...props } = item.props || {};
+
+                                const filteredProps = { ...props };
+                                delete filteredProps.contentEditable;
+
+                                let processedChildren = children;
+
+                                if (children && typeof children === 'object') {
+                                    const childProps = { ...children.props };
+                                    delete childProps.contentEditable;
+
+                                    processedChildren = React.createElement(children.type, childProps);
+                                }
+
+                                return React.createElement(item.type, { ...filteredProps, children: processedChildren });
+                            }
+                            return null;
+                        })}
+                        {   note.notesContent &&
+                            note.notesContent.map((item, index) => {
+                            if (item && item.type) {
+                                const { children, ...props } = item.props || {};
+
+                                const filteredProps = { ...props };
+                                delete filteredProps.contentEditable;
+
+                                let processedChildren = children;
+
+                                if (children && typeof children === 'object') {
+                                    const childProps = { ...children.props };
+                                    delete childProps.contentEditable;
+
+                                    processedChildren = React.createElement(children.type, childProps);
+                                }
+
+                                return React.createElement(item.type, { ...filteredProps, children: processedChildren });
+                            }
+                            return null;
+                        })}
+                        </div>
                     </div>
                     :
                     <div className='socials-right-notes'>
@@ -132,15 +190,14 @@ const Socials=()=>{
                         notes1.map((note) => {
                             return (
                                 <div key={note.notesTitle}   className='socials-note'>
+                                    <div className='socials-note-profile'><p style={{backgroundColor: `${colors[Math.floor(Math.random() * (9-0 +1) + 0)]}`}} >{note.username[0].toUpperCase()}</p>  <p>{note.username}</p> <p className='socials-note-date'>{ note.notesDate }</p></div>
                                     <h3 className='socials-note-header'> {note.notesTitle.toUpperCase()} </h3>
-                                    <pre className='socials-note-body'>
-                                        {note.notesContent}
-                                    </pre>
+                                    <div className='socials-note-body'  contentEditable = "false">
+                                        { note.catchPhrase }
+                                    </div>
                                     <div className='socials-note-footer'>
-                                        <div>{note.username} </div>
-                                        <p>{ note.notesDate }</p>
                                         <button onClick={() => handleComments(note)}><i class="fa-regular fa-comment"></i></button>
-                                        <button onClick={() =>{handleClickNote(note); handleComments(note)}} >Read more...</button>
+                                        <button onClick={() =>{handleClickNote(note); handleComments(note)}} >Read post...</button>
                                     </div>
 
                                 </div>
@@ -151,15 +208,14 @@ const Socials=()=>{
                         notes2.map((note) => {
                             return (
                                 <div key={note.randomNotes.notesTitle}  className='socials-note'>
+                                    <div className='socials-note-profile'><p style={{backgroundColor: `${colors[Math.floor(Math.random() * (9-0 +1) + 0)]}`}} >{note.username[0].toUpperCase()}</p>  <p>{note.username}</p> <p className='socials-note-date'>{ note.randomNotes.notesDate }</p></div>
                                     <h3 className='socials-note-header'> {note.randomNotes.notesTitle.toUpperCase()} </h3>
-                                    <pre className='socials-note-body'>
-                                        {note.randomNotes.notesContent}
-                                    </pre>
+                                    <div className='socials-note-body'  contentEditable ="false">
+                                        { note.randomNotes.catchPhrase }
+                                    </div>
                                     <div className='socials-note-footer'>
-                                        <div>{note.username} </div>
-                                        <div>{ note.randomNotes.notesDate }</div>
                                         <button onClick={() => handleComments(note)}><i class="fa-regular fa-comment"></i></button>
-                                        <button onClick={() =>handleClickNote(note)}  >Read more...</button>
+                                        <button onClick={() =>handleClickNote(note)}  >Read post...</button>
                                     </div>
                                 </div>
                             )

@@ -15,6 +15,7 @@
     --color4: #00FFBF;
     --color5: #FFFFFF;
     --color6: #F9F9F9;
+    --color7: #555555;
 }
 .app {
     overflow: hidden;
@@ -245,7 +246,6 @@ button {
 .acc-body .right {
     width: 85vw;
     height: inherit;
-    /* background-color: var(--bgc2); */
 }
 /* Account */
 /* account trials */
@@ -279,7 +279,6 @@ button {
 }
 .nav-project {
     height: inherit;
-    border: 1px solid;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -309,6 +308,12 @@ button {
 .project-form select {
     width: 200px;
     height: 5vh;
+}
+.catch-phrase {
+    height: 80px;
+    width: 350px;
+    border-radius: 10px;
+    padding: 10px;
 }
 .project-form label .input {
     height: inherit;
@@ -462,12 +467,9 @@ button {
     height: 80vh;
 }
 .note-workspace .textarea1 {
-    /* border: none; */
     border-top: 1px solid var(--bgc3);
     height: 70vh;
     width: 100%;
-    /* overflow-y: scroll; */
-    /* font-size: clamp(12px, 1.5vw, 18px); */
     background-color: var(--color6);
     display: flex;
 }
@@ -645,7 +647,6 @@ textarea:focus {
     flex-direction: column;
     gap: 20px;
     padding: 20px;
-    /* border-right: 1px solid var(--bgc3) */
 }
 .add-peers {
     width: 50%;
@@ -735,9 +736,10 @@ textarea:focus {
     background-color: var(--color2);
     border-radius: 10px;
 }
-.review-item-note pre {
-    font-size: clamp(10px, 1.0vw, 18px);
-}
+
+ .review-item-note * {
+    margin-bottom: 10px;
+ }
 .review-item-review {
     height: max-content;
     min-height: 30vh;
@@ -773,6 +775,7 @@ textarea:focus {
     flex-direction: column;
     gap: 10px;
 }
+
 /* peer revs */
 /* account */
 
@@ -898,43 +901,46 @@ textarea:focus {
     justify-content: space-between;
 }
 .socials-note {
-    height: 35vh;
+    height: max-content;
     width: 90%;
     border-radius: 20px;
     background-color: var(--color6);
     border: none;
     text-align: left;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 .socials-note-header {
     height: 5vh;
     display: flex;
     align-items: center;
     padding-left: 10px;
-    font-size: 0.9rem;
+    font-size: 1.25rem;
+    letter-spacing: 1px;
 }
 .socials-note-body {
-    height: 25vh;
+    height: max-content;
     overflow: hidden;
     line-height: 1.3rem;
     padding:0 10px;
-    /* display: flex; */
     width: 100%;
-    /* flex-wrap: wrap; */
-    font-size: clamp(10px, 1vw, 15px);
+    font-size: 1.1rem;
+    color: var(--color7);
 }
+
 .socials-note-footer {
     height: 5vh;
     display: flex;
-    justify-content: space-between;
-    padding: 0 20px;
+    gap: 10px;
+    padding: 0 10px;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
     align-items: center;
 }
 .socials-note-footer * {
-    font-weight: 400;
-    width: 20%;
-    font-size: 0.9rem;
+    color: var(--color7);
 }
 .socials-note-footer *:hover {
     color: #00B9E8;
@@ -960,14 +966,19 @@ textarea:focus {
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     background-color: var(--color5);
-    padding: 20px;
+    padding:0 50px;
     padding-top: 40px;
     border-radius: 10px;
 }
+.socials-note-main * {
+    margin-bottom: 10px;
+}
+.socials-note-main h2 {
+    text-align: center;
+}
 .socials-note-main pre {
-    /* word-wrap: break-word; */
     font-size: clamp(12px, 1.08vw, 18px);
     max-width: 98%;
 }
@@ -991,6 +1002,32 @@ textarea:focus {
 .no-comment {
     text-align: center;
     padding: 20px;
+}
+.socials-note-profile {
+    display: flex;
+    gap: 5px;
+    padding-left: 10px;
+    align-items: center;
+}
+.socials-note-profile p:first-of-type {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color1);
+    font-weight: 500;
+}
+.socials-note-profile p:nth-of-type(2) {
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+}
+.socials-note-date {
+    font-size: 0.9rem;
+    color: var(--color7);
+    padding-left: 10px;
 }
 /* Socials */
 /* search */
