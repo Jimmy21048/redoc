@@ -164,7 +164,7 @@ const Account = () => {
     }
     //fetch data from db
     useEffect(() => {
-        axios.get('http://localhost:3001/account/myaccount', {
+        axios.get(`${process.env.REACT_APP_BACKEND}/account/myaccount`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
                 "Content-Type" : "application/json"
@@ -210,7 +210,7 @@ const Account = () => {
             }
 
 
-            axios.get('http://localhost:3001/account/peers', {
+            axios.get(`${process.env.REACT_APP_BACKEND}/account/peers`, {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
                     "Content-Type" : "application/json"
@@ -228,7 +228,7 @@ const Account = () => {
     },[refresh])
 
     const sendPeerRequest = (user) => {
-        axios.post('http://localhost:3001/account/peerRequest', {user: user}, {
+        axios.post(`${process.env.REACT_APP_BACKEND}/account/peerRequest`, {user: user}, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
                 "Content-Type" : "application/json"
@@ -257,7 +257,7 @@ const Account = () => {
 
     const handleSubmitProject = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:3001/account/newproject', projectData, {
+        axios.post(`${process.env.REACT_APP_BACKEND}/account/newproject`, projectData, {
             headers: {
                 "Content-Type": "application/json",
                 accessToken: localStorage.getItem("accessToken")
@@ -299,7 +299,7 @@ const Account = () => {
     const handleSubmitNote = (e) => {
         e.preventDefault();
 
-        axios.post('http://localhost:3001/account/newnote', notesData, {
+        axios.post(`${process.env.REACT_APP_BACKEND}/account/newnote`, notesData, {
             headers : {
                 "Content-Type" : "application/json",
                 accessToken : localStorage.getItem("accessToken")
@@ -354,7 +354,7 @@ const Account = () => {
             }
         }
         
-        axios.post('http://localhost:3001/account/updatenotes', notes, {
+        axios.post(`${process.env.REACT_APP_BACKEND}/account/updatenotes`, notes, {
             headers : {
                 "Content-Type" : "application/json",
                 accessToken : localStorage.getItem("accessToken")
@@ -399,7 +399,7 @@ const Account = () => {
     }
 
     const handleProjectType = (name, type) => {
-        axios.post('http://localhost:3001/account/projectType', {type: type, name: name}, {
+        axios.post(`${process.env.REACT_APP_BACKEND}/account/projectType`, {type: type, name: name}, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
                 "Content-Type" : "application/json"
@@ -421,7 +421,7 @@ const Account = () => {
     }
 
     const handleAcceptPeer =(peer) => {
-        axios.post('http://localhost:3001/account/acceptPeer', {peer: peer}, {
+        axios.post(`${process.env.REACT_APP_BACKEND}/account/acceptPeer`, {peer: peer}, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
                 "Content-Type" : "application/json"
@@ -437,7 +437,7 @@ const Account = () => {
     }
 
     const handleRejectPeer = (peer) => {
-        axios.post('http://localhost:3001/account/rejectPeer', {peer: peer}, {
+        axios.post(`${process.env.REACT_APP_BACKEND}/account/rejectPeer`, {peer: peer}, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
                 "Content-Type" : "application/json"
@@ -453,7 +453,7 @@ const Account = () => {
     }
 
     const handleCancelPeer = (peer) => {
-        axios.post('http://localhost:3001/account/cancelPeer', {peer: peer}, {
+        axios.post(`${process.env.REACT_APP_BACKEND}/account/cancelPeer`, {peer: peer}, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
                 "Content-Type" : "application/json"
@@ -469,7 +469,7 @@ const Account = () => {
     }
 
     const handleDeleteProject = (name) => {
-        axios.post('http://localhost:3001/account/deleteProject', {name: name}, {
+        axios.post(`${process.env.REACT_APP_BACKEND}/account/deleteProject`, {name: name}, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
                 "Content-Type" : "application/json"
@@ -502,7 +502,7 @@ const Account = () => {
     const handleSubmitReviewRequest = (e) => {
         e.preventDefault()
         
-        axios.post('http://localhost:3001/account/review', reviewData, {
+        axios.post(`${process.env.REACT_APP_BACKEND}/account/review`, reviewData, {
             headers : {
                 "Content-Type" : "application/json",
                 accessToken : localStorage.getItem("accessToken")
@@ -525,7 +525,7 @@ const Account = () => {
 
     const handleReviewFrom = (data) => {
         setReviewUser(data)
-        axios.post('http://localhost:3001/account/reviewItem', data, {
+        axios.post(`${process.env.REACT_APP_BACKEND}/account/reviewItem`, data, {
             headers : {
                 "Content-Type" : "application/json",
                 accessToken : localStorage.getItem("accessToken")
@@ -551,7 +551,7 @@ const Account = () => {
 
     const handleSubmitReviewFeedBack = () => {
 
-        axios.post('http://localhost:3001/account/reviewFeedback', 
+        axios.post(`${process.env.REACT_APP_BACKEND}/account/reviewFeedback`, 
             {...reviewUser, feedback : reviewFeedBack}, {
             headers : {
                 "Content-Type" : "application/json",
@@ -802,7 +802,7 @@ const Account = () => {
                                                     }
                                                     return null;
                                                 })}
-                                                {/* {divs} */}
+                                                 
                                                 {
                                                     showTitleInput && 
                                                     <div style={{ display: 'flex', width: 'max-content', gap: '5px' }}>

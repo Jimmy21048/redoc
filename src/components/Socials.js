@@ -32,7 +32,7 @@ const Socials=()=>{
     ]
 
     useEffect(() => {
-        axios.get('http://localhost:3001/socials', {
+        axios.get(`${process.env.REACT_APP_BACKEND}/socials`, {
             headers : {
                 "Content-Type" : "application/json"
             }
@@ -88,7 +88,7 @@ const Socials=()=>{
             }
         }
 
-        axios.post('http://localhost:3001/socials/comment', data, {
+        axios.post(`${process.env.REACT_APP_BACKEND}/socials/comment`, data, {
             headers : {
                 accessToken : localStorage.getItem("accessToken"),
                 "Content-Type" : "application/json"

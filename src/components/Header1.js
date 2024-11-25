@@ -7,7 +7,7 @@ const Header=()=>{
     const [user, setUser] = useState('');
 
     useEffect(() => {
-        axios.get("http://localhost:3001/sign/auth", {
+        axios.get(`${process.env.REACT_APP_BACKEND}/sign/auth`, {
             headers : {
                 accessToken : localStorage.getItem("accessToken"),
                 "Content-Type" : "application/json"

@@ -35,7 +35,7 @@ const Login = () => {
     const handleSignup = (e) => {
         e.preventDefault();
         
-        axios.post('http://localhost:3001/sign/signup', formData, {
+        axios.post(`${process.env.REACT_APP_BACKEND}/sign/signup`, formData, {
             headers: {
                 "Content-Type": "application/json"
             }
@@ -63,7 +63,7 @@ const Login = () => {
             password: formData.password
         }
 
-        axios.post('http://localhost:3001/sign/login', data, {
+        axios.post(`${process.env.REACT_APP_BACKEND}/sign/login`, data, {
             headers: {
                 "Content-Type": "application/json"
             }
