@@ -36,7 +36,8 @@ const Login = () => {
 
     const handleSignup = (e) => {
         e.preventDefault();
-        
+
+        console.log(`${process.env.REACT_APP_BACKEND}/sign/signup`)
         axios.post(`${process.env.REACT_APP_BACKEND}/sign/signup`, formData, {
             headers: {
                 "Content-Type": "application/json"
