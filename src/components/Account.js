@@ -5,6 +5,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { AuthContext } from '../helpers/AuthContext';
 import { useContext } from 'react';
 import React from 'react';
+import Loading from './Loading';
 
 const Account = () => {
     const { authState, setAuthState } = useContext(AuthContext)
@@ -57,8 +58,6 @@ const Account = () => {
     const [reviewer, setReviewer] = useState({})
     const disabledRef = useRef(null)
     const [isDisabled, setIsDisabled] = useState(true)
-
-    //test begins here
     const [showTitleInput, setShowTitleInput] = useState(false)
     const [title, setTitle] = useState('')
     const [divs, setDivs] = useState([])
@@ -67,6 +66,7 @@ const Account = () => {
     const [showCode, setShowCode] = useState(false)
     const [codeArea, setCodeArea] = useState('')
     const imageRef = useRef(null)
+    const [loading, setLoading] = useState(true)
 
     //title
     const handleAddDiv = () => {
@@ -170,6 +170,7 @@ const Account = () => {
                 "Content-Type" : "application/json"
             }
         }).then(response => {
+            setLoading(false)
             if(response.data.error) {
                 setAuthState(false);
                 history('/login');
@@ -593,6 +594,10 @@ const Account = () => {
         setCurrentNote({...currentNote, note: { ...currentNote.note, notesContent : e.target.value}}); 
         setNotesText(e.target.value);
         setIsDisabled(false)
+    }
+
+    if(loading) {
+        return <Loading />
     }
 
     return (

@@ -3,6 +3,7 @@ import Search from './Search';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import React from 'react';
+import Loading from './Loading';
 
 const Socials=()=>{
     const [notes2, setNotes2] = useState([]);
@@ -126,7 +127,7 @@ const Socials=()=>{
     }
 
     if(loading) {
-        return <div>Loading...</div>
+        return <Loading />
     }
     return(
         <div className='socials'>

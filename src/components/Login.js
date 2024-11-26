@@ -3,6 +3,7 @@ import Header from "./Header1";
 import ShowPassword from "./showpassword.m";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import Loading from './Loading'
 
 const Login = () => {
     const [login, setLogin] = useState(true);
@@ -31,6 +32,7 @@ const Login = () => {
             password: ''
         })
     }
+    const [loading, setLoading] = useState(false)
 
     const handleSignup = (e) => {
         e.preventDefault();
@@ -39,7 +41,8 @@ const Login = () => {
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then(response => {
+        }, setLoading(true)).then(response => {
+            setLoading(false)
             setResponseData(response.data);
             setTimeout(() => {
                 setResponseData('');
@@ -67,7 +70,8 @@ const Login = () => {
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then(response => {
+        }, setLoading(true)).then(response => {
+            setLoading(false)
             if(response.data.token) {
                 localStorage.setItem("accessToken", response.data.token);
                 history('/account');
@@ -77,6 +81,10 @@ const Login = () => {
                 setResponseData('');
             }, 5000);
         })
+    }
+
+    if(loading) {
+        return <Loading />
     }
     return (
         <div className="login">

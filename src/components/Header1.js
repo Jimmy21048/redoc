@@ -13,6 +13,7 @@ const Header=()=>{
                 "Content-Type" : "application/json"
             }
         }).then((response) => {
+            console.log("Done")
             if(response.data.user) {
                 setAuthState(true)
             }
