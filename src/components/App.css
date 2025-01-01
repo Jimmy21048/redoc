@@ -1452,6 +1452,33 @@ textarea:focus {
     max-width: 100%;
 }
 /* peer revs */
+/* socials */
+.socials-body {
+    /* overflow-y: scroll; */
+    /* flex-direction: column; */
+    /* justify-content: space-around; */
+    /* align-items: center; */
+    /* height: max-content; */
+}
+.socials-right {
+    width: 100vw;
+    height: 90vh;
+}
+.socials-right-notes {
+    width: 100vw;
+    height: max-content;
+    gap: 25px;
+    padding: 20px 0;
+    align-items: center;
+    justify-content: space-around;
+    overflow-y: auto;
+    padding-bottom: 20px;
+}
+.socials-right-comments {
+    width: 100vw;
+    height: 50vh;
+    display: none;
+}
 }
 
 @media screen and (max-width: 500px) {
