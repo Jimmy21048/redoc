@@ -133,6 +133,8 @@ const Socials=()=>{
         <div className='socials'>
             <Header/>
             <div className='socials-body'>
+            <label htmlFor='menu' className='menu-label'>reviews</label>
+            <input type='checkbox' id='menu' />
                 <div className='socials-right'>
                 {
                     showNote ? 
@@ -232,6 +234,7 @@ const Socials=()=>{
                             showNote ?
                             <div className='socials-nav-notes'>
                                 <h3>Author : { note.username }</h3>
+                                <label htmlFor='menu'>X</label>
                                 { note.projectName ? <h3>Project : {note.projectName} </h3>: '' }
                                 <button onClick={() => setShowNote(false)}>Back</button>
                             </div>
@@ -239,7 +242,7 @@ const Socials=()=>{
                         }
                         
                     </nav>
-                    <h3>Reviews</h3>
+                    <h3 className='rev-h3'>Reviews</h3>
                     <div className='comments-body'>
                     {
                         comment ? 
