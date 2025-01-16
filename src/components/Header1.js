@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../helpers/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-const Header=()=>{
+const Header=({showNote, setShowNote})=>{
     const { authState, setAuthState } = useContext(AuthContext)
     const [user, setUser] = useState('');
 
@@ -13,7 +13,6 @@ const Header=()=>{
                 "Content-Type" : "application/json"
             }
         }).then((response) => {
-            console.log("Done")
             if(response.data.user) {
                 setAuthState(true)
             }
@@ -22,7 +21,11 @@ const Header=()=>{
     },[])
     return (
         <div className="top">
-            <Link to={'/'}><img className="logo" src='./images/redoc1.png'  alt='logo' /></Link>
+            {
+                showNote ? <i onClick={() => setShowNote(false)} className="fa-solid fa-arrow-left"></i> :
+                <Link to={'/'}><img className="logo" src='./images/redoc1.png'  alt='logo' /></Link>
+            }
+            
         {
             authState ? 
             <Link className="login-link" to={'/account'}> {user} </Link>

@@ -1154,6 +1154,12 @@ textarea:focus {
     font-size: 1.05rem;
     font-weight: 600;
 }
+#menu {
+    display: none;
+}
+.menu-label {
+    display: none;
+}
 
 /* scrollbar */
 ::-webkit-scrollbar {
@@ -1508,10 +1514,12 @@ textarea:focus {
 .socials-nav-notes button {
     display: none;
 }
-#menu {
-    display: none;
+.main-btn {
+    width: 150px;
+    height: 7vh;
 }
 .menu-label {
+    display: initial;
     position: absolute;
     right: 20px;
     margin-top: 10px;

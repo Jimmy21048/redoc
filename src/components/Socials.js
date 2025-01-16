@@ -131,9 +131,9 @@ const Socials=()=>{
     }
     return(
         <div className='socials'>
-            <Header/>
+            <Header {...{showNote, setShowNote}} />
             <div className='socials-body'>
-            <label htmlFor='menu' className='menu-label'>reviews</label>
+            { showNote && <label htmlFor='menu' className='menu-label'>reviews</label> }
             <input type='checkbox' id='menu' />
                 <div className='socials-right'>
                 {
@@ -234,7 +234,7 @@ const Socials=()=>{
                             showNote ?
                             <div className='socials-nav-notes'>
                                 <h3>Author : { note.username }</h3>
-                                <label htmlFor='menu'>X</label>
+                                <label htmlFor='menu' className='menu-label'>X</label>
                                 { note.projectName ? <h3>Project : {note.projectName} </h3>: '' }
                                 <button onClick={() => setShowNote(false)}>Back</button>
                             </div>
