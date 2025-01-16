@@ -24,8 +24,8 @@ const Main = () => {
                             project tracking -both individual and Collaborative, peer reviews, global interactions, sharing information to secure data storage,
                             Redoc is your best option.
                         </p>
-                        <p className="device-small">This site lets you blah blah blah blah blah blah. Collaborative research has long been an essential aspect of scientific advancement.
-                        Traditionally, collaboration took place through direct</p>
+                        <p className="device-small">A research and project management tool that caters for all your needs, all in one place. From 
+                        project tracking -both individual and Collaborative, peer reviews, to global interactions</p>
                     </div>
 
                     <Link to="/socials" className="main-btn">EXPLORE</Link>
