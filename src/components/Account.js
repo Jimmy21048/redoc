@@ -67,17 +67,13 @@ const Account = () => {
     const [codeArea, setCodeArea] = useState('')
     const imageRef = useRef(null)
     const [loading, setLoading] = useState(true)
+    const[inputData, setInputData] = useState([])
+    const[inputTrigger, setInputTrigger] = useState(false)
 
     //title
     const handleAddDiv = () => {
-        const newDiv = (
-            <div style={{ display: "flex", width: 'max-content' }}>
-                <h3 contentEditable style={{ width: 'max-content' }}>
-                    {title}
-                </h3>
-            </div>
-        )
-        setDivs([...divs, newDiv])
+        const tempArray = [title, 'title']
+        setInputData(prev => [...prev, tempArray])
         setTitle('')
         setShowTitleInput(false)
     }
@@ -91,9 +87,9 @@ const Account = () => {
 
     //area
     const handleAddContent = () => {
-        const newDiv = <div contentEditable= {true} dangerouslySetInnerHTML={{ __html: (contentArea || "").replace(/\n/g, '<br />') }} style={{ maxWidth: "700px", fontSize: '1.1rem' }} />
-        
-        setDivs([...divs, newDiv])
+        const tempArray = [contentArea, 'content']
+        setInputData(prev => [...prev, tempArray])
+
         setContentArea('')
         setShowTextArea(false)
     }
@@ -107,29 +103,13 @@ const Account = () => {
 
     //code
     const handleCode = () => {
-        const newDiv = <div
-        style={{
-            borderLeft: '5px solid gray',
-            padding: '15px',
-            backgroundColor: '#F5F5F5',
-            maxWidth: '500px',
-            height: 'max-content',
-        }}
-        contentEditable={true}
-    >
-        <code
-            style={{
-                whiteSpace: 'pre-wrap',
-                wordBreak: 'break-word',
-            }}
-        >
-            {(codeArea || "").replace(/\n/g, '\n')}
-        </code>
-    </div>
-        setDivs([...divs, newDiv])
+        const tempArray = [codeArea, 'code']
+        setInputData(prev => [...prev, tempArray])
+
         setCodeArea('')
         setShowCode(false)
     }
+
     const handleCodeInput = (e) => {
         const input = e.target
 
@@ -154,14 +134,51 @@ const Account = () => {
                         <img src={event.target.result} style={{ maxWidth: '500px', maxHeight: '500px', objectFit: 'contain' }} />
                     </div>
                 )
-                setDivs(prevDivs => [...prevDivs, newImageDiv])
                 event.target.value = ''
             }
             reader.readAsDataURL(file)
         }
-        
-
     }
+
+    //new
+    const handleChangeNoteItem = (e, index) => {
+
+        const tempArray = inputData
+        tempArray[index][0] = e.target.textContent
+
+        setInputData(tempArray)
+    }
+
+    const handleMoveItemUp = (index) => {
+        const tempArray = inputData
+        const itemClicked = tempArray[index]
+        const itemToSwap = index-1 > -1 ? tempArray[index-1] : tempArray[index]
+
+        if(index - 1 > -1){
+            tempArray[index -1] = itemClicked
+            tempArray[index] = itemToSwap
+        }
+            setInputData(tempArray) 
+            setInputTrigger(!inputTrigger)
+    }
+
+    const handleMoveItemDown = (index) => {
+        const tempArray = inputData
+        const itemClicked = tempArray[index]
+        const itemToSwap = index+1 < tempArray.length ? tempArray[index+ 1] : tempArray[index]
+
+        if(index+1 < tempArray.length){
+            tempArray[index + 1] = itemClicked
+            tempArray[index] = itemToSwap
+        }
+            setInputData(tempArray) 
+            setInputTrigger(!inputTrigger)
+    }
+    useEffect(() => {
+        setInputData(prev => prev)
+    }, [inputTrigger])
+
+
     //fetch data from db
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BACKEND}/account/myaccount`, {
@@ -344,14 +361,14 @@ const Account = () => {
             notes = {
                 project : data.noteProject.projectName,
                 notes : data.note.notesTitle,
-                data : divs
+                data : inputData
             }
         }
         else if(data.note) {
             notes = {
                 project : '',
                 notes : data.note.notesTitle,
-                data : divs
+                data : inputData
             }
         }
         
@@ -375,7 +392,8 @@ const Account = () => {
     }
 
     const handleOpenNote = (project, note)  => {
-        setDivs(note.notesContent)
+        // setDivs(note.notesContent)
+        setInputData(note.notesContent)
         if(project) {
             
             setCurrentNote({
@@ -718,10 +736,10 @@ const Account = () => {
                                         <i className="fa-solid fa-file-lines"></i>
                                         <p>NOTES</p>
                                     </button>
-                                    <button className='piece'>
+                                    {/* <button className='piece'>
                                         <i className="fa-solid fa-paperclip"></i>
                                         <p>UPLOAD FILE</p>
-                                    </button>
+                                    </button> */}
                                 </div>
                             }
                         </>
@@ -790,23 +808,26 @@ const Account = () => {
                                         <div className='textarea1'>
                                             <div id='hero'>
                                                 <input type='file' onChange={handleChangeImage} ref={imageRef} style={{display: 'none'}} />
-                                                {divs.map((item, index) => {
-                                                    if (item && item.type) {
-                                                                            
-                                                        const { children, ...props } = item.props || {};
-
-                                                        let processedChildren = children;
-
-                                                        if (children && typeof children === 'object') {
-                                                            processedChildren = React.createElement(children.type, children.props);
-                                                        }
-
-                                                        const mergedProps = { ...props, children: processedChildren };
-
-                                                        return React.createElement(item.type, mergedProps);
-                                                    }
-                                                    return null;
-                                                })}
+                                                {
+                                                    inputData.map((item, index) => {
+                                                        return (
+                                                            <div className='ed-div'  key={index}>
+                                                            {
+                                                                item[1] === 'title' ? 
+                                                                <h2 className='ed-item' contentEditable suppressContentEditableWarning onInput={(e) => handleChangeNoteItem(e, index)} >{ item[0] }</h2> : 
+                                                                item[1] === 'content' ? 
+                                                                <p className='ed-item' contentEditable suppressContentEditableWarning onInput={(e) => handleChangeNoteItem(e, index)} >{ item[0] }</p> : 
+                                                                item[1] === 'code' && 
+                                                                <code className='ed-item' contentEditable suppressContentEditableWarning onInput={(e) => handleChangeNoteItem(e, index)}>{ item[0] }</code>
+                                                            }
+                                                            <div className='ed-btns'>
+                                                                <i className="fa-solid fa-arrow-up" onClick={() => handleMoveItemUp(index)}></i>
+                                                                <i className="fa-solid fa-arrow-down" onClick={() => handleMoveItemDown(index)}></i>
+                                                            </div>
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
                                                  
                                                 {
                                                     showTitleInput && 
@@ -831,7 +852,9 @@ const Account = () => {
                                                 {
                                                     showTextArea &&
                                                     <div style={{ height: 'max-content', display: 'flex', gap: '10px', flexDirection: 'column' }}>
+
                                                         <textarea  onChange={(e) => handleAreaInput(e)} placeholder='Enter text here...' style={{ fontSize: '1.1rem', padding: '8px', width: '650px', backgroundColor: '#F0F8FF', border: 'none', borderBottom: '1px solid #C0C0C0' }} />
+
                                                         <button onClick={handleAddContent} className='r-btn'  style={{ width: '120px', height: '5vh', padding: '0 10px' }}>
                                                             ADD TEXT
                                                         </button>
@@ -840,7 +863,9 @@ const Account = () => {
                                                 {
                                                     showCode &&
                                                     <div style={{ height: 'max-content', display: 'flex', gap: '10px', flexDirection: 'column'  }}>
+
                                                         <textarea placeholder='Type code here...' onChange={(e) => handleCodeInput(e)} style={{ padding: '10px', width: '400px', backgroundColor: '#F0F8FF', border: 'none', borderBottom: '1px solid #C0C0C0' }} />
+
                                                         <button className='r-btn' onClick={handleCode} style={{ width: '100px', height: '5vh' }}>ADD CODE</button>
                                                     </div>
                                                 }

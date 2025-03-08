@@ -485,6 +485,27 @@ button {
 #hero div {
     margin-bottom: 20px;
 }
+.ed-div {
+    display: flex;
+    flex-direction: column;
+}
+.ed-btns {
+    /* border: 1px solid; */
+    height: 5vh;
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    justify-content: space-around;
+    width: 130px;
+    border-radius: 10px;
+    background-color: #FFFFE0;
+}
+.ed-item {
+    min-height: 5vh;
+}
+.ed-btns .fa-solid {
+    font-size: 20px;
+}
 .hero-btns {
     width: 20%;
     display: flex;
