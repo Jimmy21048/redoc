@@ -1191,7 +1191,7 @@ textarea:focus {
         display: none;
     }
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1050px) {
     .body {
         flex-direction: column;
     }
@@ -1280,9 +1280,11 @@ textarea:focus {
     }
     .acc-header {
         padding: 0 10px;
+        display: none;
     }
     .acc-body {
         flex-direction: column;
+        height: 100vh;
     }
     .acc-body .left {
         width: 100vw;
@@ -1307,7 +1309,7 @@ textarea:focus {
     }
     .acc-body .right {
         width: 100vw;
-        height: 75vh;
+        height: 90vh;
     }
     /* Account */
     /* account trials */
@@ -1343,7 +1345,7 @@ textarea:focus {
     }
     /*  */
 .nav-content {
-    height: 82vh;
+    height: 90vh;
     overflow-x: hidden;
 }
 .nav-content h2 {
@@ -1360,7 +1362,7 @@ textarea:focus {
     padding: 0 5px;
 }
 .note-header {
-    height: 8vh;
+    height: 5vh;
     padding: 0 5px;
 }
 .note-header h3 {
@@ -1368,7 +1370,7 @@ textarea:focus {
     font-weight: 500;
 }
 .note-workspace {
-    height: 70vh;
+    height: 85vh;
 }
 .note-workspace textarea {
     height: 60vh;
@@ -1378,6 +1380,10 @@ textarea:focus {
 .note-workspace .note-footer {
     height: 10vh;
     padding: 0 10px;
+}
+#hero {
+    padding: 5px;
+    width: 100%;
 }
 .project-notes {
     padding: 10px;
@@ -1405,24 +1411,28 @@ textarea:focus {
 .note-workspace .textarea1 {
     position: relative;
     max-width: 100vw;
+    flex-direction: column-reverse;
+    height: 75vh;
 }
 #hero div {
-    max-width: 90vw;
+    max-width: 95vw !important;
 }
 #hero div textarea{
-    max-width: 90vw;
+    max-width: 95vw !important;
 }
 .hero-btns {
-    width: 400px;
-    max-width: 95vw;
+    width: 100vw;
+    /* max-width: 95vw; */
     height: 10vh;
     flex-direction: row;
-    justify-content: space-between;
-    position: absolute;
+    justify-content: space-around;
+    /* position: absolute; */
     bottom: 0px;
+    padding: 0 10px;
 }
 .hero-btns button {
     height: 5vh;
+    width: 90px;
 }
 /* account trials */
     /* account trials */

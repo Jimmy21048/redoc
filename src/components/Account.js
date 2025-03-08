@@ -604,7 +604,7 @@ const Account = () => {
         <div className="account" >
             <header className="acc-header">
             <Link to={'/'}><img className='logo' src='./images/redoc1.png'  alt='logo' /></Link>
-                <i class="fa-solid fa-bars"></i>
+                <i className="fa-solid fa-bars"></i>
             </header>
             <div className="acc-body">
                 <div className="left">
@@ -614,13 +614,13 @@ const Account = () => {
                         <br/>
                         <button className='nav-btn btn-sp'  onClick={()=>setCurrentPage('new-work')}>
                             <p>New</p>
-                            <i class="fa-solid fa-plus"></i>
+                            <i className="fa-solid fa-plus"></i>
                         </button>
-                        <button className='nav-btn'  onClick={()=>handleCurrentPage('my-works')} ><i class="fa-solid fa-briefcase"></i> <p>My Projects</p> </button>
-                        <button className='nav-btn'  onClick={()=>{setCurrentPage('my-works');setRandoms(true); setOpenNote(false); setOpenProject(false ); setIsDisabled(true)}} ><i class="fa-regular fa-file-lines"></i> <p>Notes</p> </button>
-                        <button className='nav-btn'  onClick={()=>handleCurrentPage('peer-review')}><i class="fa-solid fa-people-arrows"></i> <p>Peer Review</p> </button>
+                        <button className='nav-btn'  onClick={()=>handleCurrentPage('my-works')} ><i className="fa-solid fa-briefcase"></i> <p>My Projects</p> </button>
+                        <button className='nav-btn'  onClick={()=>{setCurrentPage('my-works');setRandoms(true); setOpenNote(false); setOpenProject(false ); setIsDisabled(true)}} ><i className="fa-regular fa-file-lines"></i> <p>Notes</p> </button>
+                        <button className='nav-btn'  onClick={()=>handleCurrentPage('peer-review')}><i className="fa-solid fa-people-arrows"></i> <p>Peer Review</p> </button>
                         <Link to={'/socials'} className='nav-btn'  onClick={()=>handleCurrentPage('socials')}><i class="fa-solid fa-people-group"></i> <p>Socials</p> </Link>
-                        <button className='nav-btn'  onClick={logout}><i class="fa-solid fa-share-from-square"></i> <p>Log out</p> </button>
+                        <button className='nav-btn'  onClick={logout}><i className="fa-solid fa-share-from-square"></i> <p>Log out</p> </button>
                     </nav>
                 </div>
                 <div className="right">
@@ -711,15 +711,15 @@ const Account = () => {
                                 :
                                 <div className='nav-content content1'>
                                     <button className='piece piece1' onClick={() => setNewProject(true)}>
-                                        <i class="fa-solid fa-plus"></i>
+                                        <i className="fa-solid fa-plus"></i>
                                         <p>NEW PROJECT</p>
                                     </button>
                                     <button className='piece' onClick={() => {setNewNote(true); setDivs([])}}>
-                                        <i class="fa-solid fa-file-lines"></i>
+                                        <i className="fa-solid fa-file-lines"></i>
                                         <p>NOTES</p>
                                     </button>
                                     <button className='piece'>
-                                        <i class="fa-solid fa-paperclip"></i>
+                                        <i className="fa-solid fa-paperclip"></i>
                                         <p>UPLOAD FILE</p>
                                     </button>
                                 </div>
@@ -846,9 +846,9 @@ const Account = () => {
                                                 }
                                             </div>
                                             <div className='hero-btns'>
+                                                <button onClick={() => setShowTextArea(prev => !prev)} id="normal">normal text</button>
                                                 <button onClick={() => setShowTitleInput(prev => !prev)} id="title">Title</button>
                                                 <button onClick={handleImage} id="image">image</button>
-                                                <button onClick={() => setShowTextArea(prev => !prev)} id="normal">normal text</button>
                                                 <button onClick={() => setShowCode(prev => !prev)} id="code">code</button>
                                             </div>
                                         </div>

@@ -60,7 +60,6 @@ const Socials=()=>{
                 setNotes1(break2);
             }
             if(response.data.randomNotes) {
-                console.log(response.data.randomNotes)
                 setNotes2(response.data.randomNotes);
             }
             setLoading(false);
