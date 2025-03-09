@@ -125,6 +125,7 @@ const Socials=()=>{
         setShowNote(true)
     }
 
+
     if(loading) {
         return <Loading />
     }
@@ -139,49 +140,34 @@ const Socials=()=>{
                     showNote ? 
                     <div className='socials-note-main'>
                         <h2>{ note.notesTitle || note.randomNotes.notesTitle }</h2>
-                        <div contentEditable = "false">
+                        <div>
                         {   note.randomNotes &&
                             note.randomNotes.notesContent.map((item, index) => {
-                            if (item && item.type) {
-                                                                            
-                                const { children, ...props } = item.props || {};
-
-                                const filteredProps = { ...props };
-                                delete filteredProps.contentEditable;
-
-                                let processedChildren = children;
-
-                                if (children && typeof children === 'object') {
-                                    const childProps = { ...children.props };
-                                    delete childProps.contentEditable;
-
-                                    processedChildren = React.createElement(children.type, childProps);
-                                }
-
-                                return React.createElement(item.type, { ...filteredProps, children: processedChildren });
-                            }
-                            return null;
+                                return <div>
+                                    {
+                                        item[1] === 'title' ? 
+                                        <p className='text-title'>{ item[0] }</p> : 
+                                        item[1] === 'content' ? 
+                                        <p className='text-paragraph'>{ item[0] }</p> : 
+                                        item[1] === 'code' && 
+                                        <p className='text-code'>{ item[0] }</p>
+                                    }
+                                </div>
                         })}
                         {   note.notesContent &&
                             note.notesContent.map((item, index) => {
-                            if (item && item.type) {
-                                const { children, ...props } = item.props || {};
-
-                                const filteredProps = { ...props };
-                                delete filteredProps.contentEditable;
-
-                                let processedChildren = children;
-
-                                if (children && typeof children === 'object') {
-                                    const childProps = { ...children.props };
-                                    delete childProps.contentEditable;
-
-                                    processedChildren = React.createElement(children.type, childProps);
-                                }
-
-                                return React.createElement(item.type, { ...filteredProps, children: processedChildren });
-                            }
-                            return null;
+                                return <>
+                                    {
+                                        item[1] === 'title' ? 
+                                        <p className='text-title'>{ item[0] }</p> : 
+                                        item[1] === 'content' ? 
+                                        <p className='text-paragraph'>{ item[0] }</p> : 
+                                        item[1] === 'code' ?
+                                        <p className='text-code'>{ item[0] }</p> : 
+                                        item[1] === 'image' && 
+                                        <img src={item[0]} className='ed-image' alt='image-item' />
+                                    }
+                                </>
                         })}
                         </div>
                     </div>

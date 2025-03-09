@@ -135,16 +135,18 @@ const Account = () => {
                     </div>
                 )
                 event.target.value = ''
+                const tempArray = [event.target.result, 'image']
+                setInputData(prev => [...prev, tempArray])
             }
             reader.readAsDataURL(file)
+            
         }
     }
 
     //new
     const handleChangeNoteItem = (e, index) => {
-
         const tempArray = inputData
-        tempArray[index][0] = e.target.textContent
+        tempArray[index][0] = e.target.innerHTML
 
         setInputData(tempArray)
     }
@@ -331,6 +333,7 @@ const Account = () => {
             }
             if(response.data.success) {
                 //check type of note
+                setInputData([])
                 if(response.data.myNotes.project) {
                     setCurrentNote({
                         noteProject : response.data.myNotes.project,
@@ -378,6 +381,7 @@ const Account = () => {
                 accessToken : localStorage.getItem("accessToken")
             }
         }).then((response) => {
+            console.log(response)
             setRefresh(prev => !prev)
             if(response.data.error) {
                 setAuthState(false)
@@ -392,7 +396,6 @@ const Account = () => {
     }
 
     const handleOpenNote = (project, note)  => {
-        // setDivs(note.notesContent)
         setInputData(note.notesContent)
         if(project) {
             
@@ -736,10 +739,6 @@ const Account = () => {
                                         <i className="fa-solid fa-file-lines"></i>
                                         <p>NOTES</p>
                                     </button>
-                                    {/* <button className='piece'>
-                                        <i className="fa-solid fa-paperclip"></i>
-                                        <p>UPLOAD FILE</p>
-                                    </button> */}
                                 </div>
                             }
                         </>
@@ -814,11 +813,21 @@ const Account = () => {
                                                             <div className='ed-div'  key={index}>
                                                             {
                                                                 item[1] === 'title' ? 
-                                                                <h2 className='ed-item' contentEditable suppressContentEditableWarning onInput={(e) => handleChangeNoteItem(e, index)} >{ item[0] }</h2> : 
+                                                                <h2 className='ed-item' contentEditable 
+                                                                
+                                                                suppressContentEditableWarning onInput={(e) => handleChangeNoteItem(e, index)} >{ item[0] }</h2> : 
+
                                                                 item[1] === 'content' ? 
-                                                                <p className='ed-item' contentEditable suppressContentEditableWarning onInput={(e) => handleChangeNoteItem(e, index)} >{ item[0] }</p> : 
-                                                                item[1] === 'code' && 
-                                                                <code className='ed-item' contentEditable suppressContentEditableWarning onInput={(e) => handleChangeNoteItem(e, index)}>{ item[0] }</code>
+                                                                <p className='ed-item' contentEditable 
+                                                                
+                                                                suppressContentEditableWarning onInput={(e) => handleChangeNoteItem(e, index)} >{ item[0] }</p> :
+
+                                                                item[1] === 'code' ?
+                                                                <code className='ed-item' contentEditable 
+                                                                suppressContentEditableWarning onInput={(e) => handleChangeNoteItem(e, index)}>{ item[0] }</code> :
+
+                                                                item[1] === 'image' && 
+                                                                <img className='ed-image' src={item[0]} />
                                                             }
                                                             <div className='ed-btns'>
                                                                 <i className="fa-solid fa-arrow-up" onClick={() => handleMoveItemUp(index)}></i>
