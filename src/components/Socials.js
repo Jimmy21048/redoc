@@ -177,7 +177,7 @@ const Socials=()=>{
                     {
                         notes1.map((note) => {
                             return (
-                                <div key={note.notesTitle}   className='socials-note'>
+                                <div key={note.notesTitle}  onClick={() =>{handleClickNote(note); handleComments(note)}}  className='socials-note'>
                                     <div className='socials-note-profile'><p style={{backgroundColor: `${colors[Math.floor(Math.random() * (9-0 +1) + 0)]}`}} >{note.username[0].toUpperCase()}</p>  <p>{note.username}</p> <p className='socials-note-date'>{ note.notesDate }</p></div>
                                     <h3 className='socials-note-header'> {note.notesTitle.toUpperCase()} </h3>
                                     <div className='socials-note-body'  contentEditable = "false">
@@ -195,7 +195,7 @@ const Socials=()=>{
                                     {
                         notes2.map((note) => {
                             return (
-                                <div key={note.randomNotes.notesTitle}  className='socials-note'>
+                                <div key={note.randomNotes.notesTitle}  onClick={() =>handleClickNote(note)}  className='socials-note'>
                                     <div className='socials-note-profile'><p style={{backgroundColor: `${colors[Math.floor(Math.random() * (9-0 +1) + 0)]}`}} >{note.username[0].toUpperCase()}</p>  <p>{note.username}</p> <p className='socials-note-date'>{ note.randomNotes.notesDate }</p></div>
                                     <h3 className='socials-note-header'> {note.randomNotes.notesTitle.toUpperCase()} </h3>
                                     <div className='socials-note-body'  contentEditable ="false">

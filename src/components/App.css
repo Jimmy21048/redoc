@@ -352,7 +352,8 @@ button {
     text-align: left;
     min-height: 5vh;
     padding: 5px;
-    color: var(--bgc3)
+    color: var(--bgc3);
+    font-size: 1rem;
 }
 .content2 {
     height: max-content;
@@ -493,12 +494,18 @@ button {
     /* border: 1px solid; */
     height: 5vh;
     display: flex;
-    gap: 50px;
+    /* gap: 50px; */
     align-items: center;
     justify-content: space-around;
-    width: 130px;
+    width: 150px;
     border: 1px solid #C2C4C4;
     border-top: 0;
+}
+.fa-arrow-up, .fa-arrow-down {
+    color: #00B9E8;
+}
+.fa-trash {
+    color: rgb(238, 36, 36);
 }
 .ed-item {
     min-height: 5vh;
@@ -942,6 +949,10 @@ textarea:focus {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    cursor: pointer;
+}
+.socials-note:hover {
+    background-color: rgb(216, 216, 216);
 }
 .socials-note-header {
     height: 5vh;
@@ -1002,6 +1013,12 @@ textarea:focus {
     padding:0 50px;
     padding-top: 40px;
     border-radius: 10px;
+    font-family: "Lora", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.1rem;
+    letter-spacing: 0.8px;
 }
 .socials-note-main * {
     margin-bottom: 10px;

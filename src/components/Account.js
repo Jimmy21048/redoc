@@ -176,6 +176,13 @@ const Account = () => {
             setInputData(tempArray) 
             setInputTrigger(!inputTrigger)
     }
+
+    const handleDeleteNoteItem = (index) => {
+        const tempArray = inputData
+        tempArray.splice(index, 1)
+        setInputData(tempArray)
+        setInputTrigger(!inputTrigger)
+    }
     useEffect(() => {
         setInputData(prev => prev)
     }, [inputTrigger])
@@ -832,6 +839,7 @@ const Account = () => {
                                                             <div className='ed-btns'>
                                                                 <i className="fa-solid fa-arrow-up" onClick={() => handleMoveItemUp(index)}></i>
                                                                 <i className="fa-solid fa-arrow-down" onClick={() => handleMoveItemDown(index)}></i>
+                                                                <i class="fa-solid fa-trash" onClick={() => handleDeleteNoteItem(index)} ></i>
                                                             </div>
                                                             </div>
                                                         )
