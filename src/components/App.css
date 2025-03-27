@@ -1008,7 +1008,7 @@ textarea:focus {
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     background-color: var(--color5);
     padding:0 50px;
     padding-top: 40px;
@@ -1031,6 +1031,7 @@ textarea:focus {
     font-size: 1.4rem;
     font-weight: 500;
     white-space: pre-wrap;
+    margin:20px 0;
 }
 .text-paragraph {
     padding-left: 5px;
@@ -1252,6 +1253,9 @@ textarea:focus {
 /* login */
 @media screen and (max-width: 1150px) {
     #nav-bar h3, #nav-bar h4, #nav-bar br {
+        display: none;
+    }
+    ::-webkit-scrollbar {
         display: none;
     }
 }
