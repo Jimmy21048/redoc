@@ -670,6 +670,7 @@ const Account = () => {
                                             <select name='projectField' onChange={handleChange} >
                                                 <option value={''} >Field</option>
                                                 <option value={'Science'}>Science</option>
+                                                <option value={'Entertainment'}>Entertainment</option>
                                                 <option value={'Medicine'}>Medicine</option>
                                                 <option value={'engineering'}>Engineering</option>
                                                 <option value={'education'}>Education</option>
