@@ -39,7 +39,6 @@ const Socials=()=>{
             }
         }).then(response => {
             if(response.data.notes) {
-                // console.log(response)
                 for(let i = 0; i < response.data.notes.length; i++) {
                     if(response.data.notes[i].projects.notes) {
                         users.push(response.data.notes[i].username)
@@ -47,7 +46,6 @@ const Socials=()=>{
                         break1.push(response.data.notes[i].projects.notes)    
                     }
                 }
-                // console.log(break1, users)
                 if(break1.length > 0) {
                     for(let j = 0; j < break1.length; j++) {
                         for(let k = 0; k < break1[j].length; k++) {

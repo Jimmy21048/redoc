@@ -18,14 +18,11 @@ const Main = () => {
 
                 <div className="right">
                     <div>
-                        <span className='redoc-title'><h1>Your research projects </h1> <h1>made easier</h1></span>
+                        <span className='redoc-title'><h1>Write, Share, and</h1> <h1>Discover Ideas</h1></span>
                         <p className="device-large">
-                            A research and project management tool that caters for all your needs, all in one place. From 
-                            project tracking -both individual and Collaborative, peer reviews, global interactions, sharing information to secure data storage,
-                            Redoc is your best option.
+                        Express Your Thoughts, Share Your Knowledge, and Inspire the World - A Platform Where Every Article Finds Its Audience
                         </p>
-                        <p className="device-small">A research and project management tool that caters for all your needs, all in one place. From 
-                        project tracking -both individual and Collaborative, peer reviews, to global interactions</p>
+                        <p className="device-small">Express Your Thoughts, Share Your Knowledge, and Inspire the World - A Platform Where Every Article Finds Its Audience</p>
                     </div>
 
                     <Link to="/socials" className="main-btn">EXPLORE</Link>
