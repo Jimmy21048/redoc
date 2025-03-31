@@ -630,12 +630,11 @@ const Account = () => {
         setIsDisabled(false)
     }
 
-    if(loading) {
-        return <Loading />
-    }
-
     return (
         <div className="account" >
+        {
+            loading && <Loading />
+        }
             <header className="acc-header">
             <Link to={'/'}><img className='logo' src='./images/redoc1.png'  alt='logo' /></Link>
                 <i className="fa-solid fa-bars"></i>
