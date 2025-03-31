@@ -146,6 +146,7 @@ const Account = () => {
     //new
     const handleChangeNoteItem = (e, index) => {
         const tempArray = inputData
+        console.log(e.target.textContent)
         tempArray[index][0] = e.target.innerHTML
 
         setInputData(tempArray)
@@ -388,7 +389,6 @@ const Account = () => {
                 accessToken : localStorage.getItem("accessToken")
             }
         }).then((response) => {
-            console.log(response)
             setRefresh(prev => !prev)
             if(response.data.error) {
                 setAuthState(false)
@@ -618,6 +618,12 @@ const Account = () => {
         setShowReviewTo(true)
     }
 
+    function stripHTML(html) {
+        return html
+            .replace(/<br\s*\/?>/gi, "\n") 
+            .replace(/<[^>]*>/g, "");  
+    }
+
     const handleRemoveDisabled = (e) => {
         setCurrentNote({...currentNote, note: { ...currentNote.note, notesContent : e.target.value}}); 
         setNotesText(e.target.value);
@@ -672,6 +678,7 @@ const Account = () => {
                                                 <option value={'Science'}>Science</option>
                                                 <option value={'Entertainment'}>Entertainment</option>
                                                 <option value={'Medicine'}>Medicine</option>
+                                                <option value={'History'}>History</option>
                                                 <option value={'engineering'}>Engineering</option>
                                                 <option value={'education'}>Education</option>
                                                 <option value={'Social Sciences'}>Social Sciences</option>
@@ -823,16 +830,16 @@ const Account = () => {
                                                                 item[1] === 'title' ? 
                                                                 <h2 className='ed-item' contentEditable 
                                                                 
-                                                                suppressContentEditableWarning onInput={(e) => handleChangeNoteItem(e, index)} >{ item[0] }</h2> : 
+                                                                suppressContentEditableWarning onInput={(e) => handleChangeNoteItem(e, index)} >{ stripHTML(item[0]) }</h2> : 
 
                                                                 item[1] === 'content' ? 
                                                                 <p className='ed-item' contentEditable 
                                                                 
-                                                                suppressContentEditableWarning onInput={(e) => handleChangeNoteItem(e, index)} >{ item[0] }</p> :
+                                                                suppressContentEditableWarning onInput={(e) => handleChangeNoteItem(e, index)} >{ stripHTML(item[0]) }</p> :
 
                                                                 item[1] === 'code' ?
                                                                 <code className='ed-item' contentEditable 
-                                                                suppressContentEditableWarning onInput={(e) => handleChangeNoteItem(e, index)}>{ item[0] }</code> :
+                                                                suppressContentEditableWarning onInput={(e) => handleChangeNoteItem(e, index)}>{ stripHTML(item[0]) }</code> :
 
                                                                 item[1] === 'image' && 
                                                                 <img className='ed-image' src={item[0]} />
@@ -1060,23 +1067,21 @@ const Account = () => {
                                                             <div>
                                                             {
                                                                 item.notesContent.map((note, index) => {
-                                                                    if (note && note.type) {
-                                                                        const { children, ...props } = note.props || {};
-
-                                                                        const filteredProps = { ...props };
-                                                                        delete filteredProps.contentEditable;
-
-                                                                        let processedChildren = children;
-
-                                                                        if (children && typeof children === 'object') {
-                                                                            const childProps = { ...children.props };
-                                                                            delete childProps.contentEditable;
-                                                                            processedChildren = React.createElement(children.type, childProps);
-                                                                        }
-
-                                                                        return React.createElement(note.type, { ...filteredProps, children: processedChildren });
+                                                                if (note && note.type) {
+                                                                        return <>
+                                                                            {
+                                                                                note[1] === 'title' ? 
+                                                                                <p className='text-title'>{ note[0] }</p> : 
+                                                                                note[1] === 'content' ? 
+                                                                                <p className='text-paragraph'>{ note[0] }</p> : 
+                                                                                note[1] === 'code' ?
+                                                                                <p className='text-code'>{ note[0] }</p> : 
+                                                                                note[1] === 'image' && 
+                                                                                <img src={note[0]} className='ed-image' alt='image-item' />
+                                                                            }
+                                                                        </> 
                                                                 }
-                                                                    return null;
+                                                                
                                                             })}
                                                             </div>
                                                         </div>

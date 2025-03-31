@@ -122,6 +122,11 @@ const Socials=()=>{
         setNote(note)
         setShowNote(true)
     }
+    function stripHTML(html) {
+        return html
+            .replace(/<br\s*\/?>/gi, "\n") 
+            .replace(/<[^>]*>/g, "");  
+    }
 
 
     if(loading) {
@@ -144,11 +149,11 @@ const Socials=()=>{
                                 return <div>
                                     {
                                         item[1] === 'title' ? 
-                                        <p className='text-title'>{ item[0] }</p> : 
+                                        <p className='text-title'>{ stripHTML(item[0]) }</p> : 
                                         item[1] === 'content' ? 
-                                        <p className='text-paragraph'>{ item[0] }</p> : 
+                                        <p className='text-paragraph'>{ stripHTML(item[0]) }</p> : 
                                         item[1] === 'code' && 
-                                        <p className='text-code'>{ item[0] }</p>
+                                        <p className='text-code'>{ stripHTML(item[0]) }</p>
                                     }
                                 </div>
                         })}
@@ -157,11 +162,11 @@ const Socials=()=>{
                                 return <>
                                     {
                                         item[1] === 'title' ? 
-                                        <p className='text-title'>{ item[0] }</p> : 
+                                        <p className='text-title'>{ stripHTML(item[0]) }</p> : 
                                         item[1] === 'content' ? 
-                                        <p className='text-paragraph'>{ item[0] }</p> : 
+                                        <p className='text-paragraph'>{ stripHTML(item[0]) }</p> : 
                                         item[1] === 'code' ?
-                                        <p className='text-code'>{ item[0] }</p> : 
+                                        <p className='text-code'>{ stripHTML(item[0]) }</p> : 
                                         item[1] === 'image' && 
                                         <img src={item[0]} className='ed-image' alt='image-item' />
                                     }
