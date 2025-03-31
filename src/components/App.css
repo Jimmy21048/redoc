@@ -27,7 +27,7 @@ button {
 /* Styling the main page */
 .main {
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     overflow: hidden;
     background-image: url('../images/pic3.jpg');
     background-repeat: no-repeat;
@@ -39,7 +39,7 @@ button {
 /*  header*/
 .top {
     width: inherit;
-    height: 10vh;
+    height: 10dvh;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -72,7 +72,7 @@ button {
 /* header */
 .body {
     width: inherit;
-    height: 90vh;
+    height: 90dvh;
     display: flex;
     justify-content: space-between;
     padding-bottom: 5vh;
@@ -1020,6 +1020,9 @@ textarea:focus {
     font-size: 1.1rem;
     letter-spacing: 0.8px;
 }
+.socials-note-main .comments {
+    display: none;
+}
 .socials-note-main * {
     margin-bottom: 10px;
 }
@@ -1073,6 +1076,7 @@ textarea:focus {
     gap: 5px;
     padding-left: 10px;
     align-items: center;
+    justify-content: space-between;
 }
 .socials-note-profile p:first-of-type {
     width: 20px;
@@ -1229,10 +1233,11 @@ textarea:focus {
 /* scrollbar */
 ::-webkit-scrollbar {
     width: 10px;
+    /* border: none; */
 }
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 1px rgba(128, 128, 128, 0.795); 
-    border-radius: 2px;
+    box-shadow: inset 0 0 0.5px rgba(226, 224, 224, 0.795); 
+    /* border-radius: 2px; */
 }
 ::-webkit-scrollbar-thumb {
     background: rgba(226, 226, 226, 0.822); 
@@ -1559,11 +1564,7 @@ textarea:focus {
 /* peer revs */
 /* socials */
 .socials-body {
-    /* overflow-y: scroll; */
-    /* flex-direction: column; */
-    /* justify-content: space-around; */
-    /* align-items: center; */
-    /* height: max-content; */
+    flex-direction: column;
 }
 .socials-right {
     width: 100vw;
@@ -1582,13 +1583,13 @@ textarea:focus {
 .socials-right-comments {
     width: 100vw;
     height: 70vh;
-    position: absolute;
+    /* position: absolute; */
     top: 30vh;
     display: none;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background-color: rgb(214, 235, 236);
+    /* background-color: rgb(214, 235, 236); */
 }
 .rev-h3 {
     display: none;
@@ -1598,6 +1599,11 @@ textarea:focus {
 }
 .socials-note-main {
     padding: 35px 10px;
+}
+.socials-note-main .comments {
+    display: flex;
+    height: max-content;
+    margin-top: 5vh;
 }
 .socials-nav {
     padding: 10px;
@@ -1617,15 +1623,11 @@ textarea:focus {
     width: 150px;
     height: 7vh;
 }
-.menu-label {
-    display: initial;
-    position: absolute;
-    right: 20px;
-    margin-top: 10px;
-    /* top: 10px; */
+.comments h4 {
+    
 }
-#menu:checked ~ .socials-right-comments {
-    display: flex;
+.comments-comment {
+    height: max-content;
 }
 .comments-body {
     width: 95vw;

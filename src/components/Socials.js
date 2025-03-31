@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import React from 'react';
 import Loading from './Loading';
+import Comments from './Comments';
 
 const Socials=()=>{
     const [notes2, setNotes2] = useState([]);
@@ -136,8 +137,6 @@ const Socials=()=>{
         <div className='socials'>
             <Header {...{showNote, setShowNote}} />
             <div className='socials-body'>
-            { showNote && <label htmlFor='menu' className='menu-label'>reviews</label> }
-            <input type='checkbox' id='menu' />
                 <div className='socials-right'>
                 {
                     showNote ? 
@@ -146,7 +145,7 @@ const Socials=()=>{
                         <div>
                         {   note.randomNotes &&
                             note.randomNotes.notesContent.map((item, index) => {
-                                return <div>
+                                return <div key={index}>
                                     {
                                         item[1] === 'title' ? 
                                         <p className='text-title'>{ stripHTML(item[0]) }</p> : 
@@ -172,6 +171,9 @@ const Socials=()=>{
                                     }
                                 </>
                         })}
+                        {
+                            comment && <Comments {...{comment, toSend, setToSend, handleSendComment, errMessage}} />
+                        }
                         </div>
                     </div>
                     :
@@ -190,12 +192,12 @@ const Socials=()=>{
                                         <button onClick={() => handleComments(note)}><i class="fa-regular fa-comment"></i></button>
                                         <button onClick={() =>{handleClickNote(note); handleComments(note)}} >Read post...</button>
                                     </div>
-
+                                    
                                 </div>
                             )
                         })
                     }
-                                    {
+                    {
                         notes2.map((note) => {
                             return (
                                 <div key={note.randomNotes.notesTitle}  onClick={() =>handleClickNote(note)}  className='socials-note'>
@@ -212,6 +214,7 @@ const Socials=()=>{
                             )
                         })
                     }
+
                     </div>
                 }
                 </div>
@@ -234,48 +237,7 @@ const Socials=()=>{
                     <div className='comments-body'>
                     {
                         comment ? 
-                        <div className='comments'>
-                            <h4>{ comment.notesTitle || comment.randomNotes.notesTitle }</h4>
-                            {
-                                errMessage.error ? 
-                                <p style={{color: "red"}}>You have to be signed in!</p>
-                                : ''
-                            }
-                            <div className='comments-comment'>
-                            {
-
-                                comment.randomNotes ? 
-                                    !comment.randomNotes.comments ? 
-                                    <p>No comments available</p> :
-
-                                    comment.randomNotes.comments.map((comment) => {
-                                        return (
-                                        <div className='comment'>
-                                            <div className='comment-user'> { comment.user } </div>
-                                            <div className='comment-text'> { comment.comment } </div>
-                                        </div>
-                                        )
-                                    })
-                                : comment.projectName ?
-                                    !comment.comments ? 
-                                    <p>No comments available</p> :
-
-                                    comment.comments.map((comment) => {
-                                        return (
-                                        <div className='comment'>
-                                            <div className='comment-user'> { comment.user } </div>
-                                            <div className='comment-text'> { comment.comment } </div>
-                                        </div>
-                                        )
-                                    })
-                                : <p>No comments available</p>
-                            }
-                            </div>
-                            <label>
-                                <input type='text' value={toSend} onChange={(e) => setToSend(e.target.value)} placeholder='Add comment...' />
-                                <button className='comments-send' onClick={handleSendComment} ><i class="fa-regular fa-paper-plane"></i></button>
-                            </label>
-                        </div>
+                        <Comments {...{comment, toSend, setToSend, handleSendComment, errMessage}} />
                         : <p className='no-comment'>Click on an article</p>
                     }
                     </div>
