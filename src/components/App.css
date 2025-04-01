@@ -1024,7 +1024,7 @@ textarea:focus {
     display: none;
 }
 .socials-note-main * {
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
 }
 .socials-note-main h2 {
     text-align: center;
@@ -1267,10 +1267,11 @@ textarea:focus {
 @media screen and (max-width: 1050px) {
     .body {
         flex-direction: column;
+        justify-content: space-around;
     }
     .body .left {
         width: 100vw;
-        height: 40vh;
+        height: 40dvh;
     }
     .hero-image2 {
         display: none;
@@ -1280,14 +1281,15 @@ textarea:focus {
         height: 40vh;
     }
     .body .right {
-        height: 45vh;
+        height: 35dvh;
         width: 100vw;
         padding: 0;
         align-items: center;
     }
     .body .right div {
-        width: 400px;
-        max-width: 95vw;
+        width: 350px;
+        max-width: 90vw;
+        text-align: center;
     }
     .top {
         padding: 0 20px;
@@ -1495,11 +1497,9 @@ textarea:focus {
 }
 .hero-btns {
     width: 100vw;
-    /* max-width: 95vw; */
     height: 10vh;
     flex-direction: row;
     justify-content: space-around;
-    /* position: absolute; */
     bottom: 0px;
     padding: 0 10px;
 }
@@ -1589,7 +1589,7 @@ textarea:focus {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    /* background-color: rgb(214, 235, 236); */
+    background-color: rgb(214, 235, 236);
 }
 .rev-h3 {
     display: none;
@@ -1603,7 +1603,19 @@ textarea:focus {
 .socials-note-main .comments {
     display: flex;
     height: max-content;
+    max-height: 50dvh;
     margin-top: 5vh;
+    background-color: var(--bgc1);
+    border-radius: 10px;
+}
+.comment {
+    height: 6vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.comment-text, .comment-user {
+    font-size: 0.75rem;
 }
 .socials-nav {
     padding: 10px;
