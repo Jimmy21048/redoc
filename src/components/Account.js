@@ -6,6 +6,7 @@ import { AuthContext } from '../helpers/AuthContext';
 import { useContext } from 'react';
 import React from 'react';
 import Loading from './Loading';
+import Header from './Header1';
 
 const Account = () => {
     const { authState, setAuthState } = useContext(AuthContext)
@@ -635,10 +636,7 @@ const Account = () => {
         {
             loading && <Loading />
         }
-            <header className="acc-header">
-            <Link to={'/'}><img className='logo' src='./images/redoc1.png'  alt='logo' /></Link>
-                <i className="fa-solid fa-bars"></i>
-            </header>
+            <Header />
             <div className="acc-body">
                 <div className="left">
                     <nav id="nav-bar">

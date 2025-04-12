@@ -2,12 +2,16 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../helpers/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import styles from '../css/Header.module.css'
+
+
 const Header=({showNote, setShowNote})=>{
     const { authState, setAuthState } = useContext(AuthContext)
     const [user, setUser] = useState('');
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BACKEND}/sign/auth`, {
+            
             headers : {
                 accessToken : localStorage.getItem("accessToken"),
                 "Content-Type" : "application/json"
@@ -20,17 +24,17 @@ const Header=({showNote, setShowNote})=>{
         })
     },[])
     return (
-        <div className="top">
+        <div className={ styles.top }>
             {
-                showNote ? <i onClick={() => setShowNote(false)} className="fa-solid fa-arrow-left"></i> :
-                <Link to={'/'}><img className="logo" src='./images/redoc1.png'  alt='logo' /></Link>
+                showNote ? <i onClick={() => setShowNote(false)} className={`fa-solid fa-arrow-left`}></i> :
+                <Link to={'/'}><img className={ styles.logo } src='./images/redoc1.png'  alt='logo' /></Link>
             }
             
         {
             authState ? 
-            <Link className="login-link" to={'/account'}> {user} </Link>
+            <Link className={ styles.loginLink } to={'/account'}> {user} </Link>
             :
-            <Link className="login-link" to={'/login'}>Sign in</Link>
+            <Link className={ styles.loginLink } to={'/login'}>Sign in</Link>
         }
             
         </div>

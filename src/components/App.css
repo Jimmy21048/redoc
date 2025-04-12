@@ -37,38 +37,6 @@ button {
 }
 
 /*  header*/
-.top {
-    width: inherit;
-    height: 10dvh;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-}
-.top p:first-of-type {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-}
-.top a {
-    text-decoration: none;
-    color: black;
-}
-.logo {
-    height: 8vh;
-    width: 100px;
-    object-fit: cover;
-}
-.login-link {
-    border: 2px solid;
-    height: 6vh;
-    width: 110px;
-    border-radius: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-}
 /* header */
 .body {
     width: inherit;
@@ -1132,11 +1100,6 @@ textarea:focus {
 }
 .login .login-link {
     display: none;
-}
-.login-link:hover {
-    background-color: black;
-    color: white;
-    border: none;
 }
 .login-body-left {
     width: 50vw;
