@@ -1,31 +1,32 @@
 import Header from './Header1';
 import { Link } from 'react-router-dom';
+import styles from '../css/Main.module.css'
 
 const Main = () => {
     return (
-        <div className="main">
+        <div className={ styles.main }>
             <Header/>
 
-            <div className="body">
-                <div className="left">
-                    <div className='hero-image'>
-                        <div className="img1"></div>
+            <div className={ styles.body }>
+                <div className={ styles.left }>
+                    <div className={ styles.heroImage }>
+                        <div className={ styles.img1 }></div>
                     </div>
-                    <div className='hero-image hero-image2'>
-                        <div className="img2"></div>
+                    <div className={`${styles.heroImage} ${styles.heroImage2}`}>
+                        <div className={ styles.img2 }></div>
                     </div>
                 </div>
 
-                <div className="right">
+                <div className={ styles.right }>
                     <div>
-                        <span className='redoc-title'><h1>Write, Share, and</h1> <h1>Discover Ideas</h1></span>
-                        <p className="device-large">
+                        <span className={ styles.redocTitle }><h1>Write, Share, and</h1> <h1>Discover Ideas</h1></span>
+                        <p className={ styles.deviceLarge }>
                         Express Your Thoughts, Share Your Knowledge, and Inspire the World - A Platform Where Every Article Finds Its Audience
                         </p>
-                        <p className="device-small">Express Your Thoughts, Share Your Knowledge, and Inspire the World - A Platform Where Every Article Finds Its Audience</p>
+                        <p className={ styles.deviceSmall }>Express Your Thoughts, Share Your Knowledge, and Inspire the World - A Platform Where Every Article Finds Its Audience</p>
                     </div>
 
-                    <Link to="/socials" className="main-btn">EXPLORE</Link>
+                    <Link to="/socials" className={ styles.mainBtn }>EXPLORE</Link>
                 </div>
             </div>
         </div>

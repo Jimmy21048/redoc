@@ -1,0 +1,145 @@
+.main {
+    width: 100vw;
+    height: 100dvh;
+    overflow: hidden;
+    background-image: url('../images/pic3.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-image: fill 0 linear-gradient(rgba(87, 85, 85, 0.047), #292828d6);
+}
+.body {
+    width: inherit;
+    height: 90dvh;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5vh;
+}
+.body .left {
+    width: 45vw;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2vh 0;
+}
+.heroImage {
+    width: inherit;
+    height: max-content;
+    padding: 2vh 2vw;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.heroImage:nth-of-type(2) {
+    justify-content: flex-start;
+}
+.left .img1 {
+    border: 1px solid;
+    height: 35vh;
+    width: 340px;
+    border-radius: 20px;
+    background-image: url('../images/page3.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-image: fill 0 linear-gradient(rgba(87, 85, 85, 0.047), #292828d6);
+}
+.left .img2 {
+    height: 35vh;
+    width: 340px;
+    border-radius: 20px;
+    background-image: url('../images/page4.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-image: fill 0 linear-gradient(rgba(87, 85, 85, 0.047), #292828d6);
+}
+.body .right {
+    width: 45vw;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: space-between;
+    padding-right: 40px;
+}
+.body .right div {
+    width: 40vw;
+    height: max-content;
+}
+.body .right div p{
+    width: 35vw;
+    letter-spacing:1px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.redocTitle {
+    display: flex;
+    flex-direction: column;
+}
+.redocTitle h1 {
+    font-size: 3.0rem;
+}
+.deviceSmall {
+    display: none;
+}
+.mainBtn {
+    background-color: #FF8200;
+    font-size: 1.1rem;
+    font-weight: 700;
+    width: 250px;
+    max-width: 80vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    height: 10vh;
+    text-decoration: none;
+    color: black;
+}
+.mainBtn:hover {
+    background-color: black;
+    color: #FF8200;
+}
+
+@media screen and (max-width: 1050px) {
+    .left .img1 {
+        max-width: 95vw;
+        height: 40vh;
+    }
+    .body .right {
+        height: 35dvh;
+        width: 100vw;
+        padding: 0;
+        align-items: center;
+    }
+    .body .right div {
+        width: 350px;
+        max-width: 90vw;
+        text-align: center;
+    }
+    .body {
+        flex-direction: column;
+        justify-content: space-around;
+        padding-bottom: 0;
+    }
+    .body .left {
+        width: 100vw;
+        height: 40dvh;
+    }
+    .heroImage2 {
+        display: none;
+    }
+    .right h1 {
+        font-size: 2.0rem;
+    }
+    .deviceLarge {
+        display: none;
+    }
+    .deviceSmall {
+        display: initial;
+    }
+    .heroImage {
+        height: 35vh;
+        justify-content: center;
+    }
+}
