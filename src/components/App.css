@@ -987,104 +987,6 @@ textarea:focus {
 }
 /* search */
 /* login */
-.login {
-    overflow: hidden;
-    width: 100vw;
-    height: 100vh;
-    background-color: #eeebebe3;
-}
-.login-body {
-    display: flex;
-
-}
-.login .login-link {
-    display: none;
-}
-.login-body-left {
-    width: 50vw;
-    height: 90vh;
-}
-.login-body-right {
-    width: 50vw;
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-}
-.login-body-right form {
-    width: 350px;
-    height: max-content;
-    max-width: 95vw;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 20px;
-}
-.login-body-right form label {
-    font-size: 1.1rem;
-    width: inherit;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-.login-body-right form input {
-    height: 6vh;
-    width: inherit;
-    border-radius: 10px;
-    border: 1px solid #00B9E8;
-    padding-left: 3px;
-}
-.login-body-right form input:focus {
-    outline: none;
-}
-.form-btn {
-    height: 6vh;
-    width: 130px;
-    border-radius: 10px;
-    color: #003262;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border: 2px solid;
-}
-.form-btn:hover {
-    background-color: #003262;
-    color: white;
-    border: 2px solid #003262;
-}
-.pwd-input {
-    width: 350px;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-}
-.pwd-input input {
-    width: 300px ;
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-    border-right: 0 !important;
-}
-.pwd-input .fa-solid {
-    width: 50px;
-    border: 1px solid #00B9E8;
-    height: 6vh;
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-left: 0;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
-.form-change {
-    border: none;
-    color: #003262;
-    font-size: 1.05rem;
-    font-weight: 600;
-}
 #menu {
     display: none;
 }
@@ -1127,39 +1029,8 @@ textarea:focus {
     }
 }
 @media screen and (max-width: 1050px) {
-    .top {
-        padding: 0 20px;
-    }
-    .login-link {
-        width: max-content;
-        height: max-content;
-        padding: 5px 10px;
-
-    }
 
     /* login */
-    .login-body-left {
-        display: none
-    }
-    .login-body-right {
-        width: 100vw;
-        align-items: center;
-        justify-content: center;
-    }
-    .login-body-right form {
-        width: 320px;
-        max-width: 95vw;
-        gap: 10px;
-    }
-    .pwd-input {
-        width: inherit;
-    }
-    .pwd-input input {
-        width: 80% ;
-    }
-    .pwd-input .fa-solid {
-        width: 20%;
-    }
     /* login */
     /* Account */
     .account {

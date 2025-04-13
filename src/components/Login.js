@@ -4,6 +4,7 @@ import ShowPassword from "./showpassword.m";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Loading from './Loading'
+import styles from '../css/Login.module.css'
 
 const Login = () => {
     const [login, setLogin] = useState(true);
@@ -87,11 +88,11 @@ const Login = () => {
         return <Loading />
     }
     return (
-        <div className="login">
+        <div className={ styles.login }>
             <Header />
-            <div className="login-body">
-                <div className="login-body-left"></div>
-                <div className="login-body-right">
+            <div className={ styles.loginBody }>
+                <div className={ styles.loginBodyLeft }></div>
+                <div className={ styles.loginBodyRight }>
                 {
                     login ?
                     <>
@@ -102,15 +103,15 @@ const Login = () => {
                                 <input type="text" required name="username" value={formData.username} onChange={handleChange} />
                             </label>
                             <label>Password
-                                <div className="pwd-input">
+                                <div className={ styles.pwdInput }>
                                     <input type={pwdType} name="password" required value={formData.password} onChange={handleChange} />
                                     <ShowPassword {...{setPwdType}} />
                                 </div>
                             </label>
-                            <button className="form-btn" onClick={handleLogin}>Login</button>
+                            <button className={ styles.formBtn } onClick={handleLogin}>Login</button>
                             
                         </form>
-                        <p>Don't have an account ?<button className="form-change" onClick={handleChangeLogin}>Sign up</button></p>
+                        <p>Don't have an account ?<button className={ styles.formChange } onClick={handleChangeLogin}>Sign up</button></p>
                     </> :
                     <>
                         <h1>Signup</h1>
@@ -123,16 +124,16 @@ const Login = () => {
                                 <input type="email" name="email" required value={formData.email} onChange={handleChange}/>
                             </label>
                             <label>Password
-                                <div className="pwd-input">
+                                <div className={ styles.pwdInput }>
                                     <input type={pwdType} name="password" required value={formData.password} onChange={handleChange} />
                                     <ShowPassword {...{setPwdType}} />
                                 </div>
                             </label>
 
-                            <button className="form-btn" onClick={handleSignup}>Signup</button>
+                            <button className={ styles.formBtn } onClick={handleSignup}>Signup</button>
                             
                         </form>
-                        <p>Already have an account? <button className="form-change" onClick={handleChangeLogin}>Login</button></p>
+                        <p>Already have an account? <button className={ styles.formChange } onClick={handleChangeLogin}>Login</button></p>
                     </>
                 }
                 </div>

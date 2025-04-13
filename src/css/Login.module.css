@@ -1,0 +1,122 @@
+.login {
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    background-color: #eeebebe3;
+}
+.loginBody {
+    display: flex;
+}
+.login .loginLink {
+    display: none;
+}
+.loginBodyLeft {
+    width: 50vw;
+    height: 90vh;
+}
+.loginBodyRight {
+    width: 50vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+.loginBodyRight form {
+    width: 350px;
+    height: max-content;
+    max-width: 95vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+.loginBodyRight form label {
+    font-size: 1.1rem;
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.loginBodyRight form input {
+    height: 6vh;
+    width: inherit;
+    border-radius: 10px;
+    border: 1px solid #00B9E8;
+    padding-left: 3px;
+}
+.loginBodyRight form input:focus {
+    outline: none;
+}
+.pwdInput {
+    width: 350px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+.pwdInput input {
+    width: 300px ;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-right: 0 !important;
+}
+.pwdInput .eye {
+    width: 50px;
+    border: 1px solid #00B9E8;
+    height: 6vh;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.formBtn {
+    height: 6vh;
+    width: 130px;
+    border-radius: 10px;
+    color: #003262;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: 2px solid;
+}
+.formBtn:hover {
+    background-color: #003262;
+    color: white;
+    border: 2px solid #003262;
+}
+.formChange {
+    border: none;
+    color: #003262;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+@media screen and (max-width:1050px) {
+    .loginBodyLeft {
+        display: none
+    }
+    .loginBodyRight {
+        width: 100vw;
+        align-items: center;
+        justify-content: center;
+    }
+    .loginBodyRight form {
+        width: 320px;
+        max-width: 95vw;
+        gap: 10px;
+    }
+    .pwdInput {
+        width: inherit;
+    }
+    .pwdInput input {
+        width: 80% ;
+    }
+    .pwdInput .eye {
+        width: 20%;
+    }
+}

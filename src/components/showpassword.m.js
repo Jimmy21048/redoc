@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from '../css/Login.module.css'
 
 export default function ShowPassword({ setPwdType}) {
     const [showPassword, setShowPassword] = useState(false);
@@ -15,9 +16,9 @@ export default function ShowPassword({ setPwdType}) {
         <>
         {
             showPassword ? 
-            <i className="fa-solid fa-eye-slash" onClick={handleChangePassword}></i>
+            <i className={`fa-solid fa-eye-slash ${styles.eye}`} onClick={handleChangePassword}></i>
             : 
-            <i className="fa-solid fa-eye" onClick={handleChangePassword}></i>
+            <i className={`fa-solid fa-eye ${styles.eye}`} onClick={handleChangePassword}></i>
         }    
         </>
     )

@@ -35,3 +35,15 @@
     color: white;
     border: none;
 }
+
+@media screen and (max-width: 1050px) {
+    .top {
+        padding: 0 20px;
+    }
+    .loginLink {
+        width: max-content;
+        height: max-content;
+        padding: 5px 10px;
+
+    }
+}
