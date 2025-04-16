@@ -225,6 +225,9 @@
     text-align: center;
     padding: 20px;
 }
+.hiddenComment {
+    display: none;
+}
 
 @media screen and (max-width:1050px) {
     .revH3 {
@@ -311,5 +314,8 @@
     }
     .socialsNav {
         height: 8vh;
+    }
+    .hiddenComment {
+        display: initial;
     }
 }

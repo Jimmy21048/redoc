@@ -54,7 +54,7 @@
 @media screen and (max-width: 1050px) {
     .comments {
         height: max-content;
-        background-color: rgba(183, 185, 185, 0.836);
+        background-color: rgba(215, 221, 221, 0.918);
         border-radius: 10px;
         margin-top: 5vh;
     }

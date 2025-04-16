@@ -172,7 +172,9 @@ const Socials=()=>{
                                 </>
                         })}
                         {
-                            comment && <Comments {...{comment, toSend, setToSend, handleSendComment, errMessage}} />
+                            comment && <div className={ styles.hiddenComment }>
+                                <Comments {...{comment, toSend, setToSend, handleSendComment, errMessage}} />
+                            </div>
                         }
                         </div>
                     </div>
