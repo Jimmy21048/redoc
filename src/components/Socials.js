@@ -62,7 +62,7 @@ const Socials=()=>{
             if(response.data.randomNotes) {
                 setNotes2(response.data.randomNotes);
             }
-            setLoading(false);
+            setLoading(true);
         })
     },[refresh])
     

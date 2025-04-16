@@ -728,16 +728,6 @@ textarea:focus {
 ::-webkit-scrollbar-thumb:hover {
     background: #B2BEB5; 
 }
-.loading {
-    position: absolute;
-    height: 100vh;
-    width: 100vw;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f2f2f2;
-    opacity: .2;
-}
 
 /* login */
 @media screen and (max-width: 1150px) {
