@@ -1,0 +1,315 @@
+.socials {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color5);
+}
+.socialsBody {
+    height: 90vh;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+}
+.socialsRight {
+    width: 60vw;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 200vh;
+}
+.socialsNoteMain {
+    width: inherit;
+    height: 90vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: var(--color5);
+    padding:0 50px;
+    padding-top: 40px;
+    border-radius: 10px;
+    font-family: "Lora", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.1rem;
+    letter-spacing: 0.8px;
+}
+.socialsNoteMain .comments {
+    display: none;
+}
+.socialsNoteMain * {
+    /* margin-bottom: 10px; */
+}
+.socialsNoteMain h2 {
+    text-align: center;
+}
+.socialsNoteMain pre {
+    font-size: clamp(12px, 1.08vw, 18px);
+    max-width: 98%;
+}
+.textTitle {
+    text-align: left;
+    font-size: 1.4rem;
+    font-weight: 500;
+    white-space: pre-wrap;
+    margin:20px 0;
+}
+.textParagraph {
+    padding-left: 5px;
+    white-space: pre-wrap;
+}
+.textCode {
+    margin-left: 5px;
+    background-color: #E5E4E2;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.edImage {
+    width: 300px;
+    height: 300px;
+    max-width: 80%;
+    max-height: 500px;
+    object-fit: cover;
+}
+.socialsRightNotes {
+    width: 55vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 20px;
+    margin-bottom: 10vh;
+}
+.socialsRightNotes h2 {
+    color: var(--bgc3);
+}
+.socialsNote {
+    height: max-content;
+    width: 90%;
+    border-radius: 20px;
+    background-color: var(--color6);
+    border: none;
+    text-align: left;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    cursor: pointer;
+}
+.socialsNote:hover {
+    background-color: rgb(216, 216, 216);
+}
+.socialsNoteProfile {
+    display: flex;
+    gap: 5px;
+    padding-left: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+.socialsNoteProfile p:first-of-type {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color1);
+    font-weight: 500;
+}
+.socialsNoteProfile p:nth-of-type(2) {
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+}
+.socialsNoteDate {
+    font-size: 0.9rem;
+    color: var(--color7);
+    padding-left: 10px;
+}
+.socialsNoteHeader {
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    font-size: 1.25rem;
+    letter-spacing: 1px;
+}
+.socialsNoteBody {
+    height: max-content;
+    overflow: hidden;
+    line-height: 1.3rem;
+    padding:0 10px;
+    width: 100%;
+    font-size: 1.1rem;
+    color: var(--color7);
+}
+.socialsNoteFooter {
+    height: 5vh;
+    display: flex;
+    gap: 10px;
+    padding: 0 10px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    align-items: center;
+}
+.socialsNoteFooter * {
+    color: var(--color7);
+}
+.socialsNoteFooter *:hover {
+    color: #00B9E8;
+}
+.socialsNoteFooter p {
+    display: flex;
+    gap: 5px;
+}
+.socialsNoteFooter button {
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    height: 4vh;
+    padding: 0 5px;
+}
+.socialsRightComments {
+    padding-right: 10px;
+    width: 30vw;
+    height: 100%;
+}
+.socialsRightComments h3 {
+    margin: 5px;
+    font-weight: 400;
+    height: 5vh;
+    text-align: center;
+    color: var(--bgc3);
+}
+.socialsNav {
+    width: inherit;
+    height: 20vh;
+    padding:0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: space-between;
+}
+.socialsNavNotes {
+    height: max-content;
+    max-height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: space-between;
+}
+.socialsNavNotes button {
+    height: 5vh;
+    width: 90px;
+    border: 1px solid;
+    color: black;
+    font-weight: 500;
+    border-radius: 5px;
+}
+.menuLabel {
+    display: none;
+}
+.commentsBody {
+    height: 65vh;
+    padding-bottom: 5px;
+    background-color: var(--color6);
+    border-radius: 20px;
+}
+.commentsBody h4 {
+    text-align: center;
+    font-size: 0.9rem;
+}
+.noComment {
+    text-align: center;
+    padding: 20px;
+}
+
+@media screen and (max-width:1050px) {
+    .revH3 {
+        display: none;
+    }
+    .socialsBody {
+        flex-direction: column;
+    }
+    .socialsRight {
+        width: 100vw;
+        height: 90vh;
+    }
+    .socialsRightNotes {
+        width: 100vw;
+        height: max-content;
+        gap: 25px;
+        padding: 20px 0;
+        align-items: center;
+        justify-content: space-around;
+        overflow-y: auto;
+        padding-bottom: 20px;
+    }
+    .socialsRightComments {
+        width: 100vw;
+        height: 70vh;
+        /* position: absolute; */
+        top: 30vh;
+        display: none;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        background-color: rgb(214, 235, 236);
+    }
+    .socialsNoteProfile {
+        justify-content: space-between;
+    }
+    .socialsNoteMain {
+        padding: 35px 10px;
+    }
+    .socialsNoteMain .comments {
+        display: flex;
+        height: max-content;
+        max-height: 50dvh;
+        margin-top: 5vh;
+        background-color: var(--bgc1);
+        border-radius: 10px;
+    }
+    .comment {
+        height: 6vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    .commentText, .commentUser {
+        font-size: 0.75rem;
+    }
+    .socialsNav {
+        padding: 10px;
+    }
+    .socialsNavNotes {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .socialsNavNotes h3:nth-of-type(2) {
+        display: none;
+    }
+    .socialsNavNotes button {
+        display: none;
+    }
+    .mainBtn {
+        width: 150px;
+        height: 7vh;
+    }
+    .comments h4 {
+        
+    }
+    .commentsComment {
+        height: max-content;
+    }
+    .commentsBody {
+        width: 95vw;
+        height: 55vh;
+    }
+    .socialsNav {
+        height: 8vh;
+    }
+}

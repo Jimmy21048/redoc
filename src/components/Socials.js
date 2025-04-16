@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import Loading from './Loading';
 import Comments from './Comments';
+import styles from '../css/Socials.module.css'
 
 const Socials=()=>{
     const [notes2, setNotes2] = useState([]);
@@ -130,16 +131,16 @@ const Socials=()=>{
     }
 
     return(
-        <div className='socials'>
+        <div className={ styles.Socials }>
         {
             loading && <Loading />
         }
             <Header {...{showNote, setShowNote}} />
-            <div className='socials-body'>
-                <div className='socials-right'>
+            <div className={ styles.socialsBody }>
+                <div className={ styles.socialsRight }>
                 {
                     showNote ? 
-                    <div className='socials-note-main'>
+                    <div className={ styles.socialsNoteMain }>
                         <h2>{ note.notesTitle || note.randomNotes.notesTitle }</h2>
                         <div>
                         {   note.randomNotes &&
@@ -147,11 +148,11 @@ const Socials=()=>{
                                 return <div key={index}>
                                     {
                                         item[1] === 'title' ? 
-                                        <p className='text-title'>{ stripHTML(item[0]) }</p> : 
+                                        <p className={ styles.textTitle }>{ stripHTML(item[0]) }</p> : 
                                         item[1] === 'content' ? 
-                                        <p className='text-paragraph'>{ stripHTML(item[0]) }</p> : 
+                                        <p className={ styles.textParagraph }>{ stripHTML(item[0]) }</p> : 
                                         item[1] === 'code' && 
-                                        <p className='text-code'>{ stripHTML(item[0]) }</p>
+                                        <p className={ styles.textCode }>{ stripHTML(item[0]) }</p>
                                     }
                                 </div>
                         })}
@@ -160,13 +161,13 @@ const Socials=()=>{
                                 return <>
                                     {
                                         item[1] === 'title' ? 
-                                        <p className='text-title'>{ stripHTML(item[0]) }</p> : 
+                                        <p className={ styles.textTitle }>{ stripHTML(item[0]) }</p> : 
                                         item[1] === 'content' ? 
-                                        <p className='text-paragraph'>{ stripHTML(item[0]) }</p> : 
+                                        <p className={ styles.textParagraph }>{ stripHTML(item[0]) }</p> : 
                                         item[1] === 'code' ?
-                                        <p className='text-code'>{ stripHTML(item[0]) }</p> : 
+                                        <p className={ styles.textCode }>{ stripHTML(item[0]) }</p> : 
                                         item[1] === 'image' && 
-                                        <img src={item[0]} className='ed-image' alt='image-item' />
+                                        <img src={item[0]} className={ styles.edImage } alt='image-item' />
                                     }
                                 </>
                         })}
@@ -176,18 +177,24 @@ const Socials=()=>{
                         </div>
                     </div>
                     :
-                    <div className='socials-right-notes'>
+                    <div className={ styles.socialsRightNotes }>
                         <h2>OPEN ACCESS NOTES</h2>
                     {
                         notes1.map((note) => {
                             return (
-                                <div key={note.notesTitle}  onClick={() =>{handleClickNote(note); handleComments(note)}}  className='socials-note'>
-                                    <div className='socials-note-profile'><p style={{backgroundColor: `${colors[Math.floor(Math.random() * (9-0 +1) + 0)]}`}} >{note.username[0].toUpperCase()}</p>  <p>{note.username}</p> <p className='socials-note-date'>{ note.notesDate }</p></div>
-                                    <h3 className='socials-note-header'> {note.notesTitle.toUpperCase()} </h3>
-                                    <div className='socials-note-body'  contentEditable = "false">
+                                <div key={note.notesTitle}  onClick={() =>{handleClickNote(note); handleComments(note)}}  className={ styles.socialsNote }>
+
+                                    <div className={ styles.socialsNoteProfile }>
+                                        <p style={{backgroundColor: `${colors[Math.floor(Math.random() * (9-0 +1) + 0)]}`}} >{note.username[0].toUpperCase()}</p>  
+
+                                        <p>{note.username}</p> <p className={ styles.socialsNoteDate }>{ note.notesDate }</p>
+                                    </div>
+
+                                    <h3 className={ styles.socialsNoteHeader }> {note.notesTitle.toUpperCase()} </h3>
+                                    <div className={ styles.socialsNoteBody }  contentEditable = "false">
                                         { note.catchPhrase }
                                     </div>
-                                    <div className='socials-note-footer'>
+                                    <div className={ styles.socialsNoteFooter }>
                                         <button onClick={() => handleComments(note)}><i class="fa-regular fa-comment"></i></button>
                                         <button onClick={() =>{handleClickNote(note); handleComments(note)}} >Read post...</button>
                                     </div>
@@ -199,13 +206,13 @@ const Socials=()=>{
                     {
                         notes2.map((note) => {
                             return (
-                                <div key={note.randomNotes.notesTitle}  onClick={() =>handleClickNote(note)}  className='socials-note'>
-                                    <div className='socials-note-profile'><p style={{backgroundColor: `${colors[Math.floor(Math.random() * (9-0 +1) + 0)]}`}} >{note.username[0].toUpperCase()}</p>  <p>{note.username}</p> <p className='socials-note-date'>{ note.randomNotes.notesDate }</p></div>
-                                    <h3 className='socials-note-header'> {note.randomNotes.notesTitle.toUpperCase()} </h3>
-                                    <div className='socials-note-body'  contentEditable ="false">
+                                <div key={note.randomNotes.notesTitle}  onClick={() =>handleClickNote(note)}  className={ styles.socialsNote }>
+                                    <div className={ styles.socialsNoteProfile }><p style={{backgroundColor: `${colors[Math.floor(Math.random() * (9-0 +1) + 0)]}`}} >{note.username[0].toUpperCase()}</p>  <p>{note.username}</p> <p className={ styles.socialsNoteDate }>{ note.randomNotes.notesDate }</p></div>
+                                    <h3 className={ styles.socialsNoteHeader }> {note.randomNotes.notesTitle.toUpperCase()} </h3>
+                                    <div className={ styles.socialsNoteBody }  contentEditable ="false">
                                         { note.randomNotes.catchPhrase }
                                     </div>
-                                    <div className='socials-note-footer'>
+                                    <div className={ styles.socialsNoteFooter }>
                                         <button onClick={() => handleComments(note)}><i class="fa-regular fa-comment"></i></button>
                                         <button onClick={() =>handleClickNote(note)}  >Read post...</button>
                                     </div>
@@ -218,13 +225,13 @@ const Socials=()=>{
                 }
                 </div>
 
-                <div className='socials-right-comments'>
-                    <nav className='socials-nav'>
+                <div className={ styles.socialsRightComments }>
+                    <nav className={ styles.socialsNav }>
                         {
                             showNote ?
-                            <div className='socials-nav-notes'>
+                            <div className={ styles.socialsNavNotes }>
                                 <h3>Author : { note.username }</h3>
-                                <label htmlFor='menu' className='menu-label'>X</label>
+                                <label htmlFor='menu' className={ styles.menuLabel }>X</label>
                                 { note.projectName ? <h3>Project : {note.projectName} </h3>: '' }
                                 <button onClick={() => setShowNote(false)}>Back</button>
                             </div>
@@ -232,12 +239,12 @@ const Socials=()=>{
                         }
                         
                     </nav>
-                    <h3 className='rev-h3'>Reviews</h3>
-                    <div className='comments-body'>
+                    <h3 className={ styles.revH3 }>Reviews</h3>
+                    <div className={ styles.commentsBody }>
                     {
                         comment ? 
                         <Comments {...{comment, toSend, setToSend, handleSendComment, errMessage}} />
-                        : <p className='no-comment'>Click on an article</p>
+                        : <p className={ styles.noComment }>Click on an article</p>
                     }
                     </div>
                 </div>

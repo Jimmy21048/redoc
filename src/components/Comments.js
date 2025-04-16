@@ -1,14 +1,15 @@
 
+import styles from '../css/Comments.module.css'
 export default function Comments({ comment, toSend, setToSend, handleSendComment, errMessage }) {
     return (
-        <div className='comments'>
+        <div className={ styles.comments }>
             <h4>{ comment.notesTitle || comment.randomNotes.notesTitle }</h4>
             {
                 errMessage.error ? 
                 <p style={{color: "red"}}>You have to be signed in!</p>
                 : ''
             }
-            <div className='comments-comment'>
+            <div className={ styles.commentsComment }>
             {
 
                 comment.randomNotes ? 
@@ -17,9 +18,9 @@ export default function Comments({ comment, toSend, setToSend, handleSendComment
 
                     comment.randomNotes.comments.map((comment) => {
                         return (
-                        <div className='comment'>
-                            <div className='comment-user'> { comment.user } </div>
-                            <div className='comment-text'> { comment.comment } </div>
+                        <div className={ styles.comment }>
+                            <div className={ styles.commentUser }> { comment.user } </div>
+                            <div className={ styles.commentText }> { comment.comment } </div>
                         </div>
                         )
                     })
@@ -29,9 +30,9 @@ export default function Comments({ comment, toSend, setToSend, handleSendComment
 
                     comment.comments.map((comment) => {
                         return (
-                        <div className='comment'>
-                            <div className='comment-user'> { comment.user } </div>
-                            <div className='comment-text'> { comment.comment } </div>
+                        <div className={ styles.comment }>
+                            <div className={ styles.commentUser }> { comment.user } </div>
+                            <div className={ styles.commentText }> { comment.comment } </div>
                         </div>
                         )
                     })
@@ -40,7 +41,7 @@ export default function Comments({ comment, toSend, setToSend, handleSendComment
             </div>
             <label>
                 <input type='text' value={toSend} onChange={(e) => setToSend(e.target.value)} placeholder='Add comment...' />
-                <button className='comments-send' onClick={handleSendComment} ><i class="fa-regular fa-paper-plane"></i></button>
+                <button className={ styles.commentsSend } onClick={handleSendComment} ><i class={`fa-regular fa-paper-plane ${styles.paperPlane}`}></i></button>
             </label>
         </div>
     )
