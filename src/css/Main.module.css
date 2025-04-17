@@ -102,6 +102,10 @@
 }
 
 @media screen and (max-width: 1050px) {
+    .mainBtn {
+        height: 7vh;
+        width: 150px;
+    }
     .left .img1 {
         max-width: 95vw;
         height: 40vh;

@@ -632,11 +632,13 @@ const Account = () => {
         setIsDisabled(false)
     }
 
+    if(loading) {
+        return <Loading />
+    }
+
     return (
         <div className={ styles.account } >
-        {
-            loading && <Loading />
-        }
+
             <Header />
             <div className={ styles.accBody }>
                 <div className={ styles.left }>
