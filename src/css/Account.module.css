@@ -10,7 +10,7 @@
     height: 90dvh;
     display: flex;
 }
-.accBody .left {
+.left {
     width: 20vw;
     height: 90dvh;
     display: flex;
@@ -19,7 +19,7 @@
     align-items: center;
     background-color: var(--color1);
 }
-.accBody .left nav {
+.left nav {
     width: inherit;
     height: max-content;
     display: flex;
@@ -27,7 +27,7 @@
     align-items: center;
     background-color: var(--color1);
 }
-.accBody .left nav .navBtn {
+.navBtn {
     text-decoration: none;
     color: black;
     cursor: pointer;
@@ -44,17 +44,17 @@
     border-bottom: 1px solid rgba(214, 214, 214, 0.719);
     gap: 5px;
 }
-.navBar .navBtn:hover {
+.navBtn:hover {
     background-color: var(--bgc1);
 }
-.navBar .navBtn:active {
+.navBtn:active {
     background-color: var(--bgc1);
 }
 .btnSp {
     display: flex;
     gap: 5px;
 }
-.accBody .right {
+.right {
     width: 85vw;
     height: inherit;
 }
@@ -103,7 +103,7 @@
     height: 4vh;
     width: 20px;
 }
-.projectForm .formBtns {
+.formBtns {
     display: flex;
     justify-content: start;
     gap: 50px;
@@ -119,7 +119,7 @@
     height: 90vh;
     overflow-y: scroll ;
 }
-.navContent .piece {
+.piece {
     border: 1px solid var(--bgc1);
 }
 .navContent h2 {
@@ -150,7 +150,7 @@
     gap: 20px;
     cursor: pointer;
 }
-.piece .faPlus  {
+.faPlus  {
     font-size: 50px;
 }
 .piece p {
@@ -165,7 +165,7 @@
     height: 100%;
     border: 1px solid var(--bgc1);
 }
-.inProject .projectHeader {
+.projectHeader {
     height: 10vh;
     border-bottom: 1px solid var(--bgc1);
     display: flex;
@@ -255,7 +255,7 @@
 .noteWorkspace {
     height: 80vh;
 }
-.noteWorkspace .textarea1 {
+.textarea1 {
     border-top: 1px solid var(--bgc3);
     height: 70vh;
     width: 100%;
@@ -284,7 +284,7 @@
 .ed-btns .faSolid {
     font-size: 20px;
 }
-.fa-arrow-up, .faArrow {
+.faArrow {
     color: #00B9E8;
 }
 .faTrash {
@@ -317,7 +317,7 @@
     height: 6vh;
     border-radius: 10px;
 }
-.noteWorkspace .noteFooter {
+.noteFooter {
     height: 10vh;
     display: flex;
     justify-content: space-between;
@@ -578,4 +578,205 @@
 }
 .addPeers h4 {
     margin-bottom: 20px;
+}
+
+@media screen and (max-width: 1050px) {
+    .account {
+        border: 1px solid;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+    .accHeader {
+        padding: 0 10px;
+        display: none;
+    }
+    .accBody {
+        flex-direction: column;
+        height: 100vh;
+    }
+    .left {
+        width: 100vw;
+        height: 8vh;
+        position: sticky;
+        top: 0;
+    }
+    .left nav {
+        width: inherit;
+        height: inherit;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .navBtn {
+        height: 8vh;
+        padding: 0;
+        justify-content: center;
+    }
+    .navBtn p {
+        display: none;
+    }
+    .right {
+        width: 100vw;
+        height: 90vh;
+    }
+
+    .piece {
+        border: 1px solid;
+        height: 65px;
+        width: 300px;
+        flex-direction: row-reverse;
+        justify-content: start;
+        align-items: center;
+        padding:0 20px;
+    }
+    .content1 {
+        height: max-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .newProject {
+        width: 350px;
+        max-width: 95vw;
+        height: max-content;
+    }
+    .newProject form {
+        width: 100%;
+    }
+    .input {
+        width: 70%;
+    }
+    .navContent {
+        height: 90vh;
+        overflow-x: hidden;
+    }
+    .navContent h2 {
+        text-align: center;
+    }
+    .content2 {
+        grid-template-columns: repeat(auto-fit, 250px);
+        gap: 10px;
+        padding: 5px;
+        justify-content: space-around;
+        padding-bottom: 10vh;
+    }
+    .inProject .projectHeader {
+        padding: 0 5px;
+    }
+    .noteHeader {
+        height: 5vh;
+        padding: 0 5px;
+    }
+    .noteHeader h3 {
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+    .noteWorkspace {
+        height: 85vh;
+    }
+    .noteWorkspace textarea {
+        height: 60vh;
+        padding: 5px;
+        font-size: 0.9rem;
+    }
+    .noteFooter {
+        height: 10vh;
+        padding: 0 10px;
+    }
+
+    .peerReviews {
+        flex-direction: column;
+    }
+    .peerLeft {
+        width: 100%;
+        height: 6vh;
+        flex-direction: row;
+        gap: 0;
+        padding: 0;
+    }
+    .peerLeft p {
+        display: none;
+    }
+    .peerLeft button {
+        height: inherit;
+        border-radius: 0;
+        border: 1px solid var(--bgc1);
+    }
+    .peerRight {
+        width: 100%;
+    }
+    .peers {
+        flex-direction: column;
+        overflow-y: scroll;
+    }
+    .myPeers {
+        height: max-content;
+        width: 100%;
+        gap: 10px;
+        padding: 10px;
+    }
+    .addPeers {
+        width: 100%;
+        height: max-content;
+        padding: 10px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-bottom: 5vh;
+    }
+    .addPeers h4 {
+        margin-bottom: 10px;
+    }
+    .reviewItem {
+        padding: 10px;
+    }
+    .reviewItemNote {
+        padding: 10px;
+    }
+    .reviewItemReview {
+        max-width: 100%;
+    }
+
+    .heroBtns {
+        width: 100vw;
+        height: 10vh;
+        flex-direction: row;
+        justify-content: space-around;
+        bottom: 0px;
+        padding: 0 10px;
+    }
+    .heroBtns button {
+        height: 5vh;
+        width: 90px;
+    }
+
+    .projectNotes {
+        padding: 10px;
+        justify-content: space-evenly;
+        gap: 10px;
+    }
+    .smallNoteBody {
+        overflow: hidden;
+        padding: 2px;
+    }
+    .randomsHeader {
+        height: 12vh;
+        flex-direction: column;
+        justify-content: space-around;
+        padding: 0;
+    }
+    .randomsHeader h3 {
+        font-weight: 400;
+    }
+    .randomsBody {
+        gap: 10px;
+        justify-content: start;
+        padding: 10px;
+    }
+    .textarea1 {
+        position: relative;
+        max-width: 100vw;
+        flex-direction: column-reverse;
+        height: 75vh;
+    }
 }

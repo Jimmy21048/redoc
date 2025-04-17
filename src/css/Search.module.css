@@ -1,0 +1,20 @@
+.search {
+    height: 5vh;
+    width: 300px;
+    /* max-width: 90vw; */
+    max-width: 95%;
+    margin-top: 20px;
+    display: flex;
+}
+.search input {
+    width: inherit;
+    height: inherit;
+    border-radius: 5px;
+    border-right: 0;
+    padding-left: 3px;
+    border: 1px solid gray;
+    background-color: transparent;
+}
+.search input:focus {
+    outline: none;
+}

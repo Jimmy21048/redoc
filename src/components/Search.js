@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import styles from '../css/Search.module.css'
 
 export default function Search({ notes1, notes2, setNotes2, setNotes1, unit, randomNotes, setRandomNotes, peerUsers, setPeerUsers }) {
     const [originalNotes, setOriginalNotes] = useState([]);
@@ -72,7 +73,7 @@ export default function Search({ notes1, notes2, setNotes2, setNotes1, unit, ran
         
     }
     return (
-        <div className="search">
+        <div className={ styles.search }>
             <input type="text" placeholder="Search title here..." onChange={(e) => handleChange(e)} />
         </div>
     )
