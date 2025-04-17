@@ -130,11 +130,13 @@ const Socials=()=>{
             .replace(/<[^>]*>/g, "");  
     }
 
+    if(loading) {
+        return <Loading />
+    }
+
     return(
         <div className={ styles.Socials }>
-        {
-            loading && <Loading />
-        }
+        
             <Header {...{showNote, setShowNote}} />
             <div className={ styles.socialsBody }>
                 <div className={ styles.socialsRight }>

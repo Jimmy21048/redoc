@@ -7,6 +7,7 @@ import { useContext } from 'react';
 import React from 'react';
 import Loading from './Loading';
 import Header from './Header1';
+import styles from '../css/Account.module.css'
 
 const Account = () => {
     const { authState, setAuthState } = useContext(AuthContext)
@@ -631,44 +632,46 @@ const Account = () => {
         setIsDisabled(false)
     }
 
+    if(loading) {
+        return <Loading />
+    }
+
     return (
-        <div className="account" >
-        {
-            loading && <Loading />
-        }
+        <div className={ styles.account } >
+
             <Header />
-            <div className="acc-body">
-                <div className="left">
-                    <nav id="nav-bar">
+            <div className={ styles.accBody }>
+                <div className={ styles.left }>
+                    <nav id="nav-bar" className={ styles.navBar }>
                         <h3>{ data.email }</h3>
                         <h4>{ data.username }</h4>
                         <br/>
-                        <button className='nav-btn btn-sp'  onClick={()=>setCurrentPage('new-work')}>
+                        <button className={`${styles.navBtn} ${styles.btnSp}`}  onClick={()=>setCurrentPage('new-work')}>
                             <p>New</p>
                             <i className="fa-solid fa-plus"></i>
                         </button>
-                        <button className='nav-btn'  onClick={()=>handleCurrentPage('my-works')} ><i className="fa-solid fa-briefcase"></i> <p>My Projects</p> </button>
-                        <button className='nav-btn'  onClick={()=>{setCurrentPage('my-works');setRandoms(true); setOpenNote(false); setOpenProject(false ); setIsDisabled(true)}} ><i className="fa-regular fa-file-lines"></i> <p>Notes</p> </button>
-                        <button className='nav-btn'  onClick={()=>handleCurrentPage('peer-review')}><i className="fa-solid fa-people-arrows"></i> <p>Peer Review</p> </button>
-                        <Link to={'/socials'} className='nav-btn'  onClick={()=>handleCurrentPage('socials')}><i class="fa-solid fa-people-group"></i> <p>Socials</p> </Link>
-                        <button className='nav-btn'  onClick={logout}><i className="fa-solid fa-share-from-square"></i> <p>Log out</p> </button>
+                        <button className={styles.navBtn}  onClick={()=>handleCurrentPage('my-works')} ><i className="fa-solid fa-briefcase"></i> <p>My Projects</p> </button>
+                        <button className={styles.navBtn}  onClick={()=>{setCurrentPage('my-works');setRandoms(true); setOpenNote(false); setOpenProject(false ); setIsDisabled(true)}} ><i className="fa-regular fa-file-lines"></i> <p>Notes</p> </button>
+                        <button className={styles.navBtn}  onClick={()=>handleCurrentPage('peer-review')}><i className="fa-solid fa-people-arrows"></i> <p>Peer Review</p> </button>
+                        <Link to={'/socials'} className={styles.navBtn}  onClick={()=>handleCurrentPage('socials')}><i class="fa-solid fa-people-group"></i> <p>Socials</p> </Link>
+                        <button className={styles.navBtn}  onClick={logout}><i className="fa-solid fa-share-from-square"></i> <p>Log out</p> </button>
                     </nav>
                 </div>
-                <div className="right">
+                <div className={ styles.right }>
                     {currentPage==='new-work' && (
                         <>
                             {
                                 newProject ? 
-                                <div className='nav-project'>
-                                    <div className='new-project'>
+                                <div className={styles.navProject}>
+                                    <div className={ styles.newProject }>
                                         <h1>New Project</h1>
-                                        <form className='project-form'>
+                                        <form className={ styles.projectForm }>
                                             <label>Project title
-                                                <input type='text' name='projectName' className='input' onChange={handleChange} />
+                                                <input type='text' name='projectName' className={ styles.input } onChange={handleChange} />
                                             </label>
                                             <label >Project Type
-                                                <input type='radio' value={'public'} className='input-radio' name='projectType' onChange={handleChange}  /> public
-                                                <input type='radio' value={'private'} className='input-radio' name='projectType' onChange={handleChange}  /> private
+                                                <input type='radio' value={'public'} className={ styles.inputRadio } name='projectType' onChange={handleChange}  /> public
+                                                <input type='radio' value={'private'} className={ styles.inputRadio } name='projectType' onChange={handleChange}  /> private
                                             </label>
                                             <select name='projectField' onChange={handleChange} >
                                                 <option value={''} >Field</option>
@@ -685,7 +688,7 @@ const Account = () => {
                                                 <option value={'Information Technology'}>Information Technology</option>
                                                 <option value={'Environment'}>Environmental Bio</option>
                                             </select>
-                                            <div className='form-btns'>
+                                            <div className={ styles.formBtns }>
                                                 <button onClick={() => setNewProject(false)}>CANCEL</button>
                                                 <button onClick={handleSubmitProject}>SAVE</button>
                                             </div>
@@ -698,17 +701,17 @@ const Account = () => {
                                     </div>
                                 </div>
                                 : newNote ? 
-                                <div className='nav-project'>
-                                    <div className='new-project'>
+                                <div className={ styles.navProject }>
+                                    <div className={ styles.newProject }>
                                         <h1>New Note</h1>
-                                        <form className='project-form'>
+                                        <form className={ styles.projectForm }>
                                             <label>Notes title
-                                                <input type='text' name='notesTitle' className='input' onChange={handleChangeNotes} />
+                                                <input type='text' name='notesTitle' className={ styles.input } onChange={handleChangeNotes} />
                                             </label>
-                                            <textarea name='catchPhrase' onChange={handleChangeNotes} className='catch-phrase' placeholder='Enter catch-phrase' />
+                                            <textarea name={ styles.catchPhrase } onChange={handleChangeNotes} className='catch-phrase' placeholder='Enter catch-phrase' />
                                             <label>Attach to project
-                                                    <input type='radio' onClick={() => {setProjectNote(true); setNotesData({...notesData, notesType: ''})}}  className='input-radio' name='attachToProject' /> Yes
-                                                    <input type='radio' onClick={() => {setProjectNote(false); setNotesData({...notesData, attachProject: ''})}}  className='input-radio' name='attachToProject'/> No
+                                                    <input type='radio' onClick={() => {setProjectNote(true); setNotesData({...notesData, notesType: ''})}}  className={ styles.inputRadio } name='attachToProject' /> Yes
+                                                    <input type='radio' onClick={() => {setProjectNote(false); setNotesData({...notesData, attachProject: ''})}}  className={ styles.inputRadio } name='attachToProject'/> No
                                             </label>
                                             {
                                                 projectNote === true ? 
@@ -725,11 +728,11 @@ const Account = () => {
                                                     </select>
                                                 </label> : projectNote === false ?
                                                 <label >Notes Type
-                                                    <input type='radio' value={'public'} className='input-radio' name='notesType' onChange={handleChangeNotes}  /> public
-                                                    <input type='radio' value={'private'} className='input-radio' name='notesType' onChange={handleChangeNotes}  /> private
+                                                    <input type='radio' value={'public'} className={ styles.inputRadio } name='notesType' onChange={handleChangeNotes}  /> public
+                                                    <input type='radio' value={'private'} className={ styles.inputRadio } name='notesType' onChange={handleChangeNotes}  /> private
                                                 </label> : ''
                                             }
-                                            <div className='form-btns'>
+                                            <div className={ styles.formBtns }>
                                                 <button onClick={() => setNewNote(false)}>CANCEL</button>
                                                 <button onClick={handleSubmitNote}>SAVE</button>
                                             </div>
@@ -742,12 +745,12 @@ const Account = () => {
                                     </div>
                                 </div>
                                 :
-                                <div className='nav-content content1'>
-                                    <button className='piece piece1' onClick={() => setNewProject(true)}>
-                                        <i className="fa-solid fa-plus"></i>
+                                <div className={`${styles.navContent} ${styles.content1}`}>
+                                    <button className={`${styles.piece}`} onClick={() => setNewProject(true)}>
+                                        <i className={`fa-solid fa-plus ${styles.faPlus}`}></i>
                                         <p>NEW PROJECT</p>
                                     </button>
-                                    <button className='piece' onClick={() => {setNewNote(true); setDivs([])}}>
+                                    <button className={ styles.piece } onClick={() => {setNewNote(true); setDivs([])}}>
                                         <i className="fa-solid fa-file-lines"></i>
                                         <p>NOTES</p>
                                     </button>
@@ -756,30 +759,30 @@ const Account = () => {
                         </>
                     )}
                     {currentPage==='my-works' && (
-                        <div className='nav-content'>
+                        <div className={ styles.navContent }>
                             {
                                 openProject ?
-                                <div className='project-open'>
-                                    <div className='in-project'>
-                                        <header className='project-header'>
+                                <div className={ styles.projectOpen }>
+                                    <div className={ styles.inProject }>
+                                        <header className={ styles.projectHeader }>
                                             <h3>Workspace : { currentProject.projectName }</h3>
                                             <h4>{ currentProject.projectType } project</h4>
                                             <h4>Field : {currentProject.projectField} </h4>
                                             <i onClick={() => setOpenProject(false)} ><i class="fa-solid fa-circle-xmark"></i></i>
                                         </header>
-                                        <div className='project-add-btn'>
-                                            <button onClick={() => {setCurrentPage('new-work');setNewNote(true) }} className='p-btn'>note</button>
-                                            <button onClick={() => {setCurrentPage('new-work');setNewFile(true) }} className='p-btn'>file</button>
+                                        <div className={ styles.projectAddBtn }>
+                                            <button onClick={() => {setCurrentPage('new-work');setNewNote(true) }} className={ styles.pBtn }>note</button>
+                                            <button onClick={() => {setCurrentPage('new-work');setNewFile(true) }} className={ styles.pBtn }>file</button>
                                         </div>
-                                        <div className='project-workspace'>
-                                            <div className='project-notes'>
+                                        <div className={ styles.projectWorkspace }>
+                                            <div className={ styles.projectNotes }>
                                             {
                                                 currentProject.notes ? 
                                                 currentProject.notes.map((note) => {
                                                    return (
-                                                    <button key={note.notesTitle} onClick={() =>handleOpenNote(currentProject, note)} className='small-note'>
+                                                    <button key={note.notesTitle} onClick={() =>handleOpenNote(currentProject, note)} className={ styles.smallNote }>
                                                         <h4>{ note.notesTitle }</h4>
-                                                        <div className='small-note-body'>
+                                                        <div className={ styles.smallNoteBody }>
                                                             {note.catchPhrase}
                                                         </div>
                                                     </button>
@@ -791,12 +794,12 @@ const Account = () => {
                                     </div>
                                 </div>
                                 : openNote ? 
-                                <div className='project-open'>
-                                    <div className='in-project'>
+                                <div className={ styles.projectOpen }>
+                                    <div className={ styles.inProject }>
                                         
                                     {
                                         currentNote.noteProject ? 
-                                        <header className='note-header'>
+                                        <header className={ styles.noteHeader }>
                                             <h3>Notes: { currentNote.note.notesTitle }</h3>
                                             {
                                             updateNoteResponse.success ? 
@@ -805,7 +808,7 @@ const Account = () => {
                                             }
                                             <h3>Project: { currentNote.noteProject.projectName }</h3>
                                         </header> : currentNote.note ? 
-                                        <header className='note-header'>
+                                        <header className={ styles.noteHeader }>
                                             <h3>Notes: { currentNote.note.notesTitle }</h3>
                                             {
                                             updateNoteResponse.success ? 
@@ -815,36 +818,36 @@ const Account = () => {
                                             <h3>Type: { currentNote.note.notesType }</h3>
                                         </header> : ''
                                     }
-                                    <div className='note-workspace'>
-                                        <div className='textarea1'>
+                                    <div className={ styles.noteWorkspace }>
+                                        <div className={ styles.textarea1 }>
                                             <div id='hero'>
                                                 <input type='file' onChange={handleChangeImage} ref={imageRef} style={{display: 'none'}} />
                                                 {
                                                     inputData.map((item, index) => {
                                                         return (
-                                                            <div className='ed-div'  key={index}>
+                                                            <div className={ styles.edDiv } key={index}>
                                                             {
                                                                 item[1] === 'title' ? 
-                                                                <h2 className='ed-item' contentEditable 
+                                                                <h2 className={ styles.edItem } contentEditable 
                                                                 
                                                                 suppressContentEditableWarning onInput={(e) => handleChangeNoteItem(e, index)} >{ stripHTML(item[0]) }</h2> : 
 
                                                                 item[1] === 'content' ? 
-                                                                <p className='ed-item' contentEditable 
+                                                                <p className={ styles.edItem } contentEditable 
                                                                 
                                                                 suppressContentEditableWarning onInput={(e) => handleChangeNoteItem(e, index)} >{ stripHTML(item[0]) }</p> :
 
                                                                 item[1] === 'code' ?
-                                                                <code className='ed-item' contentEditable 
+                                                                <code className={ styles.edItem } contentEditable 
                                                                 suppressContentEditableWarning onInput={(e) => handleChangeNoteItem(e, index)}>{ stripHTML(item[0]) }</code> :
 
                                                                 item[1] === 'image' && 
                                                                 <img className='ed-image' src={item[0]} />
                                                             }
-                                                            <div className='ed-btns'>
-                                                                <i className="fa-solid fa-arrow-up" onClick={() => handleMoveItemUp(index)}></i>
-                                                                <i className="fa-solid fa-arrow-down" onClick={() => handleMoveItemDown(index)}></i>
-                                                                <i class="fa-solid fa-trash" onClick={() => handleDeleteNoteItem(index)} ></i>
+                                                            <div className={ styles.edBtns }>
+                                                                <i className={`fa-solid fa-arrow-up ${styles.faSolid}  ${styles.faArrow}`} onClick={() => handleMoveItemUp(index)}></i>
+                                                                <i className={`fa-solid fa-arrow-down ${styles.faSolid}  ${styles.faArrow}`} onClick={() => handleMoveItemDown(index)}></i>
+                                                                <i class={`fa-solid fa-trash ${styles.faSolid}  ${styles.faTrash}`} onClick={() => handleDeleteNoteItem(index)} ></i>
                                                             </div>
                                                             </div>
                                                         )
@@ -862,7 +865,7 @@ const Account = () => {
                                                         onInput={(e) => handleTitleInput(e)} />
 
                                                         <button
-                                                        className='r-btn'
+                                                        className={ styles.rBtn }
                                                         onClick={handleAddDiv}
                                                         style={{width: '70px', height: '5vh'}}>
                                                             ADD
@@ -877,7 +880,7 @@ const Account = () => {
 
                                                         <textarea  onChange={(e) => handleAreaInput(e)} placeholder='Enter text here...' style={{ fontSize: '1.1rem', padding: '8px', width: '650px', backgroundColor: '#F0F8FF', border: 'none', borderBottom: '1px solid #C0C0C0' }} />
 
-                                                        <button onClick={handleAddContent} className='r-btn'  style={{ width: '120px', height: '5vh', padding: '0 10px' }}>
+                                                        <button onClick={handleAddContent} className={ styles.rBtn }  style={{ width: '120px', height: '5vh', padding: '0 10px' }}>
                                                             ADD TEXT
                                                         </button>
                                                     </div>
@@ -888,11 +891,11 @@ const Account = () => {
 
                                                         <textarea placeholder='Type code here...' onChange={(e) => handleCodeInput(e)} style={{ padding: '10px', width: '400px', backgroundColor: '#F0F8FF', border: 'none', borderBottom: '1px solid #C0C0C0' }} />
 
-                                                        <button className='r-btn' onClick={handleCode} style={{ width: '100px', height: '5vh' }}>ADD CODE</button>
+                                                        <button className={ styles.rBtn } onClick={handleCode} style={{ width: '100px', height: '5vh' }}>ADD CODE</button>
                                                     </div>
                                                 }
                                             </div>
-                                            <div className='hero-btns'>
+                                            <div className={ styles.heroBtns }>
                                                 <button onClick={() => setShowTextArea(prev => !prev)} id="normal">normal text</button>
                                                 <button onClick={() => setShowTitleInput(prev => !prev)} id="title">Title</button>
                                                 <button onClick={handleImage} id="image">image</button>
@@ -900,30 +903,30 @@ const Account = () => {
                                             </div>
                                         </div>
                 
-                                        <div className='note-footer'>
-                                            <button className='btn-exit' onClick={() => {setOpenNote(false); setIsDisabled(true)}}>EXIT</button>
-                                            <button className='btn-save' onClick={() => handleUpdateNotes(currentNote)}>SAVE</button>
+                                        <div className={ styles.noteFooter }>
+                                            <button className={ styles.btnExit } onClick={() => {setOpenNote(false); setIsDisabled(true)}}>EXIT</button>
+                                            <button className={ styles.btnSave } onClick={() => handleUpdateNotes(currentNote)}>SAVE</button>
                                         </div>
                                     </div>
                         
                                     </div>
                                 </div>
                                 : randoms ? 
-                                <div className='project-open randoms'>
-                                    <header className='randoms-header'>
+                                <div className={`${styles.projectOpen}`}>
+                                    <header className={ styles.randomsHeader }>
                                         <h3>My notes</h3>
                                         <Search {...{randomNotes, setRandomNotes}} unit="randomNotes" />
                                     </header>
-                                    <div className='randoms-body'>
+                                    <div className={ styles.randomsBody }>
                                     {
                                         randomNotes.length === 0 ? 
                                         <h4>No notes available</h4> :
                                         randomNotes.map((note) => {
                                             return (
-                                            <button key={note.notesTitle} onClick={() =>handleOpenNote(null, note)} className='small-note r-note'>
+                                            <button key={note.notesTitle} onClick={() =>handleOpenNote(null, note)} className={`${styles.smallNote} r-note`}>
                                                 <h4>{ note.notesTitle }</h4>
                                                 <hr/>
-                                                <div className='small-note-body'>
+                                                <div className={ styles.smallNoteBody }>
                                                 {note.catchPhrase}
                                                 </div>
                                             </button>
@@ -935,23 +938,23 @@ const Account = () => {
                                 :
                                 <>
                                     <h2>My Projects</h2>
-                                    <div className='content2'>
+                                    <div className={ styles.content2 }>
                                     {
                                         projects.length > 0 ? 
                                         projects.map((project) => {
                                             return (
-                                                <div key={project.projectName} className='project'>
-                                                    <p className='project-title'>{ project.projectName }</p>
+                                                <div key={project.projectName} className={ styles.project }>
+                                                    <p className={ styles.projectTitle }>{ project.projectName }</p>
                                                     {
                                                         projectMenu.projectName === project.projectName && toggleProject? 
-                                                        <div className='project-body'>
-                                                            { project.projectType === 'public' ? <button className='pbtn1' onClick={() => handleProjectType(project.projectName, 'private')} >Make private</button> : <button className='pbtn1'  onClick={() => handleProjectType(project.projectName, 'public')} >Make public</button> }
-                                                            <button className='pbtn2' onClick={() => handleRequestReview(project.projectName)}>Request peer review</button>
-                                                            <button onClick={() => handleDeleteProject(project.projectName)} className='pbtn3'>Delete project</button>
+                                                        <div className={ styles.projectBody }>
+                                                            { project.projectType === 'public' ? <button  onClick={() => handleProjectType(project.projectName, 'private')} >Make private</button> : <button  onClick={() => handleProjectType(project.projectName, 'public')} >Make public</button> }
+                                                            <button onClick={() => handleRequestReview(project.projectName)}>Request peer review</button>
+                                                            <button onClick={() => handleDeleteProject(project.projectName)} >Delete project</button>
                                                             
                                                         </div> : ''
                                                     }
-                                                    <div className='project-footer'>
+                                                    <div className={ styles.projectFooter }>
                                                         <button onClick={() => toggleProjectMenu(project.projectName)}>menu</button>
                                                         <button onClick={() => handleOpenProject(project)} >open</button>
                                                     </div>
@@ -967,9 +970,9 @@ const Account = () => {
                     )}
 
                    {currentPage==='peer-review' && (
-                        <div className='nav-content peer-reviews'>
+                        <div className={`${styles.navContent} ${styles.peerReviews}`}>
                             
-                            <div className='peer-left'>
+                            <div className={ styles.peerLeft }>
                                 <p>PEER REVIEWS : <i>~get confidential reviews from your colleagues</i></p>
                                 <button onClick={() => {
                                  setShowPeerRequests(false); 
@@ -983,17 +986,17 @@ const Account = () => {
                                 <button onClick={() => {setFromReviews(true);setToReviews(true); setShowPeerRequests(false); setRequestReview(false)}} >Incoming reviews</button>
                                 <button onClick={() => {setToReviews(true);setFromReviews(false); setShowPeerRequests(false); setRequestReview(false); setShowReviewFrom(false)}}>Outgoing reviews</button>
                             </div>
-                            <div className='peer-right'>
+                            <div className={ styles.peerRight }>
                             {
                                 requestReview ? 
-                                <div className='peers peers-review'>
-                                        <div className='new-project'>
+                                <div className={`${styles.peers} ${styles.peersReview}`}>
+                                        <div className={ styles.newProject }>
                                             <h3>Request review</h3>
-                                            <form className='project-form'>
+                                            <form className={ styles.projectForm }>
                                                 <label>Project/note name
-                                                    <input type='text' className='input' readOnly value={projectReview}  />
+                                                    <input type='text' className={ styles.input } readOnly value={projectReview}  />
                                                 </label>
-                                                <textarea rows={10} name='reviewDesc' className='textarea' onChange={handleChangeReview} placeholder='provide a brief description of what the review should entail' />
+                                                <textarea rows={10} name='reviewDesc' className={ styles.textarea } onChange={handleChangeReview} placeholder='provide a brief description of what the review should entail' />
                                                 <label>reviewer
                                                     <select name='reviewer' onChange={handleChangeReview} >
                                                         <option value={'none'} >select peer</option>
@@ -1008,18 +1011,18 @@ const Account = () => {
                                                     </select>
                                                 </label>
 
-                                                <button className='r-btn' onClick={handleSubmitReviewRequest} >send</button>
+                                                <button className={ styles.rBtn } onClick={handleSubmitReviewRequest} >send</button>
                                             </form>
                                         </div>
                                 </div> : 
                                 fromReviews ?
-                                <div className='peers review-out'>
+                                <div className={`${styles.peers} ${styles.reviewOut}`}>
                                     <h4>Incoming reviews</h4>
                                     {
                                        peerData.incomingReviews ?
                                             peerData.incomingReviews.map(peer => {
                                                 return (
-                                                    <button onClick={() => handleReviewFrom(peer)} className='review-btn'>
+                                                    <button onClick={() => handleReviewFrom(peer)} className={ styles.reviewBtn }>
                                                         <p>{ peer.name }</p>
                                                         <p>from</p>
                                                         <p> {peer.from} </p>
@@ -1029,13 +1032,13 @@ const Account = () => {
                                     }
                                 </div> :
                                 toReviews ?
-                                <div className='peers review-out'>
+                                <div className={`${styles.peers} ${styles.reviewOut}`}>
                                     <h4>Outgoing requests</h4>
                                     {
                                        peerData.outgoingReviews ?
                                             peerData.outgoingReviews.map(peer => {
                                                 return (
-                                                    <button onClick={() => handleReviewTo(peer)} className='review-btn'>
+                                                    <button onClick={() => handleReviewTo(peer)} className={ styles.reviewBtn }>
                                                         <p>{ peer.name }</p>
                                                         <p>to</p>
                                                         <p> {peer.reviewer} </p>
@@ -1045,11 +1048,11 @@ const Account = () => {
                                     }
                                 </div> :
                                 showReviewFrom ?
-                                <div className='peers'>
-                                    <div className='review-item'>
-                                        <div className='review-item-notes'>
+                                <div className={ styles.peers }>
+                                    <div className={ styles.reviewItem }>
+                                        <div className={ styles.reviewItemNotes }>
                                             <h3>REVIEW REQUEST from { reviewUser.from }</h3>
-                                            <div className='review-desc'>
+                                            <div className={ styles.reviewDesc }>
                                                 <h5>Description</h5>
                                                 <p> { reviewUser.desc } </p>
                                             </div>
@@ -1059,7 +1062,7 @@ const Account = () => {
                                             {
                                                 reviewItem.map(item => {
                                                     return (
-                                                        <div key={item.notesTitle} className='review-item-note'>
+                                                        <div key={item.notesTitle} className={ styles.reviewItemNote }>
                                                             <h3>{ item.notesTitle }</h3>
                                                             <div>
                                                             {
@@ -1068,13 +1071,13 @@ const Account = () => {
                                                                         return <>
                                                                             {
                                                                                 note[1] === 'title' ? 
-                                                                                <p className='text-title'>{ note[0] }</p> : 
+                                                                                <p className={ styles.textTitle }>{ note[0] }</p> : 
                                                                                 note[1] === 'content' ? 
-                                                                                <p className='text-paragraph'>{ note[0] }</p> : 
+                                                                                <p className={ styles.textParagraph }>{ note[0] }</p> : 
                                                                                 note[1] === 'code' ?
-                                                                                <p className='text-code'>{ note[0] }</p> : 
+                                                                                <p className={ styles.textCode }>{ note[0] }</p> : 
                                                                                 note[1] === 'image' && 
-                                                                                <img src={note[0]} className='ed-image' alt='image-item' />
+                                                                                <img src={note[0]} className={ styles.edImage } alt='image-item' />
                                                                             }
                                                                         </> 
                                                                 }
@@ -1087,28 +1090,28 @@ const Account = () => {
                                             }
                                         </div>
                                         
-                                        <textarea placeholder='Leave review here' onChange={(e) => setreviewFeedBack(e.target.value) } className='review-item-review'/>
+                                        <textarea placeholder='Leave review here' onChange={(e) => setreviewFeedBack(e.target.value) } className={ styles.reviewItemReview }/>
 
-                                        <div  className='review-item-button'>
-                                        <button className='r-btn' onClick={handleSubmitReviewFeedBack}>submit review</button>
+                                        <div  className={ styles.reviewItemButton }>
+                                        <button className={ styles.rBtn } onClick={handleSubmitReviewFeedBack}>submit review</button>
                                         </div>
                                     </div>
                                 </div> :
                                 showReviewTo ?
-                                <div className='peers'>
-                                    <div className='review-item'>
+                                <div className={ styles.peers }>
+                                    <div className={ styles.reviewItem }>
                                         <h3>REVIEW RESPONSE from { reviewer.reviewer }</h3>
-                                        <div className='review-desc'>
+                                        <div className={ styles.reviewDesc }>
                                             <h5>Description</h5>
                                             <p> { reviewer.description } </p>
                                         </div>
             
-                                        <div className='review-desc'>
+                                        <div className={ styles.reviewDesc }>
                                             <h5>project</h5>
                                             <p> { reviewer.name } </p>
                                         </div>
 
-                                        <div className='review-desc'>
+                                        <div className={ styles.reviewDesc }>
                                             <h5>Feedback</h5>
                                             <pre>
                                             { reviewer.feedBack.length < 1 ? <p>No feedback yet</p> : reviewer.feedBack }
@@ -1116,14 +1119,14 @@ const Account = () => {
                                         </div>
                                     </div>
                                 </div> : 
-                                <div className='peers'>
-                                    <div className='my-peers'>
+                                <div className={ styles.peers }>
+                                    <div className={ styles.myPeers }>
                                     <h4>Peer requests</h4>
                                         {
                                             peerData.pendingPeers &&
                                             peerData.pendingPeers.map((peer) => {
                                                  return (
-                                                 <div className='peer'>
+                                                 <div className={ styles.peer }>
                                                      <p>{ peer }</p>
                                                      <button onClick={() => handleAcceptPeer(peer)}>ACCEPT</button>
                                                      <button onClick={() => handleRejectPeer(peer)}>REJECT</button>
@@ -1135,7 +1138,7 @@ const Account = () => {
                                             peerData.requestedPeers &&
                                             peerData.requestedPeers.map((peer) => {
                                                 return (
-                                                <div className='peer'>
+                                                <div className={ styles.peer }>
                                                     <p>{ peer }</p>
                                                     <button style={{color : "red"}} onClick={() => handleCancelPeer(peer)} >cancel request</button>
                                                 </div>
@@ -1144,13 +1147,13 @@ const Account = () => {
                                         }
                                         
                                     </div>
-                                    <div className='add-peers'>
+                                    <div className={ styles.addPeers }>
                                         <h4>Add peer</h4>
-                                        <Search {...{peerUsers, setPeerUsers}} unit="peer-users" />
+                                        <Search {...{peerUsers, setPeerUsers}} unit="peerUsers" />
                                         {
                                             peerUsers.map((peer) => {
                                                 return (
-                                                    <div style={{display : peer.username === data.username ? 'none' : 'flex'}} key={peer.username} className='peer'>
+                                                    <div style={{display : peer.username === data.username ? 'none' : 'flex'}} key={peer.username} className={ styles.peer }>
                                                         <p>{peer.username}</p>
                                                         {
                                                             peerData.pendingPeers && peerData.pendingPeers.includes(peer.username) === true? 
