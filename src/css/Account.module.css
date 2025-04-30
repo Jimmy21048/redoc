@@ -1,3 +1,16 @@
+:root {
+    --color1 : #fafafacc;
+    --bgc1 : rgba(219, 223, 224, 0.781);
+    --bgc2 : rgb(192, 255, 255);
+    --bgc3 : rgba(183, 185, 185, 0.836);
+    --color2: whitesmoke;
+    --color3: rgba(215, 221, 221, 0.918);
+    --color4: #00FFBF;
+    --color5: #FFFFFF;
+    --color6: #F9F9F9;
+    --color7: #555555;
+}
+
 .account {
     height: 100dvh;
     width: 100vw;
@@ -26,6 +39,13 @@
     flex-direction: column;
     align-items: center;
     background-color: var(--color1);
+}
+.navBar h3, .navBar h4 {
+    text-align: left;
+    width: 100%;
+    max-width: 100%;
+    padding: 20px;
+    height: 5vh;
 }
 .navBtn {
     text-decoration: none;
@@ -173,6 +193,10 @@
     padding: 0 20px;
     align-items: center;
 }
+.xMark {
+    font-size: 28px;
+    color:rgb(187, 25, 25);
+}
 .projectAddBtn {
     height: 8vh;
     width: 100%;
@@ -303,6 +327,17 @@
     background-color: black;
     color: var(--color4);
     transition: 0.5s;
+}
+.hero {
+    padding: 20px;
+    width: 80%;
+    min-width: 700px;
+    height: 70vh;
+    overflow-y: scroll;
+    
+}
+.hero div {
+    margin-bottom: 5px;
 }
 .heroBtns {
     width: 20%;
@@ -582,7 +617,6 @@
 
 @media screen and (max-width: 1050px) {
     .account {
-        border: 1px solid;
         overflow-y: scroll;
         overflow-x: hidden;
     }
@@ -592,11 +626,10 @@
     }
     .accBody {
         flex-direction: column;
-        height: 100vh;
     }
     .left {
         width: 100vw;
-        height: 8vh;
+        height: 8dvh;
         position: sticky;
         top: 0;
     }
@@ -615,9 +648,12 @@
     .navBtn p {
         display: none;
     }
+    .navBar h3, .navBar h4, .navBar br {
+        display: none;
+    }
     .right {
         width: 100vw;
-        height: 90vh;
+        height: 82dvh;
     }
 
     .piece {
@@ -628,6 +664,21 @@
         justify-content: start;
         align-items: center;
         padding:0 20px;
+    }
+
+    .piece .fa-solid  {
+        font-size: 30px;
+    }
+    .hero {
+        padding: 5px;
+        width: 100%;
+        height: 57dvh;
+    }
+    .hero div {
+        max-width: 95vw !important;
+    }
+    .hero div textarea{
+        max-width: 95vw !important;
     }
     .content1 {
         height: max-content;
@@ -648,7 +699,7 @@
         width: 70%;
     }
     .navContent {
-        height: 90vh;
+        height: 82dvh;
         overflow-x: hidden;
     }
     .navContent h2 {
@@ -665,7 +716,7 @@
         padding: 0 5px;
     }
     .noteHeader {
-        height: 5vh;
+        height: 5dvh;
         padding: 0 5px;
     }
     .noteHeader h3 {
@@ -673,7 +724,7 @@
         font-weight: 500;
     }
     .noteWorkspace {
-        height: 85vh;
+        height: 77dvh;
     }
     .noteWorkspace textarea {
         height: 60vh;
@@ -681,7 +732,7 @@
         font-size: 0.9rem;
     }
     .noteFooter {
-        height: 10vh;
+        height: 10dvh;
         padding: 0 10px;
     }
 
@@ -739,7 +790,7 @@
 
     .heroBtns {
         width: 100vw;
-        height: 10vh;
+        height: 10dvh;
         flex-direction: row;
         justify-content: space-around;
         bottom: 0px;
@@ -777,6 +828,21 @@
         position: relative;
         max-width: 100vw;
         flex-direction: column-reverse;
-        height: 75vh;
+        height: 67dvh;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .inProject .projectHeader h4 {
+        display: none;
+    }
+    .inProject .projectHeader h3 {
+        font-size: 0.95rem;
+    }
+    .inProject .projectHeader .xMark {
+        font-size: 25px;
+    }
+    .randomsBody {
+        justify-content: space-around;
     }
 }

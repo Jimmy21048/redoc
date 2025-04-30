@@ -23,52 +23,15 @@
 button {
     cursor: pointer;
 }
-
-/* Styling the main page */
-
-.search-btn {
-    display: flex;
-    justify-content: space-between;
-    padding:0 20px;
-}
-.project-header .fa-solid {
-    font-size: 28px;
-    color:rgb(187, 25, 25);
-}
-/* test editable */
-#hero {
-    padding: 20px;
-    width: 80%;
-    min-width: 700px;
-    height: 70vh;
-    overflow-y: scroll;
-    
-}
-#hero div {
-    margin-bottom: 5px;
-}
-/* test editable */
 textarea:focus {
     outline: none;
 }
-#nav-bar h3, #nav-bar h4 {
-    text-align: left;
-    width: 100%;
-    max-width: 100%;
-    padding: 20px;
-    height: 5vh;
-}
-.socials .top {
+
+.top {
     background-color: var(--color6);
 }
-.hide-footer {
-    display: none;
-}
-#menu {
-    display: none;
-}
 
-/* scrollbar */
+
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -83,64 +46,9 @@ textarea:focus {
     background: #B2BEB5; 
 }
 
-/* login */
+
 @media screen and (max-width: 1150px) {
-    #nav-bar h3, #nav-bar h4, #nav-bar br {
-        display: none;
-    }
     ::-webkit-scrollbar {
         display: none;
     }
-}
-@media screen and (max-width: 1050px) {
-
-    /* login */
-    /* login */
-    /* Account */
-    .search-btn {
-        flex-direction: column;
-        align-items: end;
-        gap: 10px;
-        background-color: white;
-    }
-    .search-btn h4 {
-        display: none;
-    }
-    /* Account */
-    /* account trials */
-    /*  */
-    .piece .fa-solid  {
-        font-size: 30px;
-    }
-#hero {
-    padding: 5px;
-    width: 100%;
-}
-#hero div {
-    max-width: 95vw !important;
-}
-#hero div textarea{
-    max-width: 95vw !important;
-}
-/* account trials */
-    /* account trials */
-/* peer revs */
-
-/* peer revs */
-/* socials */
-}
-
-@media screen and (max-width: 500px) {
-.in-project .project-header h4 {
-    display: none;
-}
-.in-project .project-header h3 {
-    font-size: 0.95rem;
-}
-.in-project .project-header .fa-solid {
-    font-size: 25px;
-}
-.randoms-body {
-    justify-content: space-around;
-}
 }

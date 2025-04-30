@@ -5,7 +5,7 @@ import axios from "axios";
 import styles from '../css/Header.module.css'
 
 
-const Header=({showNote, setShowNote})=>{
+const Header=({showNote, setShowNote, transparentBg=true})=>{
     const { authState, setAuthState } = useContext(AuthContext)
     const [user, setUser] = useState('');
 
@@ -24,7 +24,7 @@ const Header=({showNote, setShowNote})=>{
         })
     },[])
     return (
-        <div className={ styles.top }>
+        <div className={ `${styles.top} ${transparentBg ? 'top' : ''}` }>
             {
                 showNote ? <i onClick={() => setShowNote(false)} className={`fa-solid fa-arrow-left`}></i> :
                 <Link to={'/'}><img className={ styles.logo } src='./images/redoc1.png'  alt='logo' /></Link>

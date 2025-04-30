@@ -708,7 +708,7 @@ const Account = () => {
                                             <label>Notes title
                                                 <input type='text' name='notesTitle' className={ styles.input } onChange={handleChangeNotes} />
                                             </label>
-                                            <textarea name={ styles.catchPhrase } onChange={handleChangeNotes} className='catch-phrase' placeholder='Enter catch-phrase' />
+                                            <textarea name='catch-phrase' onChange={handleChangeNotes} className={ styles.catchPhrase } placeholder='Enter catch-phrase' />
                                             <label>Attach to project
                                                     <input type='radio' onClick={() => {setProjectNote(true); setNotesData({...notesData, notesType: ''})}}  className={ styles.inputRadio } name='attachToProject' /> Yes
                                                     <input type='radio' onClick={() => {setProjectNote(false); setNotesData({...notesData, attachProject: ''})}}  className={ styles.inputRadio } name='attachToProject'/> No
@@ -768,7 +768,7 @@ const Account = () => {
                                             <h3>Workspace : { currentProject.projectName }</h3>
                                             <h4>{ currentProject.projectType } project</h4>
                                             <h4>Field : {currentProject.projectField} </h4>
-                                            <i onClick={() => setOpenProject(false)} ><i class="fa-solid fa-circle-xmark"></i></i>
+                                            <i onClick={() => setOpenProject(false)} ><i class={`fa-solid fa-circle-xmark ${styles.xMark} `}></i></i>
                                         </header>
                                         <div className={ styles.projectAddBtn }>
                                             <button onClick={() => {setCurrentPage('new-work');setNewNote(true) }} className={ styles.pBtn }>note</button>
@@ -820,7 +820,7 @@ const Account = () => {
                                     }
                                     <div className={ styles.noteWorkspace }>
                                         <div className={ styles.textarea1 }>
-                                            <div id='hero'>
+                                            <div id='hero' className={ styles.hero }>
                                                 <input type='file' onChange={handleChangeImage} ref={imageRef} style={{display: 'none'}} />
                                                 {
                                                     inputData.map((item, index) => {
