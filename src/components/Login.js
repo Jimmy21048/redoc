@@ -36,28 +36,33 @@ const Login = () => {
     const [loading, setLoading] = useState(false)
 
     const handleSignup = (e) => {
+        const form = e.target
         e.preventDefault();
 
-        axios.post(`${process.env.REACT_APP_BACKEND}/sign/signup`, formData, {
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }, setLoading(true)).then(response => {
-            setLoading(false)
-            setResponseData(response.data);
-            setTimeout(() => {
-                setResponseData('');
-            }, 5000);
-
-            if(response.data.success) {
-                setFormData({
-                    username: '',
-                    email: '',
-                    password: ''
-                })
-                setLogin(true);
-            }
-        })
+        if(form.checkValidity()) {
+            axios.post(`${process.env.REACT_APP_BACKEND}/sign/signup`, formData, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }, setLoading(true)).then(response => {
+                setLoading(false)
+                setResponseData(response.data);
+                setTimeout(() => {
+                    setResponseData('');
+                }, 5000);
+    
+                if(response.data.success) {
+                    setFormData({
+                        username: '',
+                        email: '',
+                        password: ''
+                    })
+                    setLogin(true);
+                }
+            })
+        } else {
+            form.reportValidity()
+        }
     }
 
     const handleLogin = (e) => {
@@ -98,17 +103,17 @@ const Login = () => {
                     <>
                         <h1>Login</h1>
                         { responseData.success ? <p style={{color: "green"}}>{responseData.success}</p> : responseData.error ? <p style={{color: "red"}}>{responseData.error}</p> : ''}
-                        <form>
+                        <form onSubmit={handleLogin}>
                             <label>Username
-                                <input type="text" required name="username" value={formData.username} onChange={handleChange} />
+                                <input type="text" required={true} name="username" value={formData.username} onChange={handleChange} />
                             </label>
                             <label>Password
                                 <div className={ styles.pwdInput }>
-                                    <input type={pwdType} name="password" required value={formData.password} onChange={handleChange} />
+                                    <input type={pwdType} name="password" required={true} value={formData.password} onChange={handleChange} />
                                     <ShowPassword {...{setPwdType}} />
                                 </div>
                             </label>
-                            <button className={ styles.formBtn } onClick={handleLogin}>Login</button>
+                            <button className={ styles.formBtn } type="submit">Login</button>
                             
                         </form>
                         <p>Don't have an account ?<button className={ styles.formChange } onClick={handleChangeLogin}>Sign up</button></p>
@@ -116,21 +121,21 @@ const Login = () => {
                     <>
                         <h1>Signup</h1>
                         { responseData.success ? <p style={{color: "green"}}>{responseData.success}</p> : responseData.error ? <p style={{color: "red"}}>{responseData.error}</p> : ''}
-                        <form>
+                        <form onSubmit={handleSignup}>
                             <label>Username
-                                <input type="text" name="username" required value={formData.username} onChange={handleChange} />
+                                <input type="text" name="username" required={true} value={formData.username} onChange={handleChange} />
                             </label>
                             <label>email
-                                <input type="email" name="email" required value={formData.email} onChange={handleChange}/>
+                                <input type="email" name="email" required={true} value={formData.email} onChange={handleChange}/>
                             </label>
                             <label>Password
                                 <div className={ styles.pwdInput }>
-                                    <input type={pwdType} name="password" required value={formData.password} onChange={handleChange} />
+                                    <input type={pwdType} name="password" required={true} value={formData.password} onChange={handleChange} />
                                     <ShowPassword {...{setPwdType}} />
                                 </div>
                             </label>
 
-                            <button className={ styles.formBtn } onClick={handleSignup}>Signup</button>
+                            <button className={ styles.formBtn } type="submit">Signup</button>
                             
                         </form>
                         <p>Already have an account? <button className={ styles.formChange } onClick={handleChangeLogin}>Login</button></p>
