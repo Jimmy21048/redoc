@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Loading from './Loading'
 import styles from '../css/Login.module.css'
+import validator from 'validator'
 
 const Login = () => {
     const [login, setLogin] = useState(true);
@@ -36,21 +37,26 @@ const Login = () => {
     const [loading, setLoading] = useState(false)
 
     const handleSignup = (e) => {
-        const form = e.target
         e.preventDefault();
 
-        if(form.checkValidity()) {
-            axios.post(`${process.env.REACT_APP_BACKEND}/sign/signup`, formData, {
+        let { username, email, password } = formData
+        
+        username = validator.escape(username.trim())
+        email = validator.normalizeEmail(email.trim())
+        password = password.trim()
+
+        if(username.length < 5) setResponseData({error: 'Username cannot be less than 5 characters'})
+        else if(password.length < 5) setResponseData({error: 'Password cannot be less than 5 characters'})
+        else if(!validator.isEmail(email)) setResponseData({error: 'Invalid Email'})
+        else { 
+            axios.post(`${process.env.REACT_APP_BACKEND}/sign/signup`, { username, email, password }, {
                 headers: {
                     "Content-Type": "application/json"
                 }
             }, setLoading(true)).then(response => {
                 setLoading(false)
                 setResponseData(response.data);
-                setTimeout(() => {
-                    setResponseData('');
-                }, 5000);
-    
+        
                 if(response.data.success) {
                     setFormData({
                         username: '',
@@ -60,19 +66,20 @@ const Login = () => {
                     setLogin(true);
                 }
             })
-        } else {
-            form.reportValidity()
         }
+        setTimeout(() => {
+            setResponseData('');
+        }, 5000);
+
     }
 
     const handleLogin = (e) => {
         e.preventDefault();
-        const data = {
-            username: formData.username,
-            password: formData.password
-        }
+        const { username, password } = formData
 
-        axios.post(`${process.env.REACT_APP_BACKEND}/sign/login`, data, {
+        
+
+        axios.post(`${process.env.REACT_APP_BACKEND}/sign/login`, { username, password }, {
             headers: {
                 "Content-Type": "application/json"
             }
