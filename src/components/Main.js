@@ -5,7 +5,7 @@ import styles from '../css/Main.module.css'
 const Main = () => {
     return (
         <div className={ styles.main }>
-            <Header transparentBg={false} />
+            <Header transparentBg={true} />
 
             <div className={ styles.body }>
                 <div className={ styles.left }>

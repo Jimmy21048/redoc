@@ -101,7 +101,7 @@ const Login = () => {
     }
     return (
         <div className={ styles.login }>
-            <Header />
+            <Header transparentBg={true} />
             <div className={ styles.loginBody }>
                 <div className={ styles.loginBodyLeft }></div>
                 <div className={ styles.loginBodyRight }>
