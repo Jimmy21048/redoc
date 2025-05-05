@@ -19,8 +19,14 @@ const Header=({showNote, setShowNote, transparentBg=false})=>{
         }).then((response) => {
             if(response.data.user) {
                 setAuthState(true)
+                setUser(response.data.user)
+            } else {
+                setAuthState(false)
+            }   
+        }).catch(error => {
+            if(error.response) {
+                setAuthState(false)
             }
-            setUser(response.data.user)
         })
     },[])
     return (

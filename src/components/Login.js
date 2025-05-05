@@ -1,11 +1,10 @@
 import { useState } from "react";
 import Header from "./Header1";
 import ShowPassword from "./showpassword.m";
-import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Loading from './Loading'
 import styles from '../css/Login.module.css'
-import validator from 'validator'
+import { registerUser, validateCredentials, loginUser } from '../requests/auth'
 
 const Login = () => {
     const [login, setLogin] = useState(true);
@@ -36,64 +35,55 @@ const Login = () => {
     }
     const [loading, setLoading] = useState(false)
 
-    const handleSignup = (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault();
 
         let { username, email, password } = formData
-        
-        username = validator.escape(username.trim())
-        email = validator.normalizeEmail(email.trim())
-        password = password.trim()
 
-        if(username.length < 5) setResponseData({error: 'Username cannot be less than 5 characters'})
-        else if(password.length < 5) setResponseData({error: 'Password cannot be less than 5 characters'})
-        else if(!validator.isEmail(email)) setResponseData({error: 'Invalid Email'})
-        else { 
-            axios.post(`${process.env.REACT_APP_BACKEND}/sign/signup`, { username, email, password }, {
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }, setLoading(true)).then(response => {
-                setLoading(false)
-                setResponseData(response.data);
-        
-                if(response.data.success) {
-                    setFormData({
-                        username: '',
-                        email: '',
-                        password: ''
-                    })
-                    setLogin(true);
-                }
-            })
+        const validatedData = validateCredentials(username, email, password) 
+        if(validatedData.error) {
+            setResponseData(validatedData)
+        } else {
+            let { username, email, password } = validatedData
+
+            setLoading(true)
+            const registration = await registerUser(username, email, password)
+            setLoading(false)
+            
+            setResponseData(registration)
+            if(registration.success) {
+                setFormData({
+                    username: '',
+                    email: '',
+                    password: ''
+                })
+                setLogin(true)
+            }
         }
-        setTimeout(() => {
-            setResponseData('');
-        }, 5000);
 
+        setTimeout(() => {
+            setResponseData('')
+        }, 5000)
     }
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
         const { username, password } = formData
 
+        setLoading(true)
+        const login = await loginUser(username, password)
+        setLoading(false)
         
+        setResponseData(login)
 
-        axios.post(`${process.env.REACT_APP_BACKEND}/sign/login`, { username, password }, {
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }, setLoading(true)).then(response => {
-            setLoading(false)
-            if(response.data.token) {
-                localStorage.setItem("accessToken", response.data.token);
-                history('/account');
-            }
-            setResponseData(response.data);
-            setTimeout(() => {
-                setResponseData('');
-            }, 5000);
-        })
+        if(login.token) {
+            localStorage.setItem("accessToken", login.token);
+            history('/account')
+        }
+
+        setTimeout(() => {
+            setResponseData('')
+        }, 5000)
     }
 
     if(loading) {

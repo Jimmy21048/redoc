@@ -8,6 +8,7 @@ import React from 'react';
 import Loading from './Loading';
 import Header from './Header1';
 import styles from '../css/Account.module.css'
+import { fetchDetails, submitProject } from '../requests/account'; 
 
 const Account = () => {
     const { authState, setAuthState } = useContext(AuthContext)
@@ -193,67 +194,79 @@ const Account = () => {
 
     //fetch data from db
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_BACKEND}/account/myaccount`, {
-            headers: {
-                accessToken: localStorage.getItem("accessToken"),
-                "Content-Type" : "application/json"
-            }
-        }).then(response => {
+
+        const handleFetch = async () => {
+            setLoading(true)
+            const details = await fetchDetails()
             setLoading(false)
-            if(response.data.error) {
-                setAuthState(false);
-                history('/login');
-                return
-            } else {
-                if(response.data.result.projects) {
-                    
-                    setProjects(response.data.result.projects)
-                }
-                
-                if(response.data.result.projects && openProject === true) {
-                    
-                    
-                    for(let i = 0; i <response.data.result.projects.length; i++) {
-                        if(response.data.result.projects[i].projectName === currentNote.noteProject.projectName && response.data.projects[i].notes) {
-                            for(let j = 0; j < response.data.result.projects[i].notes.length; j++) {
-                                if(response.data.result.projects[i].notes[j].notesTitle === currentNote.note.notesTitle) {
-                                    setCurrentNote({
-                                        noteProject : response.data.result.projects[i],
-                                        note : response.data.result.projects[i].notes[j]
-                                    })
-                                    break;
-                                }
-                            }
-                            break;
-                        }
-                    }
-                    
-                }
-                if(response.data.result.randomNotes) {  
-                    setRandomNotes(response.data.result.randomNotes)
-                }
-                setData(response.data.result)
-                
-                if(response.data.peers) {
-                    setPeerUsers(response.data.peers)
-                }
+
+            console.log(details)
+            if(details.success) {
+                setProjects(details.projects)
             }
+        }
+        handleFetch()
+        // axios.get(`${process.env.REACT_APP_BACKEND}/account/myaccount`, {
+        //     headers: {
+        //         accessToken: localStorage.getItem("accessToken"),
+        //         "Content-Type" : "application/json"
+        //     }
+        // }).then(response => {
+        //     setLoading(false)
+        //     if(response.data.error) {
+        //         setAuthState(false);
+        //         history('/login');
+        //         return
+        //     } else {
+        //         if(response.data.result.projects) {
+                    
+        //             setProjects(response.data.result.projects)
+        //         }
+                
+        //         if(response.data.result.projects && openProject === true) {
+                    
+                    
+        //             for(let i = 0; i <response.data.result.projects.length; i++) {
+        //                 if(response.data.result.projects[i].projectName === currentNote.noteProject.projectName && response.data.projects[i].notes) {
+        //                     for(let j = 0; j < response.data.result.projects[i].notes.length; j++) {
+        //                         if(response.data.result.projects[i].notes[j].notesTitle === currentNote.note.notesTitle) {
+        //                             setCurrentNote({
+        //                                 noteProject : response.data.result.projects[i],
+        //                                 note : response.data.result.projects[i].notes[j]
+        //                             })
+        //                             break;
+        //                         }
+        //                     }
+        //                     break;
+        //                 }
+        //             }
+                    
+        //         }
+        //         if(response.data.result.randomNotes) {  
+        //             setRandomNotes(response.data.result.randomNotes)
+        //         }
+        //         setData(response.data.result)
+                
+        //         if(response.data.peers) {
+        //             setPeerUsers(response.data.peers)
+        //         }
+        //     }
 
 
-            axios.get(`${process.env.REACT_APP_BACKEND}/account/peers`, {
-                headers: {
-                    accessToken: localStorage.getItem("accessToken"),
-                    "Content-Type" : "application/json"
-                }
-            }).then((response) => {
-                if(response.data.error) {
-                    setAuthState(false)
-                    history('/login')
-                    return
-                }
-                setPeerData(response.data[0])  
-            })
-        })
+        //     axios.get(`${process.env.REACT_APP_BACKEND}/account/peers`, {
+        //         headers: {
+        //             accessToken: localStorage.getItem("accessToken"),
+        //             "Content-Type" : "application/json"
+        //         }
+        //     }).then((response) => {
+        //         if(response.data.error) {
+        //             setAuthState(false)
+        //             history('/login')
+        //             return
+        //         }
+        //         setPeerData(response.data[0])  
+        //     })
+        // })
 
     },[refresh])
 
@@ -285,30 +298,34 @@ const Account = () => {
         setNotesData({...notesData, [name] : value})
     }
 
-    const handleSubmitProject = (e) => {
+    const handleSubmitProject = async (e) => {
         e.preventDefault();
-        axios.post(`${process.env.REACT_APP_BACKEND}/account/newproject`, projectData, {
-            headers: {
-                "Content-Type": "application/json",
-                accessToken: localStorage.getItem("accessToken")
-            }
-        }).then(response => {
-            if(response.data.error) {
-                history('/login');
-            }
-            setProjectResponse(response.data)
-            if(response.data.success) {
-                setProjects(response.data.projects)
-                setNewProject(false);
-                setCurrentPage('my-works')
-                handleOpenProject(response.data.projects[response.data.projects.length - 1])
-            }
+
+        const projectSubmitted = await submitProject({...projectData})
+
+        console.log(projectSubmitted)
+        // axios.post(`${process.env.REACT_APP_BACKEND}/account/newproject`, projectData, {
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         accessToken: localStorage.getItem("accessToken")
+        //     }
+        // }).then(response => {
+        //     if(response.data.error) {
+        //         history('/login');
+        //     }
+        //     setProjectResponse(response.data)
+        //     if(response.data.success) {
+        //         setProjects(response.data.projects)
+        //         setNewProject(false);
+        //         setCurrentPage('my-works')
+        //         handleOpenProject(response.data.projects[response.data.projects.length - 1])
+        //     }
             
             
-            setTimeout(() => {
-                setProjectResponse('');
-            }, 5000)
-        })
+        //     setTimeout(() => {
+        //         setProjectResponse('');
+        //     }, 5000)
+        // })
     }
     const handleOpenProject = (data) => {
         setCurrentProject(data);
